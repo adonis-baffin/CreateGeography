@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8.5",
+  "package": "com.adonis.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "creategeography.refmap.json",
+  "mixins": [
+    "ExampleMixin"
+  ],
+  "client": [],
+  "server": []
+}
