@@ -5,7 +5,9 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "creategeography.refmap.json",
   "mixins": [
-    "ExampleMixin"
+    "AnimatedBlazeBurnerMixin",
+    "accessor.BlazeBurnerBlockEntityAccessor",
+    "category.BasinCategoryMixin"
   ],
   "client": [],
   "server": []
