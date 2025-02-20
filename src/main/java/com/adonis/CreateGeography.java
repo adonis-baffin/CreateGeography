@@ -8,6 +8,7 @@ import com.adonis.registry.SoundRegistry;
 import com.adonis.registry.TabRegistry;
 import com.adonis.util.BoilerHeaterRegistry;
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -60,4 +61,10 @@ public class CreateGeography {
         }
 
     }
+    public static ResourceLocation asResource(String path) {
+        return new ResourceLocation(CreateGeography.MODID, path);
+    }
+
 }
+
+
