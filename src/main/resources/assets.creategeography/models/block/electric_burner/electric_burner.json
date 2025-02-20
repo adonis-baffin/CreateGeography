@@ -4,9 +4,9 @@
 	"textures": {
 		"0": "create:block/funnel/andesite_funnel_neutral",
 		"1": "create:block/andesite_casing",
-		"2": "moreburners:block/electric_burner/electric_burner",
-		"3": "moreburners:block/electric_burner/electric_burner_glass",
-		"particle": "moreburners:block/electric_burner/electric_burner"
+		"2": "creategeography:block/electric_burner/electric_burner",
+		"3": "creategeography:block/electric_burner/electric_burner_glass",
+		"particle": "creategeography:block/electric_burner/electric_burner"
 	},
 	"elements": [
 		{

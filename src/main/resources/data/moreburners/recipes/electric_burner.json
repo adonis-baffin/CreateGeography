@@ -1,7 +1,7 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"result": {
-		"item": "moreburners:electric_burner",
+		"item": "creategeography:electric_burner",
 		"count": 1
 	},
 	"pattern": [
@@ -14,7 +14,7 @@
 			"item": "minecraft:tinted_glass"
 		},
 		"B": {
-			"item": "moreburners:copper_coil"
+			"item": "creategeography:copper_coil"
 		},
 		"C": {
 			"item": "create:andesite_casing"

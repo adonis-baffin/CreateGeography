@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "moreburners:item/converter_cover"
+    "layer0": "creategeography:item/converter_cover"
   }
 }

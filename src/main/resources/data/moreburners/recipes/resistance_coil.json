@@ -1,7 +1,7 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"result": {
-		"item": "moreburners:nickel_coil",
+		"item": "creategeography:nickel_coil",
 		"count": 1
 	},
 	"pattern": [

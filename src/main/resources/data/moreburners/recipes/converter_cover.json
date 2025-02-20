@@ -1,7 +1,7 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"result": {
-		"item": "moreburners:converter_cover",
+		"item": "creategeography:converter_cover",
 		"count": 1
 	},
 	"pattern": [

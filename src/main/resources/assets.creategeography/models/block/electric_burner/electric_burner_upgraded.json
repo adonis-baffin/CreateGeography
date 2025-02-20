@@ -2,11 +2,11 @@
 	"render_type": "minecraft:translucent",
 	"texture_size": [32, 32],
 	"textures": {
-		"0": "moreburners:block/electric_burner/sturdy_sheet_side_panel",
-		"1": "moreburners:block/electric_burner/sturdy_sheet_casing",
-		"2": "moreburners:block/electric_burner/electric_burner_upgraded",
-		"3": "moreburners:block/electric_burner/electric_burner_glass",
-		"particle": "moreburners:block/electric_burner/electric_burner_upgraded"
+		"0": "creategeography:block/electric_burner/sturdy_sheet_side_panel",
+		"1": "creategeography:block/electric_burner/sturdy_sheet_casing",
+		"2": "creategeography:block/electric_burner/electric_burner_upgraded",
+		"3": "creategeography:block/electric_burner/electric_burner_glass",
+		"particle": "creategeography:block/electric_burner/electric_burner_upgraded"
 	},
 	"elements": [
 		{

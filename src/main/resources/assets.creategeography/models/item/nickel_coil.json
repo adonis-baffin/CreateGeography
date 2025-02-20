@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "moreburners:item/nickel_coil"
+    "layer0": "creategeography:item/nickel_coil"
   }
 }

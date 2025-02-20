@@ -11,7 +11,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "moreburners:electric_burner"
+          "name": "creategeography:electric_burner"
         }
       ],
       "rolls": 1
@@ -21,11 +21,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "moreburners:heat_upgrade",
+          "name": "creategeography:heat_upgrade",
           "conditions": [
             {
               "condition": "block_state_property",
-              "block": "moreburners:electric_burner",
+              "block": "creategeography:electric_burner",
               "properties": {
                 "upgraded": "true"
               }

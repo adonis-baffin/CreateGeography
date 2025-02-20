@@ -1,7 +1,7 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"result": {
-		"item": "moreburners:copper_coil",
+		"item": "creategeography:copper_coil",
 		"count": 1
 	},
 	"pattern": [

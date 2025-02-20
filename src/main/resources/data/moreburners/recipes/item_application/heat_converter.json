@@ -5,12 +5,12 @@
       "tag": "forge:storage_blocks/compressed_iron"
     },
     {
-      "item": "moreburners:converter_cover"
+      "item": "creategeography:converter_cover"
     }
   ],
   "results": [
     {
-      "item": "moreburners:heat_converter"
+      "item": "creategeography:heat_converter"
     }
   ]
 }
