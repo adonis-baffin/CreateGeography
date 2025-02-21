@@ -2,16 +2,25 @@ package com.adonis;
 
 import com.adonis.config.ClientConfig;
 import com.adonis.config.CommonConfig;
+import com.adonis.datagen.DataGen;
+import com.adonis.recipe.RecipeTypes;
 import com.adonis.registry.BlockRegistry;
 import com.adonis.registry.ItemRegistry;
 import com.adonis.registry.SoundRegistry;
 import com.adonis.registry.TabRegistry;
+import com.adonis.recipe.FanProcessingTypes;
 import com.adonis.util.BoilerHeaterRegistry;
+import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.logging.LogUtils;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -25,6 +34,10 @@ import org.slf4j.Logger;
 public class CreateGeography {
     public static final String MODID = "creategeography";
     private static final Logger LOGGER = LogUtils.getLogger();
+    public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
+    public static PartialModel DRAGON_MODEL;
+//    public static final TagKey<Block> FAN_PROCESSING_CATALYSTS_HALITOSIS = BlockTags.create(new ResourceLocation(MODID, "fan_processing_catalysts/halitosis"));
+
 
     public CreateGeography(){
 
@@ -40,6 +53,13 @@ public class CreateGeography {
         CommonConfig.registerCommonConfig();
         ClientConfig.registerClientConfig();
         MinecraftForge.EVENT_BUS.register(this);
+
+        RecipeTypes.register(modEventBus);
+        FanProcessingTypes.register();
+
+        REGISTRATE.registerEventListeners(modEventBus);
+        modEventBus.addListener(EventPriority.LOWEST, DataGen::gatherData);
+        DRAGON_MODEL = new PartialModel(new ResourceLocation(CreateGeography.MODID, "dragon_head_export"));
 
     }
 

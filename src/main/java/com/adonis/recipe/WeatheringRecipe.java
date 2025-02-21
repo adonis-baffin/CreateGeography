@@ -1,23 +1,23 @@
-package com.adonis.recipe.Recipes;
+package com.adonis.recipe;
 
 import com.simibubi.create.content.processing.recipe.ProcessingRecipe;
 import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.wrapper.RecipeWrapper;
-import com.adonis.recipe.RecipesTypes;
+import com.adonis.recipe.RecipeTypes;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public class SuperheatingRecipe extends ProcessingRecipe<SuperheatingRecipe.SuperheatingWrapper> {
+public class WeatheringRecipe extends ProcessingRecipe<WeatheringRecipe.WeatheringWrapper> {
 
-    public SuperheatingRecipe(ProcessingRecipeBuilder.ProcessingRecipeParams params) {
-        super(RecipesTypes.SUPERHEATING, params);
+    public WeatheringRecipe(ProcessingRecipeBuilder.ProcessingRecipeParams params) {
+        super(RecipeTypes.WEATHERING, params);
     }
 
     @Override
-    public boolean matches(SuperheatingWrapper inv, Level worldIn) {
+    public boolean matches(WeatheringWrapper inv, Level worldIn) {
         if (inv.isEmpty())
             return false;
         return ingredients.get(0)
@@ -34,8 +34,8 @@ public class SuperheatingRecipe extends ProcessingRecipe<SuperheatingRecipe.Supe
         return 12;
     }
 
-    public static class SuperheatingWrapper extends RecipeWrapper {
-        public SuperheatingWrapper() {
+    public static class WeatheringWrapper extends RecipeWrapper {
+        public WeatheringWrapper() {
             super(new ItemStackHandler(1));
         }
     }
