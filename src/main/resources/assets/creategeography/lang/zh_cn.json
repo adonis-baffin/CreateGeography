@@ -8,7 +8,7 @@
   "block.creategeography.ember_burner": "余烬燃烧室",
   "block.creategeography.electric_burner": "电磁炉",
   "block.creategeography.heat_converter": "热转换器",
-  "itemGroup.creategeography": "机械动力：燃烧室附加",
+  "itemGroup.creategeography": "机械动力：地理学",
 
   "creategeography.burner.status.title": "燃烧室状态：%1$s",
   "creategeography.burner.status.none": "无",

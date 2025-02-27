@@ -8,7 +8,7 @@
   "block.creategeography.ember_burner": "Dwarven Burner",
   "block.creategeography.electric_burner": "Induction Heater",
   "block.creategeography.heat_converter": "Heat Converter",
-  "itemGroup.creategeography": "More Burners",
+  "itemGroup.creategeography": "Create Geography",
 
   "creategeography.burner.status.title": "Burner Status:  %1$s",
   "creategeography.burner.status.none": "None",

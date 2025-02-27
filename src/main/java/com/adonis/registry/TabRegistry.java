@@ -20,7 +20,7 @@ public class TabRegistry {
 
     public static final RegistryObject<CreativeModeTab> creategeography_TAB = CREATIVE_TABS.register("creategeography_tab",
             () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.creategeography")).icon(
-                () -> new ItemStack(ItemRegistry.COPPER_COIL.get())
+                () -> new ItemStack(ItemRegistry.GEOGLOGICAL_HAMMER.get())
             ).displayItems((params, output) ->
             {
                 Iterator<RegistryObject<Item>> var2 = ItemRegistry.ITEMS.getEntries().iterator();
@@ -30,7 +30,7 @@ public class TabRegistry {
                         output.accept(item.get());
                     }
                 }
-                output.accept(GeographyFluids.PLANT_OIL.getBucket().get());
+                output.accept(GeographyFluids.BRINE.getBucket().get());
             }).build());
 
 }

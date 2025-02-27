@@ -3,6 +3,7 @@ package com.adonis;
 import com.adonis.config.ClientConfig;
 import com.adonis.config.CommonConfig;
 import com.adonis.datagen.DataGen;
+import com.adonis.fluid.FluidInteraction;
 import com.adonis.fluid.GeographyFluids;
 import com.adonis.recipe.RecipeTypes;
 import com.adonis.registry.BlockRegistry;
@@ -67,7 +68,7 @@ public class CreateGeography {
 
         event.enqueueWork(() -> {
             BoilerHeaterRegistry.registerBoilerHeaters();
-
+            FluidInteraction.registerFluidInteractions();
         });
     }
 

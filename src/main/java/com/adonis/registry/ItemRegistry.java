@@ -39,8 +39,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CRUSHED_DEEP_SLATE = registerWithTab("crushed_deep_slate", () -> new Item(basicItem()));
     public static final RegistryObject<Item> DEEP_SLATE_PEBBLE = registerWithTab("deep_slate_pebble", () -> new Item(basicItem()));
     public static final RegistryObject<Item> POWDERED_SAND = registerWithTab("powdered_sand", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> FELDSPAR = registerWithTab("feldspar", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> FELDSPAR_PEBBLE = registerWithTab("feldspar_pebble", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> ORTHACLASE = registerWithTab("orthoclase", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> ORTHACLASE_PEBBLE = registerWithTab("orthoclase_pebble", () -> new Item(basicItem()));
     public static final RegistryObject<Item> POWEDERED_RED_SAND = registerWithTab("powdered_red_sand", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PLAGIOCLASE = registerWithTab("plagioclase", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PLAGIOCLASE_PEBBLE = registerWithTab("plagioclase_pebble", () -> new Item(basicItem()));
@@ -65,7 +65,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ZINC_PLATE = registerWithTab("zinc_plate", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PEBBLE_BLOCK = registerWithTab("pebble_block", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PYROXENE_GLASS_PANE = registerWithTab("pyroxene_glass_pane", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> ICE_PICKAXE = registerWithTab("ice_pickaxe", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> GEOGLOGICAL_HAMMER = registerWithTab("geological_hammer", () -> new Item(basicItem()));
     public static final RegistryObject<Item> ICE_FRAGMENTS = registerWithTab("ice_fragments", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PACKED_ICE_FRAGMENTS = registerWithTab("packed_ice_fragments", () -> new Item(basicItem()));
     public static final RegistryObject<Item> BLUE_ICE_FRAGMENTS = registerWithTab("blue_ice_fragments", () -> new Item(basicItem()));

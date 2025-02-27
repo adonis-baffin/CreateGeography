@@ -3,7 +3,10 @@ package com.adonis.fluid;
 import com.adonis.CreateGeography;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.simibubi.create.AllFluids;
+import com.simibubi.create.content.decoration.palettes.AllPaletteStoneTypes;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.fluid.FluidHelper;
 import com.tterrag.registrate.util.entry.FluidEntry;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -12,20 +15,29 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.minecraftforge.common.ForgeMod;
+import net.minecraftforge.fluids.FluidInteractionRegistry;
 import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 
+
+import javax.annotation.Nullable;
 
 import static com.adonis.CreateGeography.REGISTRATE;
 
 public class GeographyFluids {
 
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> PLANT_OIL =
-            REGISTRATE.fluid("plant_oil", new ResourceLocation("createdieselgenerators:block/plant_oil_still"), new ResourceLocation("createdieselgenerators:block/plant_oil_flow"))
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> BRINE =
+            REGISTRATE.fluid("brine", new ResourceLocation("createdieselgenerators:block/brine_still"), new ResourceLocation("createdieselgenerators:block/brine_flow"))
                     .source(ForgeFlowingFluid.Source::new)
-                    .lang("Plant Oil")
+                    .lang("Brine")
                     .properties(b -> b.viscosity(1500)
                             .density(500))
                     .fluidProperties(p -> p.levelDecreasePerBlock(2)
@@ -35,10 +47,10 @@ public class GeographyFluids {
                     .bucket()
                     .build()
                     .register();
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> CRUDE_OIL =
-            REGISTRATE.fluid("crude_oil", new ResourceLocation("createdieselgenerators:block/crude_oil_still"), new ResourceLocation("createdieselgenerators:block/crude_oil_flow"))
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> GRAYWATER =
+            REGISTRATE.fluid("graywater", new ResourceLocation("createdieselgenerators:block/graywater_still"), new ResourceLocation("createdieselgenerators:block/graywater_flow"))
                     .source(ForgeFlowingFluid.Source::new)
-                    .lang("Crude Oil")
+                    .lang("Gray Water")
                     .properties(b -> b.viscosity(1500)
                             .density(100))
                     .fluidProperties(p -> p.levelDecreasePerBlock(3)
@@ -101,6 +113,8 @@ public class GeographyFluids {
                     .bucket()
                     .build()
                     .register();
+
+
 
 
     public static void register() {}
