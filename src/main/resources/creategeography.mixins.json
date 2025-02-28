@@ -7,7 +7,8 @@
   "mixins": [
     "AnimatedBlazeBurnerMixin",
     "accessor.BlazeBurnerBlockEntityAccessor",
-    "category.BasinCategoryMixin"
+    "category.BasinCategoryMixin",
+    "FarmBlockMixin"
   ],
   "client": [],
   "server": []
