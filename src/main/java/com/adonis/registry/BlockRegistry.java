@@ -1,23 +1,34 @@
 package com.adonis.registry;
 
 import com.adonis.CreateGeography;
+import com.adonis.content.block.BlackFarmlandBlock;
 import com.adonis.content.block.ElectricBurnerBlock;
 import com.adonis.content.block.entity.ElectricBurnerBlockEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.level.storage.loot.LootParams; // 更新导入
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
+
+import java.util.Collections;
+import java.util.List;
+
+import static com.adonis.registry.ItemRegistry.*;
 
 public class BlockRegistry {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, CreateGeography.MODID);
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, CreateGeography.MODID);
+
     // 基础方块属性模板（石头类型）
     private static BlockBehaviour.Properties stoneBlock() {
         return BlockBehaviour.Properties.of()
@@ -35,38 +46,126 @@ public class BlockRegistry {
                 .requiresCorrectToolForDrops();
     }
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_IRON = BLOCKS.register("ore_bearing_blue_ice_iron",
-            () -> new Block(iceBlock().mapColor(MapColor.COLOR_LIGHT_GRAY)));
+    public static final RegistryObject<Block> IRON_BEARING_BLUE_ICE = BLOCKS.register("iron_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_GRAY)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(IRON_ORE_POWDER.get(), builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_COPPER = BLOCKS.register("ore_bearing_blue_ice_copper",
-            () -> new Block(iceBlock().mapColor(MapColor.COLOR_ORANGE)));
+    public static final RegistryObject<Block> COPPER_BEARING_BLUE_ICE = BLOCKS.register("copper_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(COPPER_ORE_POWDER.get(), builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_GOLD = BLOCKS.register("ore_bearing_blue_ice_gold",
-            () -> new Block(iceBlock().mapColor(MapColor.GOLD)));
+    public static final RegistryObject<Block> GOLD_BEARING_BLUE_ICE = BLOCKS.register("gold_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.GOLD)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(GOLD_ORE_POWDER.get(), builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_ZINC = BLOCKS.register("ore_bearing_blue_ice_zinc",
-            () -> new Block(iceBlock().mapColor(MapColor.COLOR_LIGHT_GRAY)));
+    public static final RegistryObject<Block> COAL_BEARING_BLUE_ICE = BLOCKS.register("coal_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_BLACK)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(COAL_POWDER.get(), builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_OSMIUM = BLOCKS.register("ore_bearing_blue_ice_osmium",
-            () -> new Block(iceBlock().mapColor(MapColor.COLOR_CYAN)));
+    public static final RegistryObject<Block> LAPIS_LAZULI_BEARING_BLUE_ICE = BLOCKS.register("lapis_lazuli_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.LAPIS)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(LAPIS_LAZULI_POWDER.get(), builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_COAL = BLOCKS.register("ore_bearing_blue_ice_coal",
-            () -> new Block(iceBlock().mapColor(MapColor.COLOR_BLACK)));
+    public static final RegistryObject<Block> REDSTONE_BEARING_BLUE_ICE = BLOCKS.register("redstone_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_RED)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(net.minecraft.world.item.Items.REDSTONE, builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_LAPIS_LAZULI = BLOCKS.register("ore_bearing_blue_ice_lapis_lazuli",
-            () -> new Block(iceBlock().mapColor(MapColor.LAPIS)));
+    public static final RegistryObject<Block> ZINC_BEARING_BLUE_ICE = BLOCKS.register("zinc_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_GRAY)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(ZINC_ORE_POWDER.get(), builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_REDSTONE = BLOCKS.register("ore_bearing_blue_ice_redstone",
-            () -> new Block(iceBlock().mapColor(MapColor.COLOR_RED)));
+    public static final RegistryObject<Block> OSMIUM_BEARING_BLUE_ICE = BLOCKS.register("osmium_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_CYAN)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(OSMIUM_ORE_POWDER.get(), builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_SALT = BLOCKS.register("ore_bearing_blue_ice_salt",
-            () -> new Block(iceBlock().mapColor(MapColor.QUARTZ)));
+    public static final RegistryObject<Block> SALT_BEARING_BLUE_ICE = BLOCKS.register("salt_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.QUARTZ)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(SALT.get(), builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
 
-    public static final RegistryObject<Block> ORE_BEARING_BLUE_ICE_NITER = BLOCKS.register("ore_bearing_blue_ice_niter",
-            () -> new Block(iceBlock().mapColor(MapColor.COLOR_YELLOW)));
-
-
-    // 注册所有方块
+    public static final RegistryObject<Block> NITER_BEARING_BLUE_ICE = BLOCKS.register("niter_bearing_blue_ice",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .strength(2.8f)
+                    .sound(SoundType.GLASS)
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(NITER_POWDER.get(), builder.getLevel().random.nextInt(1, 3)));
+                }
+            });
+    // 其他方块
     public static final RegistryObject<Block> SAND_PILE = BLOCKS.register("sand_pile",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.SAND)
@@ -136,7 +235,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> PYROXENE_GLASS = BLOCKS.register("pyroxene_glass",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_ORANGE)
-                    .strength(1.5f,6.0f)
+                    .strength(1.5f, 6.0f)
                     .sound(SoundType.GLASS)
                     .noOcclusion()
                     .isValidSpawn((state, level, pos, entity) -> false)
@@ -151,17 +250,6 @@ public class BlockRegistry {
                     .strength(0.8f)
                     .sound(SoundType.GLASS)));
 
-    public static final RegistryObject<Block> FROZEN_DIRT = BLOCKS.register("frozen_dirt",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.TERRACOTTA_BROWN)
-                    .strength(0.7f)
-                    .sound(SoundType.GRAVEL)
-                    .friction(0.98f)));
-
-    public static final RegistryObject<Block> FROZEN_MUD = BLOCKS.register("frozen_mud",
-            () -> new Block(BlockBehaviour.Properties.copy(FROZEN_DIRT.get())
-                    .mapColor(MapColor.TERRACOTTA_BLACK)));
-
     public static final RegistryObject<Block> ELECTRIC_BURNER = BLOCKS.register("electric_burner",
             () -> new ElectricBurnerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
 
@@ -171,34 +259,38 @@ public class BlockRegistry {
     public static final RegistryObject<Block> CRACKED_ICE = BLOCKS.register("cracked_ice",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .strength(0.2f,0.2f)
+                    .strength(0.2f, 0.2f)
                     .sound(SoundType.GLASS)
-                    .friction(0.98f)
-            ));
+                    .friction(0.98f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(ICE_SHARDS.get(), builder.getLevel().random.nextInt(2, 4)));
+                }
+            });
 
     public static final RegistryObject<Block> CRACKED_PACKED_ICE = BLOCKS.register("cracked_packed_ice",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .strength(0.2f,0.2f)
+                    .strength(0.2f, 0.2f)
                     .sound(SoundType.GLASS)
-                    .friction(0.98f)
-            ));
+                    .friction(0.98f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(PACKED_ICE_SHARDS.get(), builder.getLevel().random.nextInt(2, 4)));
+                }
+            });
 
     public static final RegistryObject<Block> CRACKED_BLUE_ICE = BLOCKS.register("cracked_blue_ice",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_BLUE)
-                    .strength(1.2f,1.2f)
+                    .strength(1.2f, 1.2f)
                     .sound(SoundType.GLASS)
-                    .friction(0.989f)
-            ));
-
-    public static final RegistryObject<Block> ORE_BEARING_GLACIAL_ICE = BLOCKS.register("ore_bearing_glacial_ice",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .strength(1.2f,1.2f)
-                    .sound(SoundType.GLASS)
-                    .friction(0.989f)
-            ));
+                    .friction(0.989f)) {
+                @Override
+                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
+                    return Collections.singletonList(new ItemStack(BLUE_ICE_SHARDS.get(), builder.getLevel().random.nextInt(2, 4)));
+                }
+            });
 
     public static final RegistryObject<Block> PAPER_MOLD = BLOCKS.register("paper_mold",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -218,7 +310,6 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.copy(PAPER_MOLD.get())
                     .mapColor(MapColor.TERRACOTTA_BROWN)));
 
-    // 臻冰
     public static final RegistryObject<Block> TRUE_ICE = BLOCKS.register("true_ice",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_CYAN)
@@ -229,64 +320,59 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SALT_BLOCK = BLOCKS.register("salt_block",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
-                    .strength(1.2f,1.2f)
+                    .strength(1.2f, 1.2f)
                     .sound(SoundType.SAND)
             ));
 
-    public static final RegistryObject<Block> SALINE_SOIL = BLOCKS.register("saline_soil",
+    public static final RegistryObject<Block> SALINE_DIRT = BLOCKS.register("saline_soil",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIRT)
-                    .strength(0.5f,0.5f)
+                    .strength(0.5f, 0.5f)
                     .sound(SoundType.GRAVEL)
+                    .randomTicks()
             ));
 
     public static final RegistryObject<Block> SALINE_MUD = BLOCKS.register("saline_mud",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIRT)
-                    .strength(0.5f,0.5f)
-                    .sound(SoundType.SLIME_BLOCK)
+                    .strength(0.6f, 0.6f)
+                    .sound(SoundType.GRAVEL)
             ));
 
     public static final RegistryObject<Block> SALINE_FARMLAND = BLOCKS.register("saline_farmland",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIRT)
-                    .strength(0.6f,0.6f)
+                    .strength(0.6f, 0.6f)
                     .sound(SoundType.GRAVEL)
             ));
 
-    public static final RegistryObject<Block> BLACK_SOIL = BLOCKS.register("black_soil",
+    public static final RegistryObject<Block> BLACK_DIRT = BLOCKS.register("black_soil",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_BLACK)
-                    .strength(0.5f,0.5f)
+                    .strength(0.5f, 0.5f)
                     .sound(SoundType.GRAVEL)
             ));
 
     public static final RegistryObject<Block> BLACK_MUD = BLOCKS.register("black_mud",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_BLACK)
-                    .strength(0.5f,0.5f)
+                    .strength(0.5f, 0.5f)
                     .sound(SoundType.SLIME_BLOCK)
             ));
 
     public static final RegistryObject<Block> BLACK_FARMLAND = BLOCKS.register("black_farmland",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new BlackFarmlandBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_BLACK)
-                    .strength(0.6f,0.6f)
+                    .strength(0.6f, 0.6f)
                     .sound(SoundType.GRAVEL)
             ));
+
     public static final RegistryObject<Block> NITER_BLOCK = BLOCKS.register("niter_block",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_YELLOW)
-                    .strength(1.2f,1.2f)
+                    .strength(1.2f, 1.2f)
                     .sound(SoundType.NETHERRACK)
             ));
-
-//    public static final RegistryObject<Block> PAPER_MOLD = BLOCKS.register("paper_mold",
-//            () -> new Block(BlockBehaviour.Properties.of()
-//                    .mapColor(MapColor.WOOD)
-//                    .strength(0.5f,0.5f)
-//                    .sound(SoundType.BAMBOO_WOOD)
-//            ));
 
     public static final RegistryObject<Block> PULP_FILLED_PAPER_MOLD = BLOCKS.register("pulp_filled_paper_mold",
             () -> new Block(BlockBehaviour.Properties.copy(PAPER_MOLD.get())));
@@ -298,7 +384,7 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .strength(3.5f)
-                    .lightLevel(state -> 15) // 发光
+                    .lightLevel(state -> 15)
                     .sound(SoundType.STONE)
             ));
 
@@ -322,19 +408,12 @@ public class BlockRegistry {
                     .sound(SoundType.GLASS)
             ));
 
-    // 新增示例：特殊冰块
-//    public static final RegistryObject<Block> ANCIENT_ICE = BLOCKS.register("ancient_ice",
-//            () -> new Block(BlockBehaviour.Properties.of()
-//                    .mapColor(MapColor.COLOR_BLUE)
-//                    .friction(0.98f)
-//                    .speedFactor(1.2f)
-//                    .jumpFactor(1.1f)
-//                    .strength(0.5f)
-//                    .sound(SoundType.GLASS)
-//                    .pushReaction(PushReaction.NORMAL)
-//            ));
     public static final RegistryObject<BlockEntityType<ElectricBurnerBlockEntity>>
             ELECTRIC_BURNER_ENTITY = BLOCK_ENTITY_TYPES.register("electric_burner",
             () -> BlockEntityType.Builder.of(ElectricBurnerBlockEntity::new, ELECTRIC_BURNER.get()).build(null)
     );
+
+    private static <T extends Item> RegistryObject<T> registerWithTab(String name, java.util.function.Supplier<T> supplier) {
+        return ITEMS.register(name, supplier);
+    }
 }

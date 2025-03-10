@@ -1,6 +1,7 @@
 package com.adonis.registry;
 
 import com.adonis.CreateGeography;
+import com.adonis.content.item.GeologicalHammerItem;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -28,6 +29,8 @@ public class ItemRegistry {
     public static Item.Properties basicItem() {
         return new Item.Properties();
     }
+
+
 
     public static Item.Properties foodItem(FoodProperties food) {
         return new Item.Properties().food(food);
@@ -66,7 +69,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SALT = registerWithTab("salt", () -> new Item(basicItem()));
     public static final RegistryObject<Item> WOOD_FIBER = registerWithTab("wood_fiber", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PYROXENE_GLASS_PANE = registerWithTab("pyroxene_glass_pane", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> GEOGLOGICAL_HAMMER = registerWithTab("geological_hammer", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> GEOLOGICAL_HAMMER = ITEMS.register("geological_hammer",
+            () -> new GeologicalHammerItem(basicItem()));
     public static final RegistryObject<Item> WALKING_STAFF = registerWithTab("walking_staff", () -> new Item(basicItem()));
     public static final RegistryObject<Item> ZINC_PLATE = registerWithTab("zinc_plate", () -> new Item(basicItem()));
     public static final RegistryObject<Item> VOLTAIC_PILE = registerWithTab("voltaic_pile", () -> new Item(basicItem()));
@@ -110,26 +114,37 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CRACKED_ICE = registerWithTab("cracked_ice", () -> new BlockItem(BlockRegistry.CRACKED_ICE.get(), basicItem()));
     public static final RegistryObject<Item> CRACKED_PACKED_ICE = registerWithTab("cracked_packed_ice", () -> new BlockItem(BlockRegistry.CRACKED_PACKED_ICE.get(), basicItem()));
     public static final RegistryObject<Item> CRACKED_BLUE_ICE = registerWithTab("cracked_blue_ice", () -> new BlockItem(BlockRegistry.CRACKED_BLUE_ICE.get(), basicItem()));
-    public static final RegistryObject<Item> IRON_BEARING_BLUE_ICE = registerWithTab("iron_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_IRON.get(), basicItem()));
-    public static final RegistryObject<Item> COPPER_BEARING_BLUE_ICE = registerWithTab("copper_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_COPPER.get(), basicItem()));
-    public static final RegistryObject<Item> GOLD_BEARING_BLUE_ICE = registerWithTab("gold_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_GOLD.get(), basicItem()));
-    public static final RegistryObject<Item> ZINC_BEARING_BLUE_ICE = registerWithTab("zinc_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_ZINC.get(), basicItem()));
-    public static final RegistryObject<Item> OSMIUM_BEARING_BLUE_ICE = registerWithTab("osmium_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_OSMIUM.get(), basicItem()));
-    public static final RegistryObject<Item> COAL_BEARING_BLUE_ICE = registerWithTab("coal_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_COAL.get(), basicItem()));
-    public static final RegistryObject<Item> LAPIS_LAZULI_BEARING_BLUE_ICE = registerWithTab("lapis_lazuli_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_LAPIS_LAZULI.get(), basicItem()));
-    public static final RegistryObject<Item> REDSTONE_BEARING_BLUE_ICE = registerWithTab("redstone_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_REDSTONE.get(), basicItem()));
-    public static final RegistryObject<Item> SALT_BEARING_BLUE_ICE = registerWithTab("salt_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_SALT.get(), basicItem()));
-    public static final RegistryObject<Item> NITER_BEARING_BLUE_ICE = registerWithTab("niter_bearing_blue_ice", () -> new BlockItem(BlockRegistry.ORE_BEARING_BLUE_ICE_NITER.get(), basicItem()));
+    public static final RegistryObject<Item> IRON_BEARING_BLUE_ICE = registerWithTab("iron_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.IRON_BEARING_BLUE_ICE.get(), basicItem()));
+    public static final RegistryObject<Item> COPPER_BEARING_BLUE_ICE = registerWithTab("copper_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.COPPER_BEARING_BLUE_ICE.get(), basicItem()));
+    public static final RegistryObject<Item> GOLD_BEARING_BLUE_ICE = registerWithTab("gold_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.GOLD_BEARING_BLUE_ICE.get(), basicItem()));
+    public static final RegistryObject<Item> ZINC_BEARING_BLUE_ICE = registerWithTab("zinc_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.ZINC_BEARING_BLUE_ICE.get(), basicItem()));
+    public static final RegistryObject<Item> OSMIUM_BEARING_BLUE_ICE = registerWithTab("osmium_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.OSMIUM_BEARING_BLUE_ICE.get(), basicItem()));
+    public static final RegistryObject<Item> COAL_BEARING_BLUE_ICE = registerWithTab("coal_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.COAL_BEARING_BLUE_ICE.get(), basicItem()));
+    public static final RegistryObject<Item> LAPIS_LAZULI_BEARING_BLUE_ICE = registerWithTab("lapis_lazuli_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.LAPIS_LAZULI_BEARING_BLUE_ICE.get(), basicItem()));
+    public static final RegistryObject<Item> REDSTONE_BEARING_BLUE_ICE = registerWithTab("redstone_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.REDSTONE_BEARING_BLUE_ICE.get(), basicItem()));
+    public static final RegistryObject<Item> SALT_BEARING_BLUE_ICE = registerWithTab("salt_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.SALT_BEARING_BLUE_ICE.get(), basicItem()));
+    public static final RegistryObject<Item> NITER_BEARING_BLUE_ICE = registerWithTab("niter_bearing_blue_ice",
+            () -> new BlockItem(BlockRegistry.NITER_BEARING_BLUE_ICE.get(), basicItem()));
     public static final RegistryObject<Item> SALT_CRYSTAL = registerWithTab("salt_crystal", () -> new BlockItem(BlockRegistry.SALT_CRYSTAL.get(), basicItem()));
-    public static final RegistryObject<Item> FROZEN_DIRT = registerWithTab("frozen_dirt", () -> new BlockItem(BlockRegistry.FROZEN_DIRT.get(), basicItem()));
-    public static final RegistryObject<Item> FROZEN_MUD = registerWithTab("frozen_mud", () -> new BlockItem(BlockRegistry.FROZEN_MUD.get(), basicItem()));
+//    public static final RegistryObject<Item> FROZEN_DIRT = registerWithTab("frozen_dirt", () -> new BlockItem(BlockRegistry.FROZEN_DIRT.get(), basicItem()));
+//    public static final RegistryObject<Item> FROZEN_MUD = registerWithTab("frozen_mud", () -> new BlockItem(BlockRegistry.FROZEN_MUD.get(), basicItem()));
     public static final RegistryObject<Item> SALT_BLOCK = registerWithTab("salt_block", () -> new BlockItem(BlockRegistry.SALT_BLOCK.get(), basicItem()));
-    public static final RegistryObject<Item> SALINE_SOIL = registerWithTab("saline_soil", () -> new BlockItem(BlockRegistry.SALINE_SOIL.get(), basicItem()));
+    public static final RegistryObject<Item> SALINE_SOIL = registerWithTab("saline_soil", () -> new BlockItem(BlockRegistry.SALINE_DIRT.get(), basicItem()));
     public static final RegistryObject<Item> SALINE_MUD = registerWithTab("saline_mud", () -> new BlockItem(BlockRegistry.SALINE_MUD.get(), basicItem()));
     public static final RegistryObject<Item> SALINE_FARMLAND = registerWithTab("saline_farmland", () -> new BlockItem(BlockRegistry.SALINE_FARMLAND.get(), basicItem()));
-    public static final RegistryObject<Item> BLACK_SOIL = registerWithTab("black_soil", () -> new BlockItem(BlockRegistry.BLACK_SOIL.get(), basicItem()));
+    public static final RegistryObject<Item> BLACK_SOIL = registerWithTab("black_soil", () -> new BlockItem(BlockRegistry.BLACK_DIRT.get(), basicItem()));
     public static final RegistryObject<Item> BLACK_MUD = registerWithTab("black_mud", () -> new BlockItem(BlockRegistry.BLACK_MUD.get(), basicItem()));
-    public static final RegistryObject<Item> BLACK_FARMLAND = registerWithTab("black_farmland", () -> new BlockItem(BlockRegistry.BLACK_FARMLAND.get(), basicItem()));
+    public static final RegistryObject<Item> BLACK_FARMLAND_ITEM = registerWithTab("black_farmland",
+            () -> new BlockItem(BlockRegistry.BLACK_FARMLAND.get(), basicItem()));
     public static final RegistryObject<Item> NITER_BLOCK = registerWithTab("niter_block", () -> new BlockItem(BlockRegistry.NITER_BLOCK.get(), basicItem()));
     public static final RegistryObject<Item> PAPER_MOLD = registerWithTab("paper_mold", () -> new BlockItem(BlockRegistry.PAPER_MOLD.get(), basicItem()));
     public static final RegistryObject<Item> PULP_FILLED_PAPER_MOLD = registerWithTab("pulp_filled_paper_mold", () -> new BlockItem(BlockRegistry.PULP_FILLED_PAPER_MOLD.get(), basicItem()));

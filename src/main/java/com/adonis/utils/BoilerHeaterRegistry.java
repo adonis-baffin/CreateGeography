@@ -1,4 +1,4 @@
-package com.adonis.util;
+package com.adonis.utils;
 
 
 import com.simibubi.create.content.fluids.tank.BoilerHeaters;

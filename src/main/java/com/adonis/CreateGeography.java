@@ -11,7 +11,7 @@ import com.adonis.registry.ItemRegistry;
 import com.adonis.registry.SoundRegistry;
 import com.adonis.registry.TabRegistry;
 import com.adonis.recipe.FanProcessingTypes;
-import com.adonis.util.BoilerHeaterRegistry;
+import com.adonis.utils.BoilerHeaterRegistry;
 import com.jozufozu.flywheel.core.PartialModel;
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;

@@ -47,10 +47,10 @@ public class GeographyFluids {
                     .bucket()
                     .build()
                     .register();
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> GRAYWATER =
-            REGISTRATE.fluid("graywater", new ResourceLocation("createdieselgenerators:block/graywater_still"), new ResourceLocation("createdieselgenerators:block/graywater_flow"))
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> GREY_WATER =
+            REGISTRATE.fluid("greywater", new ResourceLocation("createdieselgenerators:block/graywater_still"), new ResourceLocation("createdieselgenerators:block/graywater_flow"))
                     .source(ForgeFlowingFluid.Source::new)
-                    .lang("Gray Water")
+                    .lang("Grey Water")
                     .properties(b -> b.viscosity(1500)
                             .density(100))
                     .fluidProperties(p -> p.levelDecreasePerBlock(3)

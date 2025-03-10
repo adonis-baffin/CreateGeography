@@ -1,4 +1,4 @@
-package com.adonis.util;
+package com.adonis.utils;
 
 //import com.rekindled.embers.RegistryManager;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
@@ -9,10 +9,8 @@ import com.adonis.registry.BlockRegistry;
 import com.adonis.registry.ItemRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.registries.RegistryObject;
 
 import java.util.ArrayList;

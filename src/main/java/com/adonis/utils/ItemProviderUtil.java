@@ -1,4 +1,4 @@
-package com.adonis.util;
+package com.adonis.utils;
 
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.BlockEntry;

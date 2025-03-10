@@ -4,7 +4,7 @@ import com.simibubi.create.compat.jei.category.animations.AnimatedBlazeBurner;
 import com.simibubi.create.compat.jei.category.animations.AnimatedKinetics;
 import com.simibubi.create.content.processing.burner.BlazeBurnerBlock.HeatLevel;
 import com.simibubi.create.foundation.gui.element.GuiGameElement.GuiRenderBuilder;
-import com.adonis.util.BurnerUtil;
+import com.adonis.utils.BurnerUtil;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;

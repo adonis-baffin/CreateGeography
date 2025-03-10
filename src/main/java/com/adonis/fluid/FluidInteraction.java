@@ -13,7 +13,7 @@ public class FluidInteraction {
                 ForgeMod.WATER_TYPE.get(),
                 fluidState -> Blocks.OBSIDIAN.defaultBlockState()));
 
-        FluidInteractionRegistry.addInteraction(GeographyFluids.GRAYWATER.getType(), new FluidInteractionRegistry.InteractionInformation(
+        FluidInteractionRegistry.addInteraction(GeographyFluids.GREY_WATER.getType(), new FluidInteractionRegistry.InteractionInformation(
                 ForgeMod.LAVA_TYPE.get(),
                 fluidState -> Blocks.CRYING_OBSIDIAN.defaultBlockState()));
     }
