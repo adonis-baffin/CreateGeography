@@ -2,6 +2,8 @@ package com.adonis.registry;
 
 import com.adonis.CreateGeography;
 import com.adonis.content.item.GeologicalHammerItem;
+import com.adonis.content.item.TrekkingPoles;
+import com.adonis.content.item.TrekkingPoles;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -71,7 +73,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> PYROXENE_GLASS_PANE = registerWithTab("pyroxene_glass_pane", () -> new Item(basicItem()));
     public static final RegistryObject<Item> GEOLOGICAL_HAMMER = ITEMS.register("geological_hammer",
             () -> new GeologicalHammerItem(basicItem()));
-    public static final RegistryObject<Item> WALKING_STAFF = registerWithTab("walking_staff", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> TREKKING_POLES = ITEMS.register("trekking_poles",
+            () -> new TrekkingPoles(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ZINC_PLATE = registerWithTab("zinc_plate", () -> new Item(basicItem()));
     public static final RegistryObject<Item> VOLTAIC_PILE = registerWithTab("voltaic_pile", () -> new Item(basicItem()));
     public static final RegistryObject<Item> SILICON_PLATE = registerWithTab("silicon_plate", () -> new Item(basicItem()));

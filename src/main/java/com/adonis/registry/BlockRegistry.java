@@ -209,7 +209,7 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .strength(0.8f, 14.0f)
-                    .speedFactor(1.1f)
+                    .speedFactor(1.3f)
                     .jumpFactor(1.1f)
                     .sound(SoundType.GRAVEL)
             ));
@@ -218,7 +218,7 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .strength(0.8f, 14.0f)
-                    .speedFactor(1.1f)
+                    .speedFactor(1.3f)
                     .jumpFactor(1.1f)
                     .sound(SoundType.GRAVEL)
             ));
@@ -227,7 +227,7 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .strength(0.8f, 14.0f)
-                    .speedFactor(1.1f)
+                    .speedFactor(1.3f)
                     .jumpFactor(1.1f)
                     .sound(SoundType.GRAVEL)
             ));
