@@ -1,14 +1,12 @@
 package com.adonis.registry;
 
 import com.adonis.CreateGeography;
-import com.adonis.content.item.GeologicalHammerItem;
-import com.adonis.content.item.TrekkingPoles;
+import com.adonis.content.block.WoodenFrameItem;
+import com.adonis.content.item.GeofragmentatorItem;
 import com.adonis.content.item.TrekkingPoles;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.Tiers;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -31,8 +29,6 @@ public class ItemRegistry {
     public static Item.Properties basicItem() {
         return new Item.Properties();
     }
-
-
 
     public static Item.Properties foodItem(FoodProperties food) {
         return new Item.Properties().food(food);
@@ -71,8 +67,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SALT = registerWithTab("salt", () -> new Item(basicItem()));
     public static final RegistryObject<Item> WOOD_FIBER = registerWithTab("wood_fiber", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PYROXENE_GLASS_PANE = registerWithTab("pyroxene_glass_pane", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> GEOLOGICAL_HAMMER = ITEMS.register("geological_hammer",
-            () -> new GeologicalHammerItem(basicItem()));
+    public static final RegistryObject<Item> GEOFRAGMENTATOR = ITEMS.register("geofragmentator",
+            () -> new GeofragmentatorItem(basicItem()));
     public static final RegistryObject<Item> TREKKING_POLES = ITEMS.register("trekking_poles",
             () -> new TrekkingPoles(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> ZINC_PLATE = registerWithTab("zinc_plate", () -> new Item(basicItem()));
@@ -94,6 +90,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> GOLD_ORE_POWDER = registerWithTab("gold_ore_powder", () -> new Item(basicItem()));
     public static final RegistryObject<Item> ZINC_ORE_POWDER = registerWithTab("zinc_ore_powder", () -> new Item(basicItem()));
     public static final RegistryObject<Item> OSMIUM_ORE_POWDER = registerWithTab("osmium_ore_powder", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> DIRT_CLOD = registerWithTab("dirt_clods", () -> new Item(basicItem()));
 
     // Foods
     public static final RegistryObject<Item> PANCAKE = registerWithTab("pancake", () -> new Item(foodItem(new FoodProperties.Builder().nutrition(12).saturationMod(19.2f).build())));
@@ -117,6 +114,13 @@ public class ItemRegistry {
     public static final RegistryObject<Item> CRACKED_ICE = registerWithTab("cracked_ice", () -> new BlockItem(BlockRegistry.CRACKED_ICE.get(), basicItem()));
     public static final RegistryObject<Item> CRACKED_PACKED_ICE = registerWithTab("cracked_packed_ice", () -> new BlockItem(BlockRegistry.CRACKED_PACKED_ICE.get(), basicItem()));
     public static final RegistryObject<Item> CRACKED_BLUE_ICE = registerWithTab("cracked_blue_ice", () -> new BlockItem(BlockRegistry.CRACKED_BLUE_ICE.get(), basicItem()));
+    // 新增轮次2破裂方块物品
+    public static final RegistryObject<Item> CRACKED_BASALT = registerWithTab("cracked_basalt", () -> new BlockItem(BlockRegistry.CRACKED_BASALT.get(), basicItem()));
+    public static final RegistryObject<Item> CRACKED_BLACKSTONE = registerWithTab("cracked_blackstone", () -> new BlockItem(BlockRegistry.CRACKED_BLACKSTONE.get(), basicItem()));
+    public static final RegistryObject<Item> CRACKED_ANDESITE = registerWithTab("cracked_andesite", () -> new BlockItem(BlockRegistry.CRACKED_ANDESITE.get(), basicItem()));
+    public static final RegistryObject<Item> CRACKED_GRANITE = registerWithTab("cracked_granite", () -> new BlockItem(BlockRegistry.CRACKED_GRANITE.get(), basicItem()));
+    public static final RegistryObject<Item> CRACKED_DIORITE = registerWithTab("cracked_diorite", () -> new BlockItem(BlockRegistry.CRACKED_DIORITE.get(), basicItem()));
+    // 含矿蓝冰物品
     public static final RegistryObject<Item> IRON_BEARING_BLUE_ICE = registerWithTab("iron_bearing_blue_ice",
             () -> new BlockItem(BlockRegistry.IRON_BEARING_BLUE_ICE.get(), basicItem()));
     public static final RegistryObject<Item> COPPER_BEARING_BLUE_ICE = registerWithTab("copper_bearing_blue_ice",
@@ -138,8 +142,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NITER_BEARING_BLUE_ICE = registerWithTab("niter_bearing_blue_ice",
             () -> new BlockItem(BlockRegistry.NITER_BEARING_BLUE_ICE.get(), basicItem()));
     public static final RegistryObject<Item> SALT_CRYSTAL = registerWithTab("salt_crystal", () -> new BlockItem(BlockRegistry.SALT_CRYSTAL.get(), basicItem()));
-//    public static final RegistryObject<Item> FROZEN_DIRT = registerWithTab("frozen_dirt", () -> new BlockItem(BlockRegistry.FROZEN_DIRT.get(), basicItem()));
-//    public static final RegistryObject<Item> FROZEN_MUD = registerWithTab("frozen_mud", () -> new BlockItem(BlockRegistry.FROZEN_MUD.get(), basicItem()));
     public static final RegistryObject<Item> SALT_BLOCK = registerWithTab("salt_block", () -> new BlockItem(BlockRegistry.SALT_BLOCK.get(), basicItem()));
     public static final RegistryObject<Item> SALINE_SOIL = registerWithTab("saline_soil", () -> new BlockItem(BlockRegistry.SALINE_DIRT.get(), basicItem()));
     public static final RegistryObject<Item> SALINE_MUD = registerWithTab("saline_mud", () -> new BlockItem(BlockRegistry.SALINE_MUD.get(), basicItem()));
@@ -149,24 +151,37 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLACK_FARMLAND_ITEM = registerWithTab("black_farmland",
             () -> new BlockItem(BlockRegistry.BLACK_FARMLAND.get(), basicItem()));
     public static final RegistryObject<Item> NITER_BLOCK = registerWithTab("niter_block", () -> new BlockItem(BlockRegistry.NITER_BLOCK.get(), basicItem()));
-    public static final RegistryObject<Item> PAPER_MOLD = registerWithTab("paper_mold", () -> new BlockItem(BlockRegistry.PAPER_MOLD.get(), basicItem()));
-    public static final RegistryObject<Item> PULP_FILLED_PAPER_MOLD = registerWithTab("pulp_filled_paper_mold", () -> new BlockItem(BlockRegistry.PULP_FILLED_PAPER_MOLD.get(), basicItem()));
-    public static final RegistryObject<Item> SALT_WATER_FILLED_PAPER_MOLD = registerWithTab("salt_water_filled_paper_mold", () -> new BlockItem(BlockRegistry.SALT_WATER_FILLED_PAPER_MOLD.get(), basicItem()));
-    public static final RegistryObject<Item> MUD_FILLED_PAPER_MOLD = registerWithTab("mud_filled_paper_mold", () -> new BlockItem(BlockRegistry.MUD_FILLED_PAPER_MOLD.get(), basicItem()));
-    public static final RegistryObject<Item> SAND_SLURRY_FILLED_PAPER_MOLD = registerWithTab("sand_slurry_filled_paper_mold", () -> new BlockItem(BlockRegistry.SAND_SLURRY_FILLED_PAPER_MOLD.get(), basicItem()));
+    // 普通木框
+    public static final RegistryObject<Item> WOODEN_FRAME = registerWithTab("wooden_frame",
+            () -> new WoodenFrameItem(BlockRegistry.WOODEN_FRAME.get(), basicItem()));
+
+    // 装有水的木框
+    public static final RegistryObject<Item> WATER_FILLED_WOODEN_FRAME = registerWithTab("water_filled_wooden_frame",
+            () -> new BlockItem(BlockRegistry.WATER_FILLED_WOODEN_FRAME.get(), basicItem()));
+
+    // 装有盐水的木框
+    public static final RegistryObject<Item> BRINE_FILLED_WOODEN_FRAME = registerWithTab("brine_filled_wooden_frame",
+            () -> new BlockItem(BlockRegistry.BRINE_FILLED_WOODEN_FRAME.get(), basicItem()));
+
+    // 装有盐的木框
+    public static final RegistryObject<Item> SALT_FILLED_WOODEN_FRAME = registerWithTab("salt_filled_wooden_frame",
+            () -> new BlockItem(BlockRegistry.SALT_FILLED_WOODEN_FRAME.get(), basicItem()));
+    // 泥浆木框
+    public static final RegistryObject<Item> MUD_FILLED_WOODEN_FRAME = registerWithTab("mud_filled_wooden_frame",
+            () -> new BlockItem(BlockRegistry.MUD_FILLED_WOODEN_FRAME.get(), basicItem()));
+
+    // 沙浆木框
+    public static final RegistryObject<Item> SAND_SLURRY_FILLED_WOODEN_FRAME = registerWithTab("sand_slurry_filled_wooden_frame",
+            () -> new BlockItem(BlockRegistry.SAND_SLURRY_FILLED_WOODEN_FRAME.get(), basicItem()));
+
+    // 沙尘和土坷木框
+    public static final RegistryObject<Item> SAND_DUST_FILLED_WOODEN_FRAME = registerWithTab("sand_dust_filled_wooden_frame",
+            () -> new BlockItem(BlockRegistry.SAND_DUST_FILLED_WOODEN_FRAME.get(), basicItem()));
+
+    public static final RegistryObject<Item> DIRT_CLODS_FILLED_WOODEN_FRAME = registerWithTab("dirt_clods_filled_wooden_frame",
+            () -> new BlockItem(BlockRegistry.DIRT_CLOD_FILLED_WOODEN_FRAME.get(), basicItem()));
     public static final RegistryObject<Item> TRUE_ICE = registerWithTab("true_ice", () -> new BlockItem(BlockRegistry.TRUE_ICE.get(), basicItem()));
     public static final RegistryObject<Item> ANDESITE_FIRE_PIT = registerWithTab("andesite_fire_pit", () -> new BlockItem(BlockRegistry.ANDESITE_FIRE_PIT.get(), basicItem()));
     public static final RegistryObject<Item> BRASS_FIRE_PIT = registerWithTab("brass_fire_pit", () -> new BlockItem(BlockRegistry.BRASS_FIRE_PIT.get(), basicItem()));
     public static final RegistryObject<Item> MECHANICAL_FISHING_NET = registerWithTab("mechanical_fishing_net", () -> new BlockItem(BlockRegistry.MECHANICAL_FISHING_NET.get(), basicItem()));
-//    public static final RegistryObject<Item> POWERED_RAMMER = registerWithTab("powered_rammer", () -> new BlockItem(BlockRegistry.POWERED_RAMMER.get(), basicItem()));
-//    public static final RegistryObject<Item> POWERED_COMPRESSOR = registerWithTab("powered_compressor", () -> new BlockItem(BlockRegistry.POWERED_COMPRESSOR.get(), basicItem()));
-//    public static final RegistryObject<Item> SPRINKLER = registerWithTab("sprinkler", () -> new BlockItem(BlockRegistry.SPRINKLER.get(), basicItem()));
-//    public static final RegistryObject<Item> ALLOY_FORGING_FURNACE = registerWithTab("alloy_forging_furnace", () -> new BlockItem(BlockRegistry.ALLOY_FORGING_FURNACE.get(), basicItem()));
-//    public static final RegistryObject<Item> CRUCIBLE = registerWithTab("crucible", () -> new BlockItem(BlockRegistry.CRUCIBLE.get(), basicItem()));
-//    public static final RegistryObject<Item> FLEXIBLE_HOSE = registerWithTab("flexible_hose", () -> new BlockItem(BlockRegistry.FLEXIBLE_HOSE.get(), basicItem()));
-//    public static final RegistryObject<Item> LIQUID_PUMP = registerWithTab("liquid_pump", () -> new BlockItem(BlockRegistry.LIQUID_PUMP.get(), basicItem()));
-//    public static final RegistryObject<Item> INTERFACE_TANK = registerWithTab("interface_tank", () -> new BlockItem(BlockRegistry.INTERFACE_TANK.get(), basicItem()));
-//    public static final RegistryObject<Item> CONDENSATION_TANK = registerWithTab("condensation_tank", () -> new BlockItem(BlockRegistry.CONDENSATION_TANK.get(), basicItem()));
-//    public static final RegistryObject<Item> VOLTAIC_BATTERY_BOX = registerWithTab("voltaic_battery_box", () -> new BlockItem(BlockRegistry.VOLTAIC_BATTERY_BOX.get(), basicItem()));
-//    public static final RegistryObject<Item> PHOTOVOLTAIC_BATTERY_BOX = registerWithTab("photovoltaic_battery_box", () -> new BlockItem(BlockRegistry.PHOTOVOLTAIC_BATTERY_BOX.get(), basicItem()));
 }

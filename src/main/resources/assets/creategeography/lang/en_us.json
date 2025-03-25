@@ -25,6 +25,10 @@
   "creategeography.burner.per_tick": "per tick",
 
   "block.pneumaticcraft.heat_converter": "Heat Converter",
+  "message.creategeography.paper_mold.no_fluid": "The basin is empty. It needs brine.",
+  "message.creategeography.paper_mold.wrong_fluid": "The basin contains the wrong fluid. It needs brine.",
+  "message.creategeography.paper_mold.not_enough_fluid": "Not enough brine. Need at least 250 mB.",
+  "message.creategeography.paper_mold.success": "Successfully created a brine paper mold.",
 
   "botania.tagline.exoflame": "Ignites Fuelable Machines and speeds up Furnaces",
   "botania.page.exoflame0": "Conversely to its $(thing)Generating$(0) counterpart, the $(item)Exoflame$(0) uses $(thing)Mana$(0) to generate heat.$(p)Any $(item)Furnaces$(0) near an active $(item)Exoflame$(0) are fueled and given a speed boost.$(p)$(item)Exoflame$(0) can fueled 9 heated or 1 superheated $(item)Blaze Burners$(0) by default."

@@ -20,7 +20,7 @@ public class TabRegistry {
 
     public static final RegistryObject<CreativeModeTab> creategeography_TAB = CREATIVE_TABS.register("creategeography_tab",
             () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.creategeography")).icon(
-                () -> new ItemStack(ItemRegistry.GEOLOGICAL_HAMMER.get())
+                () -> new ItemStack(ItemRegistry.GEOFRAGMENTATOR.get())
             ).displayItems((params, output) ->
             {
                 Iterator<RegistryObject<Item>> var2 = ItemRegistry.ITEMS.getEntries().iterator();
