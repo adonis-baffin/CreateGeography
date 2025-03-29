@@ -453,6 +453,11 @@ public class BlockRegistry {
                     .strength(1.5f)
                     .sound(SoundType.GLASS)
             ));
+    public static final RegistryObject<Block> INDUSTRIAL_COMPOSTER = BLOCKS.register("industrial_composter",
+            () -> new IndustrialComposterBlock(BlockBehaviour.Properties.copy(Blocks.COMPOSTER)
+                    .strength(1.5F)
+                    .sound(SoundType.WOOD)
+                    .noOcclusion()));
 
     public static final RegistryObject<BlockEntityType<ElectricBurnerBlockEntity>> ELECTRIC_BURNER_ENTITY = BLOCK_ENTITY_TYPES.register("electric_burner",
             () -> BlockEntityType.Builder.of(ElectricBurnerBlockEntity::new, ELECTRIC_BURNER.get()).build(null)

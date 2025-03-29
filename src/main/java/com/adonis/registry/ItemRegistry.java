@@ -3,6 +3,7 @@ package com.adonis.registry;
 import com.adonis.CreateGeography;
 import com.adonis.content.block.WoodenFrameItem;
 import com.adonis.content.item.GeofragmentatorItem;
+import com.adonis.content.item.IndustrialShearsItem;
 import com.adonis.content.item.TrekkingPoles;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -202,5 +203,9 @@ public class ItemRegistry {
 
     public static final RegistryObject<Item> NETHERITE_SICKLE = registerWithTab("netherite_sickle",
             () -> new SickleItem(Tiers.NETHERITE, 9.0F, new Item.Properties().stacksTo(1).fireResistant()));
-
+    public static final RegistryObject<Item> INDUSTRIAL_SHEARS = registerWithTab("industrial_shears",
+            () -> new IndustrialShearsItem(new Item.Properties().stacksTo(1)));
+    // 工业堆肥桶
+    public static final RegistryObject<Item> INDUSTRIAL_COMPOSTER = registerWithTab("industrial_composter",
+            () -> new BlockItem(BlockRegistry.INDUSTRIAL_COMPOSTER.get(), basicItem()));
 }
