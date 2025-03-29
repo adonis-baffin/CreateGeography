@@ -122,6 +122,8 @@ repositories {
         name = "JourneyMap (Public)"
         url = "https://jm.gserv.me/repository/maven-public/"
     }
+    // Added for Mekanism
+    maven { url 'https://modmaven.dev/' }
 }
 
 dependencies {
@@ -154,6 +156,12 @@ dependencies {
     compileOnly fg.deobf('curse.maven:cc-tweaked-282001:4823493')
 
     implementation fg.deobf('curse.maven:journeymap-32274:5208416')
+
+    // Mekanism dependencies
+    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}")
+    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")
+    implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
