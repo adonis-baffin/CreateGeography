@@ -7,6 +7,8 @@ import com.adonis.content.item.TrekkingPoles;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Tiers;
+import com.adonis.content.item.SickleItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -184,4 +186,21 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ANDESITE_FIRE_PIT = registerWithTab("andesite_fire_pit", () -> new BlockItem(BlockRegistry.ANDESITE_FIRE_PIT.get(), basicItem()));
     public static final RegistryObject<Item> BRASS_FIRE_PIT = registerWithTab("brass_fire_pit", () -> new BlockItem(BlockRegistry.BRASS_FIRE_PIT.get(), basicItem()));
     public static final RegistryObject<Item> MECHANICAL_FISHING_NET = registerWithTab("mechanical_fishing_net", () -> new BlockItem(BlockRegistry.MECHANICAL_FISHING_NET.get(), basicItem()));
+
+    // 镰刀系列
+    public static final RegistryObject<Item> COPPER_SICKLE = registerWithTab("copper_sickle",
+            () -> new SickleItem(Tiers.IRON, 5.0F, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> IRON_SICKLE = registerWithTab("iron_sickle",
+            () -> new SickleItem(Tiers.IRON, 6.0F, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> GOLDEN_SICKLE = registerWithTab("golden_sickle",
+            () -> new SickleItem(Tiers.GOLD, 4.0F, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> DIAMOND_SICKLE = registerWithTab("diamond_sickle",
+            () -> new SickleItem(Tiers.DIAMOND, 8.0F, new Item.Properties().stacksTo(1)));
+
+    public static final RegistryObject<Item> NETHERITE_SICKLE = registerWithTab("netherite_sickle",
+            () -> new SickleItem(Tiers.NETHERITE, 9.0F, new Item.Properties().stacksTo(1).fireResistant()));
+
 }
