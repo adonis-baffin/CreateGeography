@@ -302,8 +302,7 @@ public class BlockRegistry {
                     .strength(0.8f)
                     .sound(SoundType.GLASS)));
 
-    public static final RegistryObject<Block> ELECTRIC_BURNER = BLOCKS.register("electric_burner",
-            () -> new ElectricBurnerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
+
 
     public static final RegistryObject<Block> SOLAR_HEATER = BLOCKS.register("solar_heater",
             () -> new Block(stoneBlock().mapColor(MapColor.COLOR_GRAY)));
@@ -459,7 +458,9 @@ public class BlockRegistry {
                     .sound(SoundType.WOOD)
                     .noOcclusion()));
 
-    public static final RegistryObject<BlockEntityType<ElectricBurnerBlockEntity>> ELECTRIC_BURNER_ENTITY = BLOCK_ENTITY_TYPES.register("electric_burner",
-            () -> BlockEntityType.Builder.of(ElectricBurnerBlockEntity::new, ELECTRIC_BURNER.get()).build(null)
+    public static final RegistryObject<Block> ELECTRIC_BURNER = BLOCKS.register("electric_burner",
+            () -> new ElectricBurnerBlock(BlockBehaviour.Properties.copy(Blocks.STONE))
     );
+
+
 }

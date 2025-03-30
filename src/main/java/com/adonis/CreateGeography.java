@@ -38,10 +38,13 @@ public class CreateGeography {
 
         // 注册方块和物品
         BlockRegistry.BLOCKS.register(modEventBus);
-        BlockEntityRegistry.BLOCK_ENTITY_TYPES.register(modEventBus); // 使用 BlockEntityRegistry
+
         ItemRegistry.ITEMS.register(modEventBus);
         TabRegistry.CREATIVE_TABS.register(modEventBus);
         SoundRegistry.SOUND_EVENTS.register(modEventBus);
+        // 注册实体
+        EntityRegistry.ENTITIES.register(modEventBus);
+        BlockEntityRegistry.BLOCK_ENTITY_TYPES.register(modEventBus); // 使用 BlockEntityRegistry
 
         // 注册流体
         GeographyFluids.register();

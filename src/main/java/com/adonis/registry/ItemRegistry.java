@@ -2,14 +2,11 @@ package com.adonis.registry;
 
 import com.adonis.CreateGeography;
 import com.adonis.content.block.WoodenFrameItem;
-import com.adonis.content.item.GeofragmentatorItem;
-import com.adonis.content.item.IndustrialShearsItem;
-import com.adonis.content.item.TrekkingPoles;
+import com.adonis.content.item.*;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
-import com.adonis.content.item.SickleItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -39,16 +36,16 @@ public class ItemRegistry {
 
     // Normal Items
     public static final RegistryObject<Item> CRUSHED_STONE = registerWithTab("crushed_stone", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> PEBBLE = registerWithTab("pebble", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> CRUSHED_DEEP_SLATE = registerWithTab("crushed_deep_slate", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> DEEP_SLATE_PEBBLE = registerWithTab("deep_slate_pebble", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> SAND_DUST = registerWithTab("sand_dust", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> PEBBLE = registerWithTab("pebble",
+            () -> new ThrowablePebbleItem(basicItem()));    public static final RegistryObject<Item> CRUSHED_DEEP_SLATE = registerWithTab("crushed_deep_slate", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> DEEP_SLATE_PEBBLE = registerWithTab("deep_slate_pebble",
+            () -> new ThrowablePebbleItem(basicItem()));    public static final RegistryObject<Item> SAND_DUST = registerWithTab("sand_dust", () -> new Item(basicItem()));
     public static final RegistryObject<Item> ORTHACLASE = registerWithTab("orthoclase", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> ORTHACLASE_PEBBLE = registerWithTab("orthoclase_pebble", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> RED_SAND_DUST = registerWithTab("red_sand_dust", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> ORTHACLASE_PEBBLE = registerWithTab("orthoclase_pebble",
+            () -> new ThrowablePebbleItem(basicItem()));    public static final RegistryObject<Item> RED_SAND_DUST = registerWithTab("red_sand_dust", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PLAGIOCLASE = registerWithTab("plagioclase", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> PLAGIOCLASE_PEBBLE = registerWithTab("plagioclase_pebble", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> ASH = registerWithTab("ash", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> PLAGIOCLASE_PEBBLE = registerWithTab("plagioclase_pebble",
+            () -> new ThrowablePebbleItem(basicItem()));    public static final RegistryObject<Item> ASH = registerWithTab("ash", () -> new Item(basicItem()));
     public static final RegistryObject<Item> QUARTZ_SAND = registerWithTab("quartz_sand", () -> new Item(basicItem()));
     public static final RegistryObject<Item> SULFUR_POWDER = registerWithTab("sulfur_powder", () -> new Item(basicItem()));
     public static final RegistryObject<Item> MARBLE = registerWithTab("marble", () -> new Item(basicItem()));
@@ -208,4 +205,7 @@ public class ItemRegistry {
     // 工业堆肥桶
     public static final RegistryObject<Item> INDUSTRIAL_COMPOSTER = registerWithTab("industrial_composter",
             () -> new BlockItem(BlockRegistry.INDUSTRIAL_COMPOSTER.get(), basicItem()));
+    public static final RegistryObject<Item> ELECTRIC_BURNER_ITEM = ITEMS.register("electric_burner",
+            () -> new BlockItem(BlockRegistry.ELECTRIC_BURNER.get(), new Item.Properties())
+    );
 }

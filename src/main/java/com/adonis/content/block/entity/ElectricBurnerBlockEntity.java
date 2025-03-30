@@ -1,5 +1,6 @@
 package com.adonis.content.block.entity;
 
+import com.adonis.registry.BlockEntityRegistry;
 import com.simibubi.create.foundation.utility.Components;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.LangBuilder;
@@ -42,7 +43,7 @@ public class ElectricBurnerBlockEntity extends BaseBurnerBlockEntity {
     public boolean upgraded;
 
     public ElectricBurnerBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockRegistry.ELECTRIC_BURNER_ENTITY.get(), pos, state);
+        super(BlockEntityRegistry.ELECTRIC_BURNER_ENTITY.get(), pos, state);
         this.max_heat = MAX_HEAT;
         this.energy_cost = ENERGY_COST;
         this.upgraded = false;
