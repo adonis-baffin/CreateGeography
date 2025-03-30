@@ -114,6 +114,6 @@ public class GeographyFluids {
 
     public static void register() {
         // 这个方法在主类中调用，用于触发静态初始化
-        CreateGeography.LOGGER.info("Registering Geography fluids");
+//        CreateGeography.LOGGER.info("Registering Geography fluids");
     }
 }

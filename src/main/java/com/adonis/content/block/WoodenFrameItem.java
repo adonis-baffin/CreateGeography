@@ -48,8 +48,8 @@ public class WoodenFrameItem extends BlockItem {
                     }
                 }
 
-                CreateGeography.LOGGER.info("Fluid in basin: " + fluidStack.getFluid());
-                CreateGeography.LOGGER.info("Amount: " + fluidStack.getAmount());
+//                CreateGeography.LOGGER.info("Fluid in basin: " + fluidStack.getFluid());
+//                CreateGeography.LOGGER.info("Amount: " + fluidStack.getAmount());
 
                 if (!fluidStack.isEmpty() && fluidStack.getAmount() >= 250) {
                     ItemStack resultStack;

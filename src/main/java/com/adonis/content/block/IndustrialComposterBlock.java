@@ -34,56 +34,40 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
         builder.add(LEVEL);
     }
 
-
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        // 非潜行时，手持可堆肥物品，执行原版堆肥逻辑
+        // 非潜行状态，手持可堆肥物品时使用原版逻辑
         ItemStack heldItem = player.getItemInHand(hand);
         if (!player.isShiftKeyDown() && !heldItem.isEmpty() && ComposterBlock.COMPOSTABLES.containsKey(heldItem.getItem())) {
-            return super.use(state, level, pos, player, hand, hit); // 调用原版堆肥逻辑
+            return super.use(state, level, pos, player, hand, hit);
         }
-
-        // 潜行时，强制执行批量堆肥
-        if (player.isShiftKeyDown()) {
-            if (!level.isClientSide) {
-                // 在服务器端执行批量堆肥逻辑
-                bulkCompost(state, level, pos, player, hand, hit);
-            }
-            // 客户端返回 SUCCESS 触发挥手动作，服务器返回 CONSUME 表示已处理
-            return InteractionResult.sidedSuccess(level.isClientSide);
-        }
-
-        // 其他情况，不触发交互
+        // 潜行交互由事件监听处理，这里直接返回 PASS
         return InteractionResult.PASS;
     }
 
-    private InteractionResult bulkCompost(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        int currentLevel = state.getValue(LEVEL);
+    // 批量堆肥逻辑（由事件调用）
+    public void bulkCompost(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+        if (level.isClientSide) return; // 仅在服务器端执行
 
-        // 收集玩家背包中所有可堆肥的非食物物品
+        int currentLevel = state.getValue(LEVEL);
         List<Integer> compostableSlots = new ArrayList<>();
 
-        // 检查背包中的物品
+        // 扫描背包中的可堆肥非食物物品
         for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
             ItemStack stack = player.getInventory().getItem(i);
             if (stack.isEmpty()) continue;
-
-            // 检查物品是否可堆肥且不是食物
             float chance = ComposterBlock.COMPOSTABLES.getOrDefault(stack.getItem(), 0.0F);
             if (chance > 0.0F && !stack.getItem().isEdible()) {
                 compostableSlots.add(i);
             }
         }
 
-        // 如果没有找到可堆肥物品
+        // 如果没有可堆肥物品且堆肥桶满级，提取骨粉
         if (compostableSlots.isEmpty()) {
-            // 如果已满级，自动弹出骨粉
             if (currentLevel == 8) {
-                return extractCompost(state, level, pos, player);
+                extractCompost(state, level, pos, player);
             }
-
-            // 没有可堆肥物品时，不播放失败音效，与原版保持一致
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return;
         }
 
         // 开始批量堆肥
@@ -91,75 +75,48 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
         RandomSource random = level.getRandom();
         boolean wasFullAfterOperation = false;
 
-        // 处理背包中的物品
         for (int slot : compostableSlots) {
-            if (currentLevel >= 8) break; // 如果已满，停止处理
-
+            if (currentLevel >= 8) break;
             ItemStack stack = player.getInventory().getItem(slot);
             if (stack.isEmpty()) continue;
-
-            // 获取堆肥成功率
             float chance = ComposterBlock.COMPOSTABLES.getOrDefault(stack.getItem(), 0.0F);
 
-            // 尝试堆肥每个物品
             while (currentLevel < 8 && !stack.isEmpty()) {
                 if (random.nextFloat() < chance) {
-                    // 堆肥成功
                     currentLevel++;
-                    level.levelEvent(1500, pos, 1);
                     level.setBlock(pos, state.setValue(LEVEL, currentLevel), 3);
+                    level.levelEvent(1500, pos, 1); // 成功粒子效果
                     anySuccess = true;
                 } else {
-                    // 堆肥失败
-                    level.levelEvent(1500, pos, 0);
+                    level.levelEvent(1500, pos, 0); // 失败粒子效果
                 }
-
-                // 减少物品数量
                 stack.shrink(1);
-
-                // 如果堆肥桶已满，标记并停止处理
                 if (currentLevel >= 8) {
                     wasFullAfterOperation = true;
                     break;
                 }
             }
-
-            // 更新物品栏
             player.getInventory().setItem(slot, stack);
         }
 
-        // 如果有任何成功的堆肥，播放声音 (使用原版的COMPOSTER_FILL音效)
         if (anySuccess) {
             level.playSound(null, pos, SoundEvents.COMPOSTER_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-
-            // 如果堆肥后达到满级，自动弹出骨粉
             if (wasFullAfterOperation) {
-                return extractCompost(state, level, pos, player);
+                extractCompost(state, level, pos, player);
             }
         }
-
-        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     // 提取骨粉的方法
-    private InteractionResult extractCompost(BlockState state, Level level, BlockPos pos, Player player) {
+    private void extractCompost(BlockState state, Level level, BlockPos pos, Player player) {
         if (!level.isClientSide) {
-            // 设置堆肥等级为0
-            BlockState newState = state.setValue(LEVEL, 0);
-            level.setBlock(pos, newState, 3);
-
-            // 播放骨粉提取音效
+            level.setBlock(pos, state.setValue(LEVEL, 0), 3);
             level.playSound(null, pos, SoundEvents.COMPOSTER_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
-
-            // 创建骨粉物品并弹出或添加到玩家物品栏
             ItemStack boneMeal = new ItemStack(Items.BONE_MEAL);
             if (!player.getInventory().add(boneMeal)) {
-                // 如果玩家物品栏已满，弹出骨粉物品
                 popResource(level, pos, boneMeal);
             }
         }
-
-        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     @Override
@@ -201,7 +158,6 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
                 return InteractionResult.SUCCESS;
             }
         }
-
         return IWrenchable.super.onWrenched(state, context);
     }
 }
