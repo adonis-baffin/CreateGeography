@@ -6,14 +6,13 @@ import com.adonis.content.block.IndustrialComposterBlock;
 import com.adonis.datagen.DataGen;
 import com.adonis.fluid.FluidInteraction;
 import com.adonis.fluid.GeographyFluids;
+import com.adonis.recipe.FanProcessingTypes;
 import com.adonis.recipe.RecipeTypes;
 import com.adonis.registry.*;
-import com.adonis.recipe.FanProcessingTypes;
 import com.adonis.utils.BoilerHeaterRegistry;
 import com.jozufozu.flywheel.core.PartialModel;
-import com.simibubi.create.content.equipment.wrench.IWrenchable;
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,7 +24,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import com.simibubi.create.foundation.data.CreateRegistrate;
 
 @Mod(CreateGeography.MODID)
 public class CreateGeography {
@@ -37,6 +35,7 @@ public class CreateGeography {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // 注册方块和物品
+        REGISTRATE.registerEventListeners(modEventBus);  // 初始化 Registrate
         BlockRegistry.BLOCKS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
         TabRegistry.CREATIVE_TABS.register(modEventBus);
@@ -62,9 +61,11 @@ public class CreateGeography {
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(EventPriority.LOWEST, DataGen::gatherData);
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::clientSetup);
 
         // 注册模型
         DRAGON_MODEL = new PartialModel(new ResourceLocation(MODID, "dragon_head_export"));
+        GeographyPartialModels.initiate();
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -74,18 +75,19 @@ public class CreateGeography {
         });
     }
 
-    // 添加右键点击方块的事件监听
+    private void clientSetup(final FMLClientSetupEvent event) {
+        event.enqueueWork(GeographyRenderers::setupRenderers); // 明确调用静态方法
+    }
+
     @SubscribeEvent
     public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
         BlockState state = event.getLevel().getBlockState(event.getPos());
         if (state.getBlock() instanceof IndustrialComposterBlock && event.getEntity().isShiftKeyDown()) {
             if (!event.getLevel().isClientSide) {
-                // 服务器端执行批量堆肥
                 ((IndustrialComposterBlock) state.getBlock()).bulkCompost(
                         state, event.getLevel(), event.getPos(), event.getEntity(), event.getHand(), event.getHitVec()
                 );
             }
-            // 取消原版交互，强制触发挥手动作
             event.setCanceled(true);
             event.setCancellationResult(net.minecraft.world.InteractionResult.SUCCESS);
         }
@@ -95,6 +97,7 @@ public class CreateGeography {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            // 客户端设置（如果需要额外逻辑可以在这里添加）
         }
     }
 

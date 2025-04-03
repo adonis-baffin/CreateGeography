@@ -41,11 +41,11 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
         if (!player.isShiftKeyDown() && !heldItem.isEmpty() && ComposterBlock.COMPOSTABLES.containsKey(heldItem.getItem())) {
             return super.use(state, level, pos, player, hand, hit);
         }
-        // 潜行交互由事件监听处理，这里直接返回 PASS
+        // 潜行交互由事件监听处理
         return InteractionResult.PASS;
     }
 
-    // 批量堆肥逻辑（由事件调用）
+    // 批量堆肥方法（由事件调用）
     public void bulkCompost(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide) return; // 仅在服务器端执行
 

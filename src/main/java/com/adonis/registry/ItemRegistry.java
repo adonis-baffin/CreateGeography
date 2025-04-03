@@ -109,8 +109,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> QUARTZITE_PATH = registerWithTab("quartzite_path", () -> new BlockItem(BlockRegistry.QUARTZITE_PATH.get(), basicItem()));
     public static final RegistryObject<Item> MARBLE_PATH = registerWithTab("marble_path", () -> new BlockItem(BlockRegistry.MARBLE_PATH.get(), basicItem()));
     public static final RegistryObject<Item> PYROXENE_GLASS = registerWithTab("pyroxene_glass", () -> new BlockItem(BlockRegistry.PYROXENE_GLASS.get(), basicItem()));
-    public static final RegistryObject<Item> LUMINOUS_MIRROR = registerWithTab("luminous_mirror", () -> new BlockItem(BlockRegistry.LUMINOUS_MIRROR.get(), basicItem()));
-    public static final RegistryObject<Item> SOLAR_HEATER = registerWithTab("solar_heater", () -> new BlockItem(BlockRegistry.SOLAR_HEATER.get(), basicItem()));
+//    public static final RegistryObject<Item> PYROXENE_MIRROR = registerWithTab("pyroxene_mirror", () -> new BlockItem(BlockRegistry.PYROXENE_MIRROR.get(), basicItem()));
+//    public static final RegistryObject<Item> PYROXENE_HEATER = registerWithTab("pyroxene_heater", () -> new BlockItem(BlockRegistry.PYROXENE_HEATER.get(), basicItem()));
     public static final RegistryObject<Item> CRACKED_ICE = registerWithTab("cracked_ice", () -> new BlockItem(BlockRegistry.CRACKED_ICE.get(), basicItem()));
     public static final RegistryObject<Item> CRACKED_PACKED_ICE = registerWithTab("cracked_packed_ice", () -> new BlockItem(BlockRegistry.CRACKED_PACKED_ICE.get(), basicItem()));
     public static final RegistryObject<Item> CRACKED_BLUE_ICE = registerWithTab("cracked_blue_ice", () -> new BlockItem(BlockRegistry.CRACKED_BLUE_ICE.get(), basicItem()));
@@ -185,26 +185,35 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BRASS_FIRE_PIT = registerWithTab("brass_fire_pit", () -> new BlockItem(BlockRegistry.BRASS_FIRE_PIT.get(), basicItem()));
     public static final RegistryObject<Item> MECHANICAL_FISHING_NET = registerWithTab("mechanical_fishing_net", () -> new BlockItem(BlockRegistry.MECHANICAL_FISHING_NET.get(), basicItem()));
 
-    // 镰刀系列
+    // 修改后的物品注册代码
     public static final RegistryObject<Item> COPPER_SICKLE = registerWithTab("copper_sickle",
-            () -> new SickleItem(Tiers.IRON, 5.0F, new Item.Properties().stacksTo(1)));
+            () -> new SickleItem(Tiers.IRON, 8.0F - 1.0F, new Item.Properties().stacksTo(1))); // 与铁斧相同的伤害
 
     public static final RegistryObject<Item> IRON_SICKLE = registerWithTab("iron_sickle",
-            () -> new SickleItem(Tiers.IRON, 6.0F, new Item.Properties().stacksTo(1)));
+            () -> new SickleItem(Tiers.IRON, 9.0F - 1.0F, new Item.Properties().stacksTo(1))); // 与铁斧相同的伤害
 
     public static final RegistryObject<Item> GOLDEN_SICKLE = registerWithTab("golden_sickle",
-            () -> new SickleItem(Tiers.GOLD, 4.0F, new Item.Properties().stacksTo(1)));
+            () -> new SickleItem(Tiers.GOLD, 7.0F - 1.0F, new Item.Properties().stacksTo(1))); // 与金斧相同的伤害
 
     public static final RegistryObject<Item> DIAMOND_SICKLE = registerWithTab("diamond_sickle",
-            () -> new SickleItem(Tiers.DIAMOND, 8.0F, new Item.Properties().stacksTo(1)));
+            () -> new SickleItem(Tiers.DIAMOND, 9.0F - 1.0F, new Item.Properties().stacksTo(1))); // 与钻石斧相同的伤害
 
     public static final RegistryObject<Item> NETHERITE_SICKLE = registerWithTab("netherite_sickle",
-            () -> new SickleItem(Tiers.NETHERITE, 9.0F, new Item.Properties().stacksTo(1).fireResistant()));
+            () -> new SickleItem(Tiers.NETHERITE, 10.0F - 1.0F, new Item.Properties().stacksTo(1).fireResistant())); // 与下界合金斧相同的伤害
+
     public static final RegistryObject<Item> INDUSTRIAL_SHEARS = registerWithTab("industrial_shears",
             () -> new IndustrialShearsItem(new Item.Properties().stacksTo(1)));
     // 工业堆肥桶
     public static final RegistryObject<Item> INDUSTRIAL_COMPOSTER = registerWithTab("industrial_composter",
             () -> new BlockItem(BlockRegistry.INDUSTRIAL_COMPOSTER.get(), basicItem()));
+    // 工业铁砧物品
+    public static final RegistryObject<Item> INDUSTRIAL_ANVIL_ITEM = ITEMS.register("industrial_anvil",
+            () -> new BlockItem(BlockRegistry.INDUSTRIAL_ANVIL.get(), new Item.Properties()));
+
+    // 工业熔炉物品
+    public static final RegistryObject<Item> INDUSTRIAL_FURNACE_ITEM = ITEMS.register("industrial_furnace",
+            () -> new BlockItem(BlockRegistry.INDUSTRIAL_FURNACE.get(), new Item.Properties()));
+
     public static final RegistryObject<Item> ELECTRIC_BURNER_ITEM = ITEMS.register("electric_burner",
             () -> new BlockItem(BlockRegistry.ELECTRIC_BURNER.get(), new Item.Properties())
     );
