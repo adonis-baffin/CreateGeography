@@ -51,9 +51,9 @@ public class PyroxeneHeaterBlock extends BaseEntityBlock implements IWrenchable,
 
     @Override
     public void receive(IBeamSource source, BlockState state, BlockPos lastPos, BeamHelper.BeamProperties beamProperties, int lastIndex) {
-        BlockEntity be = source.getLevel().getBlockEntity(source.getBlockPos());
+        BlockEntity be = source.getLevel().getBlockEntity(lastPos.relative(beamProperties.direction));
         if (be instanceof PyroxeneHeaterBlockEntity heater) {
-            heater.receiveLight(beamProperties.direction);
+            heater.receive(source, state, lastPos, beamProperties, lastIndex);
         }
     }
 

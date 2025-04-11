@@ -5,6 +5,7 @@ import com.adonis.content.block.WoodenFrameItem;
 import com.adonis.content.item.*;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Tiers;
 import net.minecraftforge.registries.DeferredRegister;
@@ -151,6 +152,40 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BLACK_FARMLAND_ITEM = registerWithTab("black_farmland",
             () -> new BlockItem(BlockRegistry.BLACK_FARMLAND.get(), basicItem()));
     public static final RegistryObject<Item> NITER_BLOCK = registerWithTab("niter_block", () -> new BlockItem(BlockRegistry.NITER_BLOCK.get(), basicItem()));
+
+    // ... 现有代码 ...
+
+    // ItemRegistry.java (修正部分)
+    // ... 现有代码 ...
+
+    // 修复爆炸箭物品注册
+    public static final RegistryObject<Item> EXPLOSIVE_ARROW = ITEMS.register(
+            "explosive_arrow",
+            () -> new com.adonis.content.item.ExplosiveArrowItem(new Item.Properties().stacksTo(64))
+    );
+    // ... 现有代码 ...
+
+    // 注册末影水晶爆炸箭物品
+    public static final RegistryObject<Item> ENDER_CRYSTAL_ARROW = ITEMS.register(
+            "ender_crystal_arrow",
+            () -> new EnderCrystalArrowItem(new Item.Properties().stacksTo(64)) // 由于威力巨大，减少堆叠数量
+    );
+
+    // ... 现有代码 ...
+
+    // 注册闪电箭物品
+    public static final RegistryObject<Item> LIGHTNING_ARROW = ITEMS.register(
+            "lightning_arrow",
+            () -> new LightningArrowItem(new Item.Properties().stacksTo(64)) // 由于威力巨大，减少堆叠数量
+    );
+
+// ... 现有代码 ...
+
+// ... 现有代码 ...
+
+    // ... 现有代码 ...
+
+    // ... 现有代码 ...
     // 普通木框
     public static final RegistryObject<Item> WOODEN_FRAME = registerWithTab("wooden_frame",
             () -> new WoodenFrameItem(BlockRegistry.WOODEN_FRAME.get(), basicItem()));
@@ -186,6 +221,12 @@ public class ItemRegistry {
     public static final RegistryObject<Item> MECHANICAL_FISHING_NET = registerWithTab("mechanical_fishing_net", () -> new BlockItem(BlockRegistry.MECHANICAL_FISHING_NET.get(), basicItem()));
 
     // 修改后的物品注册代码
+    public static final RegistryObject<Item> WOODEN_SICKLE = registerWithTab("wooden_sickle",
+            () -> new SickleItem(Tiers.WOOD, 8.0F - 1.0F, new Item.Properties().stacksTo(1))); // 与铁斧相同的伤害
+
+    public static final RegistryObject<Item> STONE_SICKLE = registerWithTab("stone_sickle",
+            () -> new SickleItem(Tiers.STONE, 8.0F - 1.0F, new Item.Properties().stacksTo(1))); // 与铁斧相同的伤害
+
     public static final RegistryObject<Item> COPPER_SICKLE = registerWithTab("copper_sickle",
             () -> new SickleItem(Tiers.IRON, 8.0F - 1.0F, new Item.Properties().stacksTo(1))); // 与铁斧相同的伤害
 

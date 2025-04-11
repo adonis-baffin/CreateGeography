@@ -31,9 +31,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import static com.simibubi.create.foundation.utility.LangBuilder.DEFAULT_SPACE_WIDTH;
-
 public abstract class BaseBurnerBlockEntity extends BlockEntity implements IHaveGoggleInformation {
+    private static final float DEFAULT_SPACE_WIDTH = 4.0f;
 
     public static final double SEETHING_HEAT = CommonConfig.SEETHING_HEAT.get();
     public static final double KINDLED_HEAT = CommonConfig.KINDLED_HEAT.get();
@@ -113,7 +112,6 @@ public abstract class BaseBurnerBlockEntity extends BlockEntity implements IHave
     }
 
     protected BlazeBurnerBlock.HeatLevel getHeatLevel() {
-
         BlazeBurnerBlock.HeatLevel level = BlazeBurnerBlock.HeatLevel.NONE;
         if(this.heat>=SEETHING_HEAT){
             level = BlazeBurnerBlock.HeatLevel.SEETHING;
@@ -124,7 +122,6 @@ public abstract class BaseBurnerBlockEntity extends BlockEntity implements IHave
         }else if(this.heat>=SMOULDERING_HEAT){
             level = BlazeBurnerBlock.HeatLevel.SMOULDERING;
         }
-
         return level;
     }
 
@@ -143,7 +140,6 @@ public abstract class BaseBurnerBlockEntity extends BlockEntity implements IHave
     }
 
     public boolean addToGoggleTooltip(List<Component> tooltip, boolean isPlayerSneaking) {
-
         ChatFormatting formatting = switch (getHeatLevel()) {
             case NONE,SMOULDERING -> ChatFormatting.WHITE;
             case FADING,KINDLED -> ChatFormatting.GOLD;
@@ -153,7 +149,6 @@ public abstract class BaseBurnerBlockEntity extends BlockEntity implements IHave
                 Components.translatable(CreateGeography.MODID + ".burner.status." + getHeatLevel().name().toLowerCase()).withStyle(formatting)), 0);
         forGoggles(tooltip, Lang.builder(CreateGeography.MODID).add(getHeatComponent(true)), 1);
         return true;
-
     }
 
     public void forGoggles(List<? super MutableComponent> tooltip, LangBuilder builder, int indents) {

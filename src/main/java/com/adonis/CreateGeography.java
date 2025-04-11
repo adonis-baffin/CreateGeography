@@ -3,7 +3,9 @@ package com.adonis;
 import com.adonis.config.ClientConfig;
 import com.adonis.config.CommonConfig;
 import com.adonis.content.block.IndustrialComposterBlock;
+import com.adonis.data.TagsProvider;
 import com.adonis.datagen.DataGen;
+//import com.adonis.event.BowEvents;
 import com.adonis.fluid.FluidInteraction;
 import com.adonis.fluid.GeographyFluids;
 import com.adonis.recipe.FanProcessingTypes;
@@ -43,6 +45,7 @@ public class CreateGeography {
         EntityRegistry.ENTITIES.register(modEventBus);
         BlockEntityRegistry.BLOCK_ENTITY_TYPES.register(modEventBus);
 
+
         // 注册流体
         GeographyFluids.register();
 
@@ -53,6 +56,8 @@ public class CreateGeography {
         // 注册事件总线
         MinecraftForge.EVENT_BUS.register(this);
 
+        TagsProvider.registerTags();
+
         // 注册配方和处理器
         RecipeTypes.register(modEventBus);
         FanProcessingTypes.register();
@@ -62,6 +67,7 @@ public class CreateGeography {
         modEventBus.addListener(EventPriority.LOWEST, DataGen::gatherData);
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::clientSetup);
+//        MinecraftForge.EVENT_BUS.register(BowEvents.class);
 
         // 注册模型
         DRAGON_MODEL = new PartialModel(new ResourceLocation(MODID, "dragon_head_export"));
@@ -100,6 +106,7 @@ public class CreateGeography {
             // 客户端设置（如果需要额外逻辑可以在这里添加）
         }
     }
+
 
     public static ResourceLocation asResource(String path) {
         return new ResourceLocation(MODID, path);

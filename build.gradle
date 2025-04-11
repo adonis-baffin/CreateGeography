@@ -14,7 +14,7 @@ plugins {
 apply plugin: 'org.spongepowered.mixin'
 
 version = project.mod_version
-group = 'com.tom5454.creategeography' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.adonis'// http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'creategeography-1.20'
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
@@ -111,6 +111,7 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+
     maven {
         url = "http://localhost:8000"
         allowInsecureProtocol true
@@ -138,6 +139,7 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:0.8.7:processor"
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
+
     // compile against the JEI API but do not include it at runtime
 //    compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:15.2.0.22")
 //    compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.22")
@@ -157,6 +159,7 @@ dependencies {
 
     implementation fg.deobf('curse.maven:journeymap-32274:5208416')
 
+
     // Mekanism dependencies
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}")
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")
@@ -165,19 +168,32 @@ dependencies {
 }
 
 // Example for how to get properties into the manifest for reading at runtime.
+// ... existing code ...
+// ... 其他配置 ...
+
 jar {
     manifest {
         attributes([
                 "Specification-Title"     : "creategeography",
-                "Specification-Vendor"    : "tom5454",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Specification-Vendor"    : "adonis",
+                "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "adonis",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+    // 确保包含所有必要的资源
+    from sourceSets.main.output
+    // 包含 META-INF
+    include 'META-INF/**'
+    // 包含所有的类文件
+    include 'com/adonis/**'
 }
+
+// 确保重新混淆
+jar.finalizedBy('reobfJar')
+// ... existing code ...
 
 jar.finalizedBy('reobfJar')
 

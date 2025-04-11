@@ -61,13 +61,17 @@ public class SickleItem extends Item implements Vanishable {
     public SickleItem(Tier tier, float attackDamage, Properties properties) {
         super(properties.durability(tier.getUses()));
         this.tier = tier;
-        this.attackDamage = attackDamage; // 传入修饰符值，例如 9.0 表示总伤害 10.0
-        this.attackSpeed = -3.0F; // 基础 4.0 + (-3.0) = 1.0
+        this.attackDamage = attackDamage;
+        this.attackSpeed = -3.0F;
 
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", this.attackDamage, AttributeModifier.Operation.ADDITION));
-        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", this.attackSpeed, AttributeModifier.Operation.ADDITION));
+        // 修改为正确的伤害和攻击速度显示
+        builder.put(Attributes.ATTACK_DAMAGE, new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", 
+                attackDamage - 1, AttributeModifier.Operation.ADDITION)); // -1 是因为基础伤害为1
+        builder.put(Attributes.ATTACK_SPEED, new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", 
+                attackSpeed, AttributeModifier.Operation.ADDITION));
 
+        // 保持距离属性为加值形式
         Attribute reachDistance = ForgeRegistries.ATTRIBUTES.getValue(REACH_DISTANCE_RL);
         Attribute attackRange = ForgeRegistries.ATTRIBUTES.getValue(ATTACK_RANGE_RL);
 

@@ -16,18 +16,23 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public class PyroxeneHeaterBlockEntity extends SmartBlockEntity implements IBeamReceiver, IHaveGoggleInformation {
+    private static final Logger LOGGER = LogManager.getLogger("PyroxeneHeaterBlockEntity");
+
     private double heat = 0.0;
-    private static final double MAX_HEAT = 100.0; // 最大热量
-    private static final double HEATING_RATE = 2.0; // 每tick加热速率
-    private static final double COOLING_RATE = 1.0; // 每tick冷却速率
+    private static final double MAX_HEAT = 100.0;
+    private static final double HEATING_RATE = 2.0;
+    private static final double COOLING_RATE = 1.0;
     private boolean isReceivingLight = false;
-    private static final int BAR_LENGTH = 10; // 热量条长度
+    private static final int BAR_LENGTH = 10;
 
     public PyroxeneHeaterBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
@@ -37,29 +42,33 @@ public class PyroxeneHeaterBlockEntity extends SmartBlockEntity implements IBeam
     public void tick() {
         if (level == null || level.isClientSide) return;
 
-        // 更新热量
+        isReceivingLight = false;
+        for (Direction dir : Direction.values()) {
+            if (!dir.getAxis().isHorizontal()) continue;
+            BlockPos neighborPos = worldPosition.relative(dir);
+            BlockEntity be = level.getBlockEntity(neighborPos);
+            if (be instanceof IBeamSource source) {
+                BeamHelper.BeamProperties beam = source.getInitialBeamProperties();
+                if (beam != null && beam.direction == dir.getOpposite()) {
+                    isReceivingLight = true;
+                    LOGGER.info("Heater at " + worldPosition + " detected beam from " + neighborPos);
+                    break;
+                }
+            }
+        }
+
         if (isReceivingLight) {
             heat += HEATING_RATE;
+            LOGGER.info("Heater heat at " + worldPosition + " increased to " + heat);
         } else {
             heat -= COOLING_RATE;
         }
         heat = Mth.clamp(heat, 0.0, MAX_HEAT);
 
-        // 更新热等级
         BlazeBurnerBlock.HeatLevel newLevel = getHeatLevel();
         if (newLevel != getBlockState().getValue(PyroxeneHeaterBlock.HEAT_LEVEL)) {
             level.setBlockAndUpdate(worldPosition, getBlockState().setValue(PyroxeneHeaterBlock.HEAT_LEVEL, newLevel));
             setChanged();
-        }
-
-        // 重置光线接收状态
-        isReceivingLight = false;
-    }
-
-    public void receiveLight(Direction lightDirection) {
-        // 检查光线是否来自侧面
-        if (lightDirection.getAxis().isHorizontal()) {
-            isReceivingLight = true;
         }
     }
 
@@ -79,14 +88,12 @@ public class PyroxeneHeaterBlockEntity extends SmartBlockEntity implements IBeam
             case SEETHING -> ChatFormatting.BLUE;
         };
 
-        // 状态标题
         Lang.translate("creategeography.heater.status.title")
                 .style(ChatFormatting.GRAY)
                 .add(Lang.translate("creategeography.heater.status." + getHeatLevel().name().toLowerCase())
                         .style(formatting))
                 .forGoggles(tooltip);
 
-        // 热量条
         Lang.translate("creategeography.heater.heat")
                 .style(ChatFormatting.GRAY)
                 .add(getHeatComponent(true))
@@ -142,7 +149,10 @@ public class PyroxeneHeaterBlockEntity extends SmartBlockEntity implements IBeam
 
     @Override
     public void receive(IBeamSource source, BlockState state, BlockPos lastPos, BeamHelper.BeamProperties beamProperties, int lastIndex) {
-        receiveLight(beamProperties.direction);
+        if (beamProperties.direction.getAxis().isHorizontal()) {
+            isReceivingLight = true;
+            LOGGER.info("Heater at " + worldPosition + " received beam from " + lastPos);
+        }
     }
 
     @Override

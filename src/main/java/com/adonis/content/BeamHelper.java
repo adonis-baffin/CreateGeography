@@ -9,12 +9,15 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BeaconBeamBlock;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.function.BiConsumer;
 
 public class BeamHelper {
+    private static final Logger LOGGER = LogManager.getLogger("BeamHelper");
 
     public static class BeamProperties {
         public final float intensity;
@@ -60,15 +63,12 @@ public class BeamHelper {
                     this.color.equals(other.color) &&
                     this.beamType == other.beamType;
         }
-
-        public BeamType getType() {
-            return this.beamType;
-        }
     }
 
     public enum BeamType {
         DEFAULT(64, true, (entity, props) -> {}, (state, props) -> {}),
-        THERMAL(32, false, (entity, props) -> entity.setSecondsOnFire(5), (state, props) -> {});
+        THERMAL(32, false, (entity, props) -> entity.setSecondsOnFire(5), (state, props) -> {}),
+        SOLAR(16, true, (entity, props) -> {}, (state, props) -> {});
 
         private final int range;
         private final boolean canPassThroughEntities;
@@ -87,13 +87,8 @@ public class BeamHelper {
         public int getRange() {
             return range;
         }
-
-        public boolean canPassThroughEntities() {
-            return canPassThroughEntities;
-        }
     }
 
-    // 修复：正确混合颜色
     public static Vec3i colorSum(Vec3i color1, Vec3i color2) {
         int r = Math.min(255, (color1.getX() + color2.getX()) / 2);
         int g = Math.min(255, (color1.getY() + color2.getY()) / 2);
@@ -101,7 +96,6 @@ public class BeamHelper {
         return new Vec3i(r, g, b);
     }
 
-    // 将 DyeColor 转换为 Vec3i
     public static Vec3i dyeColorToVec3i(DyeColor dyeColor) {
         float[] rgb = dyeColor.getTextureDiffuseColors();
         int r = (int) (rgb[0] * 255);
@@ -110,25 +104,31 @@ public class BeamHelper {
         return new Vec3i(r, g, b);
     }
 
-    public static void propagateLinearBeamVar(IBeamSource iBeamSource, BlockPos initialPos, BeamProperties beamProperties, int lastIndex) {
-        if (iBeamSource.getInitialBeamProperties() == null) return;
+    public static void propagateLinearBeamVar(IBeamSource source, BlockPos initialPos, BeamProperties beamProperties, int lastIndex) {
+        Level level = source.getLevel();
+        if (level == null) return;
 
-        BlockPos lastPos = initialPos;
+        BlockPos startPos = initialPos;
         Direction direction = beamProperties.direction;
-        int range = 16; // 固定16格范围
+        int range = 16;
 
-        for (int i = 0; i + lastIndex <= range; i++) {
-            lastPos = lastPos.relative(direction);
-            Vec3i vec3 = lastPos;
-            BlockState state = iBeamSource.getLevel().getBlockState(lastPos);
-            boolean penetrable = state.isAir() || state.getLightBlock(iBeamSource.getLevel(), lastPos) == 0;
+        for (int i = 1; i <= range - lastIndex; i++) {
+            BlockPos currentPos = startPos.relative(direction, i);
+            if (!level.isLoaded(currentPos)) break;
 
-            if (state.getBlock() instanceof IBeamReceiver iBeamReceiver) {
-                iBeamSource.addToBeamBlocks(initialPos, vec3, beamProperties);
-                iBeamReceiver.receive(iBeamSource, state, lastPos, beamProperties, 0); // 重置lastIndex为0以支持16格新传播
+            BlockState state = level.getBlockState(currentPos);
+            boolean penetrable = state.isAir() || state.is(Blocks.LIGHT);
+
+            Vec3i startVec = new Vec3i(startPos.getX(), startPos.getY(), startPos.getZ());
+            Vec3i currentVec = new Vec3i(currentPos.getX(), currentPos.getY(), currentPos.getZ());
+            source.addToBeamBlocks(startVec, currentVec, beamProperties);
+
+            if (state.getBlock() instanceof IBeamReceiver receiver) {
+                LOGGER.info("Beam from " + startPos + " hit receiver at " + currentPos);
+                receiver.receive(source, state, startPos, beamProperties, lastIndex + i);
                 break;
-            } else if (i + lastIndex >= range || !penetrable) {
-                iBeamSource.addToBeamBlocks(initialPos, vec3, beamProperties);
+            } else if (!penetrable) {
+                LOGGER.info("Beam from " + startPos + " obstructed at " + currentPos + " by " + state.getBlock());
                 break;
             }
         }

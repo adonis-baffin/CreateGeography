@@ -27,13 +27,17 @@ public class BlockEntityRegistry {
                             .build(null));
 
 
+
+// ... 其他代码保持不变 ...
+
     public static final BlockEntityEntry<PyroxeneMirrorBlockEntity> PYROXENE_MIRROR = CreateGeography.REGISTRATE
             .blockEntity("pyroxene_mirror", PyroxeneMirrorBlockEntity::new)
-            .instance(() -> ShaftInstance::new)  // 绑定 ShaftInstance，支持传动杆
-            .validBlocks(BlockRegistry.PYROXENE_MIRROR)  // 关联方块
-            .renderer(() -> PyroxeneMirrorRenderer::new)  // 绑定渲染器
+            .instance(() -> ShaftInstance::new, false)  // 修改实例创建方式
+            .validBlocks(BlockRegistry.PYROXENE_MIRROR)
+            .renderer(() -> PyroxeneMirrorRenderer::new)  // 确保 PyroxeneMirrorRenderer 继承了正确的基类
             .register();
 
+    // ... 其他代码保持不变 ...
     // Pyroxene Heater 注册
     public static final BlockEntityEntry<PyroxeneHeaterBlockEntity> PYROXENE_HEATER =
             CreateGeography.REGISTRATE
