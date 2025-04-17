@@ -27,11 +27,11 @@ public abstract class FarmBlockMixin {
             level.setBlock(pos, SALINE_FARMLAND.get().defaultBlockState(), 3);
             ci.cancel(); // 取消原版逻辑
         }
-        // 检查附近是否有灰水
-        else if (isNearFluid(level, pos, GREY_WATER.get().getSource())) {
-            level.setBlock(pos, BLACK_FARMLAND.get().defaultBlockState(), 3);
-            ci.cancel(); // 取消原版逻辑
-        }
+//        // 检查附近是否有灰水
+//        else if (isNearFluid(level, pos, GREY_WATER.get().getSource())) {
+//            level.setBlock(pos, BLACK_FARMLAND.get().defaultBlockState(), 3);
+//            ci.cancel(); // 取消原版逻辑
+//        }
     }
 
     private boolean isNearFluid(ServerLevel level, BlockPos pos, Fluid fluid) {

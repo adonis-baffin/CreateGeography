@@ -9,7 +9,7 @@
     "accessor.BlazeBurnerBlockEntityAccessor",
     "category.BasinCategoryMixin",
     "FarmBlockMixin",
-    "NatureTransMixin"
+    "MudBlockMixin"
   ],
   "client": [],
   "server": []
