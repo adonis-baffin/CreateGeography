@@ -2,7 +2,6 @@ package com.adonis.registry;
 
 import com.adonis.CreateGeography;
 import com.adonis.content.block.*;
-import com.adonis.content.block.entity.ElectricBurnerBlockEntity;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntityInstance;
 import com.simibubi.create.content.kinetics.base.ShaftInstance;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
@@ -11,47 +10,15 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import static com.adonis.registry.BlockRegistry.ELECTRIC_BURNER;
-
 public class BlockEntityRegistry {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, CreateGeography.MODID);
 
-    public static final RegistryObject<BlockEntityType<ElectricBurnerBlockEntity>>
-            ELECTRIC_BURNER_ENTITY = BLOCK_ENTITY_TYPES.register("electric_burner",
-            () -> BlockEntityType.Builder.of(ElectricBurnerBlockEntity::new, ELECTRIC_BURNER.get()).build(null)
-    );
+
 
     public static final RegistryObject<BlockEntityType<IndustrialFurnaceBlockEntity>> INDUSTRIAL_FURNACE =
             BLOCK_ENTITY_TYPES.register("industrial_furnace",
                     () -> BlockEntityType.Builder.of(IndustrialFurnaceBlockEntity::new, BlockRegistry.INDUSTRIAL_FURNACE.get())
                             .build(null));
-
-
-
-// ... 其他代码保持不变 ...
-
-    public static final BlockEntityEntry<PyroxeneMirrorBlockEntity> PYROXENE_MIRROR = CreateGeography.REGISTRATE
-            .blockEntity("pyroxene_mirror", PyroxeneMirrorBlockEntity::new)
-            .instance(() -> ShaftInstance::new, false)  // 修改实例创建方式
-            .validBlocks(BlockRegistry.PYROXENE_MIRROR)
-            .renderer(() -> PyroxeneMirrorRenderer::new)  // 确保 PyroxeneMirrorRenderer 继承了正确的基类
-            .register();
-
-    // ... 其他代码保持不变 ...
-    // Pyroxene Heater 注册
-    public static final BlockEntityEntry<PyroxeneHeaterBlockEntity> PYROXENE_HEATER =
-            CreateGeography.REGISTRATE
-                    .blockEntity("pyroxene_heater", PyroxeneHeaterBlockEntity::new)
-                    .validBlocks(BlockRegistry.PYROXENE_HEATER)
-                    .register();
-
-    // 静态方法创建 BlockEntityType（可选，当前未使用）
-    private static BlockEntityType<PyroxeneMirrorBlockEntity> createPyroxeneMirrorType() {
-        return BlockEntityType.Builder.of(
-                (pos, state) -> new PyroxeneMirrorBlockEntity(PYROXENE_MIRROR.get(), pos, state),
-                BlockRegistry.PYROXENE_MIRROR.get()
-        ).build(null);
-    }
 
     public static final RegistryObject<BlockEntityType<SaltFilledWoodenFrameBlockEntity>> SALT_FILLED_WOODEN_FRAME =
             BLOCK_ENTITY_TYPES.register("salt_filled_wooden_frame",

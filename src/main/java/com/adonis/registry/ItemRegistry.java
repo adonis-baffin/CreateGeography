@@ -1,7 +1,6 @@
 package com.adonis.registry;
 
 import com.adonis.CreateGeography;
-import com.adonis.content.block.WoodenFrameItem;
 import com.adonis.content.item.*;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -81,8 +80,6 @@ public class ItemRegistry {
     // 工具与装备
     public static final RegistryObject<Item> GEOFRAGMENTATOR = ITEMS.register("geofragmentator", () -> new GeofragmentatorItem(basicItem()));
     public static final RegistryObject<Item> TREKKING_POLES = ITEMS.register("trekking_poles", () -> new TrekkingPoles(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> PYROXENE_GLASS_BLADE = registerWithTab("pyroxene_glass_blade", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> CATAPULTIC_GRAPPLING_HOOK = registerWithTab("catapultic_grappling_hook", () -> new Item(basicItem()));
     public static final RegistryObject<Item> DETACHABLE_BRASS_HILT = registerWithTab("detachable_brass_hilt", () -> new Item(basicItem()));
     public static final RegistryObject<Item> WINDPROOF_COAT = registerWithTab("windproof_coat", () -> new Item(basicItem()));
     public static final RegistryObject<Item> COPPER_DIVING_LEGGINGS = registerWithTab("copper_diving_leggings", () -> new Item(basicItem()));
@@ -106,32 +103,8 @@ public class ItemRegistry {
             () -> new SickleItem(Tiers.NETHERITE, 10.0F - 1.0F, new Item.Properties().stacksTo(1).fireResistant()));
 
     // 特殊物品
-    public static final RegistryObject<Item> ZINC_PLATE = registerWithTab("zinc_plate", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> VOLTAIC_PILE = registerWithTab("voltaic_pile", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> SILICON_PLATE = registerWithTab("silicon_plate", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> COPPER_COIL = registerWithTab("copper_coil", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> NICKEL_COIL = registerWithTab("nickel_coil", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> BATTER = registerWithTab("batter", () -> new Item(basicItem()));
     public static final RegistryObject<Item> GREASE = registerWithTab("grease", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PYROXENE_GLASS_PANE = registerWithTab("pyroxene_glass_pane", () -> new Item(basicItem()));
-
-    // 箭类物品
-    public static final RegistryObject<Item> EXPLOSIVE_ARROW = ITEMS.register("explosive_arrow",
-            () -> new ExplosiveArrowItem(new Item.Properties().stacksTo(64)));
-    public static final RegistryObject<Item> ENDER_CRYSTAL_ARROW = ITEMS.register("ender_crystal_arrow",
-            () -> new EnderCrystalArrowItem(new Item.Properties().stacksTo(64)));
-    public static final RegistryObject<Item> LIGHTNING_ARROW = ITEMS.register("lightning_arrow",
-            () -> new LightningArrowItem(new Item.Properties().stacksTo(64)));
-
-    // 食物
-    public static final RegistryObject<Item> PANCAKE = registerWithTab("pancake",
-            () -> new Item(foodItem(new FoodProperties.Builder().nutrition(12).saturationMod(19.2f).build())));
-    public static final RegistryObject<Item> JAM_PANCAKE = registerWithTab("jam_pancake",
-            () -> new Item(foodItem(new FoodProperties.Builder().nutrition(14).saturationMod(21f).build())));
-    public static final RegistryObject<Item> HONEY_PANCAKE = registerWithTab("honey_pancake",
-            () -> new Item(foodItem(new FoodProperties.Builder().nutrition(14).saturationMod(21f).build())));
-    public static final RegistryObject<Item> CHOCOLATE_PANCAKE = registerWithTab("chocolate_pancake",
-            () -> new Item(foodItem(new FoodProperties.Builder().nutrition(14).saturationMod(21f).build())));
 
     // 方块物品
     public static final RegistryObject<Item> SAND_PILE = registerWithTab("sand_pile",
@@ -213,8 +186,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NITER_BEARING_BLUE_ICE = registerWithTab("niter_bearing_blue_ice",
             () -> new BlockItem(BlockRegistry.NITER_BEARING_BLUE_ICE.get(), basicItem()));
 
-    public static final RegistryObject<Item> WOODEN_FRAME = registerWithTab("wooden_frame",
-            () -> new WoodenFrameItem(BlockRegistry.WOODEN_FRAME.get(), basicItem()));
+//    public static final RegistryObject<Item> WOODEN_FRAME = registerWithTab("wooden_frame",
+//            () -> new WoodenFrameItem(BlockRegistry.WOODEN_FRAME.get(), basicItem()));
     public static final RegistryObject<Item> WATER_FILLED_WOODEN_FRAME = registerWithTab("water_filled_wooden_frame",
             () -> new BlockItem(BlockRegistry.WATER_FILLED_WOODEN_FRAME.get(), basicItem()));
     public static final RegistryObject<Item> BRINE_FILLED_WOODEN_FRAME = registerWithTab("brine_filled_wooden_frame",
@@ -236,14 +209,11 @@ public class ItemRegistry {
             () -> new BlockItem(BlockRegistry.ANDESITE_FIRE_PIT.get(), basicItem()));
     public static final RegistryObject<Item> BRASS_FIRE_PIT = registerWithTab("brass_fire_pit",
             () -> new BlockItem(BlockRegistry.BRASS_FIRE_PIT.get(), basicItem()));
-    public static final RegistryObject<Item> MECHANICAL_FISHING_NET = registerWithTab("mechanical_fishing_net",
-            () -> new BlockItem(BlockRegistry.MECHANICAL_FISHING_NET.get(), basicItem()));
     public static final RegistryObject<Item> INDUSTRIAL_COMPOSTER = registerWithTab("industrial_composter",
             () -> new BlockItem(BlockRegistry.INDUSTRIAL_COMPOSTER.get(), basicItem()));
     public static final RegistryObject<Item> INDUSTRIAL_ANVIL_ITEM = ITEMS.register("industrial_anvil",
             () -> new BlockItem(BlockRegistry.INDUSTRIAL_ANVIL.get(), new Item.Properties()));
     public static final RegistryObject<Item> INDUSTRIAL_FURNACE_ITEM = ITEMS.register("industrial_furnace",
             () -> new BlockItem(BlockRegistry.INDUSTRIAL_FURNACE.get(), new Item.Properties()));
-    public static final RegistryObject<Item> ELECTRIC_BURNER_ITEM = ITEMS.register("electric_burner",
-            () -> new BlockItem(BlockRegistry.ELECTRIC_BURNER.get(), new Item.Properties()));
+
 }

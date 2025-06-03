@@ -5,9 +5,6 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "creategeography.refmap.json",
   "mixins": [
-    "AnimatedBlazeBurnerMixin",
-    "accessor.BlazeBurnerBlockEntityAccessor",
-    "category.BasinCategoryMixin",
     "FarmBlockMixin",
     "MudBlockMixin"
   ],

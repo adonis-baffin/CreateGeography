@@ -11,11 +11,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import static com.adonis.fluid.GeographyFluids.BRINE;
-import static com.adonis.fluid.GeographyFluids.GREY_WATER;
 import static com.adonis.registry.BlockRegistry.SALINE_FARMLAND;
-import static com.adonis.registry.BlockRegistry.BLACK_FARMLAND;
+
 
 @Mixin(FarmBlock.class)
 public abstract class FarmBlockMixin {
@@ -27,11 +25,6 @@ public abstract class FarmBlockMixin {
             level.setBlock(pos, SALINE_FARMLAND.get().defaultBlockState(), 3);
             ci.cancel(); // 取消原版逻辑
         }
-//        // 检查附近是否有灰水
-//        else if (isNearFluid(level, pos, GREY_WATER.get().getSource())) {
-//            level.setBlock(pos, BLACK_FARMLAND.get().defaultBlockState(), 3);
-//            ci.cancel(); // 取消原版逻辑
-//        }
     }
 
     private boolean isNearFluid(ServerLevel level, BlockPos pos, Fluid fluid) {

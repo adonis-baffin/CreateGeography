@@ -423,13 +423,6 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.copy(ANDESITE_FIRE_PIT.get())
                     .mapColor(MapColor.METAL)));
 
-    public static final RegistryObject<Block> MECHANICAL_FISHING_NET = BLOCKS.register("mechanical_fishing_net",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.METAL)
-                    .strength(4.0F)
-                    .sound(SoundType.METAL)
-                    .noOcclusion()));
-
     public static final RegistryObject<Block> INDUSTRIAL_COMPOSTER = BLOCKS.register("industrial_composter",
             () -> new IndustrialComposterBlock(BlockBehaviour.Properties.copy(Blocks.COMPOSTER)
                     .strength(1.5F)
@@ -441,38 +434,4 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> INDUSTRIAL_FURNACE = BLOCKS.register("industrial_furnace",
             () -> new IndustrialFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.FURNACE)));
-
-    public static final RegistryObject<Block> ELECTRIC_BURNER = BLOCKS.register("electric_burner",
-            () -> new ElectricBurnerBlock(BlockBehaviour.Properties.copy(Blocks.STONE)));
-
-    // Registrate 注册的方块
-    public static final BlockEntry<PyroxeneHeaterBlock> PYROXENE_HEATER =
-            CreateGeography.REGISTRATE
-                    .block("pyroxene_heater", PyroxeneHeaterBlock::new)
-                    .initialProperties(SharedProperties::stone)
-                    .properties(p -> p.strength(2.0F).requiresCorrectToolForDrops())
-                    .blockstate((ctx, prov) -> {
-                        prov.simpleBlock(ctx.get(), prov.models()
-                                .cubeAll(ctx.getName(), prov.modLoc("block/pyroxene_heater")));
-                    })
-                    .transform(TagGen.axeOrPickaxe())
-                    .item()
-                    .transform(ModelGen.customItemModel())
-                    .register();
-
-    public static final BlockEntry<PyroxeneMirrorBlock> PYROXENE_MIRROR = CreateGeography.REGISTRATE
-            .block("pyroxene_mirror", PyroxeneMirrorBlock::new)
-            .properties(p -> p
-                    .mapColor(MapColor.STONE)
-                    .strength(2.0F)
-                    .requiresCorrectToolForDrops()
-                    .sound(SoundType.STONE))
-            .blockstate((ctx, prov) -> {
-                prov.directionalBlock(ctx.get(), prov.models()
-                        .withExistingParent(ctx.getName(), "creategeography:block/encased_mirror/mirror"));
-            })
-            .transform(TagGen.axeOrPickaxe())
-            .item()
-            .transform(ModelGen.customItemModel())
-            .register();
 }

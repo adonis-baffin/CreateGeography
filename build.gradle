@@ -139,37 +139,22 @@ dependencies {
     annotationProcessor "org.spongepowered:mixin:0.8.7:processor"
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
-
-    // compile against the JEI API but do not include it at runtime
-//    compileOnly fg.deobf("mezz.jei:jei-1.20.1-forge-api:15.2.0.22")
-//    compileOnly fg.deobf("mezz.jei:jei-1.20.1-common-api:15.2.0.22")
-//    // at runtime, use the full JEI jar
-//    runtimeOnly fg.deobf("mezz.jei:jei-1.20.1-forge:15.2.0.22")
-
     implementation fg.deobf("curse.maven:the-one-probe-245211:4579432")
 
     implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
-
-    implementation fg.deobf("dev.latvian.mods:kubejs-forge:2001.6.3-build.45")
-    implementation fg.deobf("dev.latvian.mods:rhino-forge:2001.2.2-build.6")
-    implementation fg.deobf("dev.architectury:architectury-forge:9.1.12")
 
     compileOnly fg.deobf('curse.maven:cc-tweaked-282001:4823493')
 
     implementation fg.deobf('curse.maven:journeymap-32274:5208416')
 
 
-    // Mekanism dependencies
+//     Mekanism dependencies
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}")
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")
     implementation fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")
     runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")
 }
-
-// Example for how to get properties into the manifest for reading at runtime.
-// ... existing code ...
-// ... 其他配置 ...
 
 jar {
     manifest {
