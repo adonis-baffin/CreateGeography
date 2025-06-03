@@ -63,7 +63,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BIOTITE = registerWithTab("biotite", () -> new Item(basicItem()));
     public static final RegistryObject<Item> SALT = registerWithTab("salt", () -> new Item(basicItem()));
     public static final RegistryObject<Item> WOOD_FIBER = registerWithTab("wood_fiber", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> DIRT_CLOD = registerWithTab("dirt_clods", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> DIRT_CLOD = registerWithTab("dirt_clod", () -> new Item(basicItem()));
 
     // 冰相关物品
     public static final RegistryObject<Item> ICE_SHARDS = registerWithTab("ice_shards", () -> new Item(basicItem()));
@@ -186,8 +186,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> NITER_BEARING_BLUE_ICE = registerWithTab("niter_bearing_blue_ice",
             () -> new BlockItem(BlockRegistry.NITER_BEARING_BLUE_ICE.get(), basicItem()));
 
-//    public static final RegistryObject<Item> WOODEN_FRAME = registerWithTab("wooden_frame",
-//            () -> new WoodenFrameItem(BlockRegistry.WOODEN_FRAME.get(), basicItem()));
     public static final RegistryObject<Item> WATER_FILLED_WOODEN_FRAME = registerWithTab("water_filled_wooden_frame",
             () -> new BlockItem(BlockRegistry.WATER_FILLED_WOODEN_FRAME.get(), basicItem()));
     public static final RegistryObject<Item> BRINE_FILLED_WOODEN_FRAME = registerWithTab("brine_filled_wooden_frame",
