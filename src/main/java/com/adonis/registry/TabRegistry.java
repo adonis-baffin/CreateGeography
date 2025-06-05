@@ -26,9 +26,10 @@ public class TabRegistry {
                 output.accept(ItemRegistry.RED_SAND_DUST.get());           // 红沙尘
                 output.accept(ItemRegistry.ASH.get());                     // 灰烬
                 output.accept(ItemRegistry.QUARTZ_SAND.get());             // 石英砂
-                output.accept(ItemRegistry.SULFUR_POWDER.get());           // 硫磺粉
-                output.accept(ItemRegistry.COAL_POWDER.get());             // 煤炭粉
                 output.accept(ItemRegistry.NITER.get());                   // 硝石
+                output.accept(ItemRegistry.SULFUR_POWDER.get());           // 硫磺粉
+                output.accept(ItemRegistry.COAL_POWDER.get());             // 煤粉
+                output.accept(ItemRegistry.CHARCOAL_POWDER.get());         // 木炭粉
                 output.accept(ItemRegistry.NITER_POWDER.get());            // 硝石粉
                 output.accept(ItemRegistry.SALT.get());                    // 盐
                 output.accept(ItemRegistry.DIRT_CLOD.get());               // 土坷

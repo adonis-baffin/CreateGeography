@@ -6,7 +6,9 @@
   "refmap": "creategeography.refmap.json",
   "mixins": [
     "FarmBlockMixin",
-    "MudBlockMixin"
+    "MudBlockMixin",
+    "AbstractChuteBlockMixin",
+    "ChuteBlockEntityMixin"
   ],
   "client": [],
   "server": []

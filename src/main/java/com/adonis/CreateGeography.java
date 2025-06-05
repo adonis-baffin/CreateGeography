@@ -1,16 +1,13 @@
 package com.adonis;
 
-import com.adonis.content.block.IndustrialComposterBlock;
+import com.adonis.event.IndustrialBlockInteractionHandler;
 import com.adonis.fluid.FluidInteraction;
 import com.adonis.fluid.GeographyFluids;
 import com.adonis.registry.*;
-import com.jozufozu.flywheel.core.PartialModel;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -35,12 +32,11 @@ public class CreateGeography {
         EntityRegistry.ENTITIES.register(modEventBus);
         BlockEntityRegistry.BLOCK_ENTITY_TYPES.register(modEventBus);
 
-
         // 注册流体
         GeographyFluids.register();
 
-        // 注册事件总线
-        MinecraftForge.EVENT_BUS.register(this);
+        // 注册事件处理器（只处理堆肥桶批量堆肥，溜槽连接由Mixin处理）
+        MinecraftForge.EVENT_BUS.register(IndustrialBlockInteractionHandler.class);
 
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(this::commonSetup);
@@ -53,27 +49,12 @@ public class CreateGeography {
         });
     }
 
-    @SubscribeEvent
-    public void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
-        BlockState state = event.getLevel().getBlockState(event.getPos());
-        if (state.getBlock() instanceof IndustrialComposterBlock && event.getEntity().isShiftKeyDown()) {
-            if (!event.getLevel().isClientSide) {
-                ((IndustrialComposterBlock) state.getBlock()).bulkCompost(
-                        state, event.getLevel(), event.getPos(), event.getEntity(), event.getHand(), event.getHitVec()
-                );
-            }
-            event.setCanceled(true);
-            event.setCancellationResult(net.minecraft.world.InteractionResult.SUCCESS);
-        }
-    }
-
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
         }
     }
-
 
     public static ResourceLocation asResource(String path) {
         return new ResourceLocation(MODID, path);
