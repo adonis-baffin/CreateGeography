@@ -11,17 +11,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 /**
- * 扩展AbstractChuteBlock的isChute方法
- * 让机械动力的溜槽系统识别工业方块为可连接的溜槽
- *
- * 注意：只扩展isChute方法，不处理getChuteFacing以避免类型转换错误
+ * 完全恢复原本的AbstractChuteBlock Mixin
+ * 这是连接线显示的关键！
  */
 @Mixin(value = AbstractChuteBlock.class, remap = false)
 public class AbstractChuteBlockMixin {
 
     /**
      * 扩展isChute方法，让工业方块被识别为溜槽
-     * 这样机械动力的溜槽就能连接到工业方块
+     * 这样机械动力的溜槽就能连接到工业方块并显示连接线
      */
     @Inject(method = "isChute", at = @At("HEAD"), cancellable = true)
     private static void expandChuteDefinition(BlockState state, CallbackInfoReturnable<Boolean> cir) {

@@ -32,14 +32,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class IndustrialFurnaceBlock extends FurnaceBlock implements IWrenchable, ProperWaterloggedBlock {
-    private static final Logger LOGGER = LoggerFactory.getLogger("CreateGeography-ChuteConnection");
 
-    // 添加连接属性，表示六个方向是否有溜槽连接
+    // 连接属性，表示六个方向是否有溜槽连接
     public static final BooleanProperty NORTH_CHUTE = BooleanProperty.create("north_chute");
     public static final BooleanProperty SOUTH_CHUTE = BooleanProperty.create("south_chute");
     public static final BooleanProperty EAST_CHUTE = BooleanProperty.create("east_chute");
@@ -85,7 +81,7 @@ public class IndustrialFurnaceBlock extends FurnaceBlock implements IWrenchable,
         return this.fluidState(state);
     }
 
-    // 更新溜槽连接状态
+    // 更新溜槽连接状态 - 这是关键方法
     private BlockState updateChuteConnections(BlockState state, BlockGetter level, BlockPos pos) {
         boolean[] connections = ChuteConnectionHelper.checkAllDirections(level, pos);
 
@@ -173,11 +169,21 @@ public class IndustrialFurnaceBlock extends FurnaceBlock implements IWrenchable,
         super.neighborChanged(state, level, pos, changedBlock, changedPos, isMoving);
 
         if (!level.isClientSide) {
-            // 使用统一的连接检测并更新状态
+            // 关键修复：立即更新连接状态
             BlockState newState = updateChuteConnections(state, level, pos);
             if (!state.equals(newState)) {
                 level.setBlockAndUpdate(pos, newState);
             }
+        }
+    }
+
+    // 添加调度tick方法来处理延迟更新
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        // 处理延迟的连接状态更新
+        BlockState newState = updateChuteConnections(state, level, pos);
+        if (!state.equals(newState)) {
+            level.setBlockAndUpdate(pos, newState);
         }
     }
 

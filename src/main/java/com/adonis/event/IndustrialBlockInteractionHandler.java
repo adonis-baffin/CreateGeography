@@ -23,20 +23,13 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
- * 完整的工业方块交互处理器
- * 功能：
- * 1. 处理溜槽连接到工业方块（使用机械动力的连接逻辑）
- * 2. 处理工业堆肥桶的批量堆肥（Shift+右键）
- * 3. 处理原版方块转换为工业方块（使用工业铁块右键）
+ * 恢复原本工作的工业方块交互处理器
+ * 保持原本的溜槽连接逻辑不变，只清理日志
  */
 @Mod.EventBusSubscriber
 public class IndustrialBlockInteractionHandler {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger("CreateGeography-ChuteConnection");
 
     @SubscribeEvent
     public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
@@ -72,7 +65,7 @@ public class IndustrialBlockInteractionHandler {
     }
 
     /**
-     * 处理溜槽连接 - 完全模仿机械动力的溜槽放置逻辑
+     * 处理溜槽连接 - 完全恢复原本的逻辑
      */
     private static boolean handleChuteConnection(PlayerInteractEvent.RightClickBlock event, BlockState state,
                                                  Level level, BlockPos pos, Player player, ItemStack heldItem) {

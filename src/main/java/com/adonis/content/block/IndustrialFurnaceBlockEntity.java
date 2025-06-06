@@ -17,13 +17,10 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.SidedInvWrapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.annotation.Nullable;
 
 public class IndustrialFurnaceBlockEntity extends FurnaceBlockEntity {
-    private static final Logger LOGGER = LoggerFactory.getLogger("CreateGeography-IndustrialFurnace");
 
     private static final int BASE_SPEED_MULTIPLIER = 2;
     private static final int SUPER_HEATED_MULTIPLIER = 8;
@@ -72,11 +69,8 @@ public class IndustrialFurnaceBlockEntity extends FurnaceBlockEntity {
     }
 
     /**
-     * 改进的物品接收方法，支持来自溜槽的物品输入
-     * 修复：防止物品重复，正确处理物品数量
-     * @param stack 要输入的物品堆栈（这个堆栈会被直接修改）
-     * @param fromDirection 物品来源方向
-     * @return 是否成功接收物品
+     * 重新设计的物品接收方法 - 模拟原版的单个物品处理
+     * 返回是否成功接收了物品
      */
     public boolean acceptItemFromChute(ItemStack stack, Direction fromDirection) {
         if (level == null || level.isClientSide || stack.isEmpty()) {
@@ -90,90 +84,75 @@ public class IndustrialFurnaceBlockEntity extends FurnaceBlockEntity {
         }
 
         if (!industrialFurnace.hasChuteConnection(state, fromDirection)) {
-            LOGGER.debug("此方向没有溜槽连接: {}", fromDirection);
             return false;
         }
 
-        LOGGER.debug("工业熔炉接收物品: {} 从方向 {}", stack, fromDirection);
-
-        // 分别处理不同方向的输入
-        boolean success = false;
-        int originalCount = stack.getCount();
-
-        if (fromDirection.getAxis().isHorizontal()) {
-            // 侧面输入：智能分配到燃料槽或原料槽
-            success = handleSideInput(stack);
-        } else if (fromDirection == Direction.UP) {
-            // 顶部输入：只能放入原料槽
-            success = handleTopInput(stack);
-        } else if (fromDirection == Direction.DOWN) {
-            // 底部输入：目前不支持
+        // 确定目标槽位
+        int targetSlot = getTargetSlot(stack, fromDirection);
+        if (targetSlot < 0) {
             return false;
         }
 
-        if (success) {
-            setChanged();
-            int consumedCount = originalCount - stack.getCount();
-            LOGGER.debug("物品成功输入到工业熔炉，消耗数量: {}", consumedCount);
-        }
-
-        return success;
-    }
-
-    /**
-     * 处理侧面输入 - 智能分配到燃料槽或原料槽
-     */
-    private boolean handleSideInput(ItemStack stack) {
-        // 如果是燃料，优先尝试放入燃料槽
-        if (AbstractFurnaceBlockEntity.isFuel(stack)) {
-            if (tryInsertToSlot(stack, 1)) { // 燃料槽
-                return true;
-            }
-        }
-
-        // 否则尝试放入原料槽
-        return tryInsertToSlot(stack, 0); // 原料槽
-    }
-
-    /**
-     * 处理顶部输入 - 只能放入原料槽
-     */
-    private boolean handleTopInput(ItemStack stack) {
-        return tryInsertToSlot(stack, 0); // 原料槽
-    }
-
-    /**
-     * 尝试将物品插入指定槽位
-     * 修复：直接修改传入的ItemStack，而不是创建新的
-     * @param stack 要插入的物品（会被直接修改）
-     * @param slot 目标槽位（0=原料，1=燃料，2=输出）
-     * @return 是否成功插入
-     */
-    private boolean tryInsertToSlot(ItemStack stack, int slot) {
-        ItemStack currentStack = getItem(slot);
-
-        // 检查槽位是否为空或物品类型匹配
-        if (currentStack.isEmpty()) {
-            // 槽位为空，尝试插入尽可能多的物品
-            int maxInsert = Math.min(stack.getCount(), stack.getMaxStackSize());
-            if (maxInsert > 0) {
-                setItem(slot, new ItemStack(stack.getItem(), maxInsert));
-                stack.shrink(maxInsert);
-                return true;
-            }
-        } else if (currentStack.is(stack.getItem()) && currentStack.getCount() < currentStack.getMaxStackSize()) {
-            // 槽位有相同物品且未满，尝试合并
-            int canAdd = currentStack.getMaxStackSize() - currentStack.getCount();
-            int toAdd = Math.min(stack.getCount(), canAdd);
-
-            if (toAdd > 0) {
-                currentStack.grow(toAdd);
-                stack.shrink(toAdd);
-                return true;
-            }
+        // 检查是否可以插入
+        if (canInsertIntoSlot(stack, targetSlot)) {
+            // 实际插入一个物品
+            insertSingleItemIntoSlot(stack, targetSlot);
+            return true;
         }
 
         return false;
+    }
+
+    /**
+     * 根据方向和物品类型确定目标槽位
+     */
+    private int getTargetSlot(ItemStack stack, Direction fromDirection) {
+        if (fromDirection == Direction.UP) {
+            // 顶部只能输入原料
+            return 0;
+        } else if (fromDirection.getAxis().isHorizontal()) {
+            // 侧面：燃料优先放燃料槽，其他放原料槽
+            if (AbstractFurnaceBlockEntity.isFuel(stack)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        return -1; // 不支持的方向
+    }
+
+    /**
+     * 检查是否可以向指定槽位插入物品
+     */
+    private boolean canInsertIntoSlot(ItemStack stack, int slot) {
+        ItemStack existing = getItem(slot);
+
+        if (existing.isEmpty()) {
+            return true;
+        }
+
+        // 检查是否可以堆叠
+        return ItemStack.isSameItemSameTags(existing, stack) &&
+                existing.getCount() < existing.getMaxStackSize();
+    }
+
+    /**
+     * 向指定槽位插入一个物品
+     */
+    private void insertSingleItemIntoSlot(ItemStack stack, int slot) {
+        ItemStack existing = getItem(slot);
+
+        if (existing.isEmpty()) {
+            // 槽位为空，放入一个物品
+            setItem(slot, new ItemStack(stack.getItem(), 1));
+        } else {
+            // 槽位有物品，增加一个
+            existing.grow(1);
+        }
+
+        // 从输入堆栈中移除一个
+        stack.shrink(1);
+        setChanged();
     }
 
     // 创建自定义的tick方法

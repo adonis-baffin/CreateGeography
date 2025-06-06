@@ -3,6 +3,7 @@ package com.adonis.content.block;
 import com.adonis.utils.ChuteConnectionHelper;
 import com.simibubi.create.content.equipment.wrench.IWrenchable;
 import com.simibubi.create.content.logistics.chute.AbstractChuteBlock;
+import com.simibubi.create.content.logistics.chute.ChuteBlockEntity;
 import com.simibubi.create.foundation.block.ProperWaterloggedBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.ComposterBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
@@ -29,21 +31,19 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class IndustrialComposterBlock extends ComposterBlock implements IWrenchable, ProperWaterloggedBlock {
-    private static final Logger LOGGER = LoggerFactory.getLogger("CreateGeography-ChuteConnection");
 
-    // 添加连接属性
+    // 连接属性
     public static final BooleanProperty NORTH_CHUTE = BooleanProperty.create("north_chute");
     public static final BooleanProperty SOUTH_CHUTE = BooleanProperty.create("south_chute");
     public static final BooleanProperty EAST_CHUTE = BooleanProperty.create("east_chute");
     public static final BooleanProperty WEST_CHUTE = BooleanProperty.create("west_chute");
     public static final BooleanProperty UP_CHUTE = BooleanProperty.create("up_chute");
+    public static final BooleanProperty DOWN_CHUTE = BooleanProperty.create("down_chute");
 
     public IndustrialComposterBlock(Properties properties) {
         super(properties);
@@ -54,28 +54,18 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
                 .setValue(EAST_CHUTE, false)
                 .setValue(WEST_CHUTE, false)
                 .setValue(UP_CHUTE, false)
+                .setValue(DOWN_CHUTE, false)
                 .setValue(WATERLOGGED, false));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(LEVEL, NORTH_CHUTE, SOUTH_CHUTE, EAST_CHUTE, WEST_CHUTE, UP_CHUTE, WATERLOGGED);
+        builder.add(LEVEL, NORTH_CHUTE, SOUTH_CHUTE, EAST_CHUTE, WEST_CHUTE, UP_CHUTE, DOWN_CHUTE, WATERLOGGED);
     }
 
-    // 使用原版堆肥桶的形状
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return super.getShape(state, level, pos, context);
-    }
-
-    @Override
-    public VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
-        return super.getInteractionShape(state, level, pos);
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return super.getCollisionShape(state, level, pos, context);
     }
 
     @Override
@@ -99,12 +89,12 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
     // 更新溜槽连接状态
     private BlockState updateChuteConnections(BlockState state, BlockGetter level, BlockPos pos) {
         boolean[] connections = ChuteConnectionHelper.checkAllDirections(level, pos);
-
-        return state.setValue(NORTH_CHUTE, connections[0])   // NORTH
-                .setValue(SOUTH_CHUTE, connections[1])       // SOUTH
-                .setValue(EAST_CHUTE, connections[2])        // EAST
-                .setValue(WEST_CHUTE, connections[3])        // WEST
-                .setValue(UP_CHUTE, connections[4]);         // UP (堆肥桶没有DOWN连接)
+        return state.setValue(NORTH_CHUTE, connections[0])
+                .setValue(SOUTH_CHUTE, connections[1])
+                .setValue(EAST_CHUTE, connections[2])
+                .setValue(WEST_CHUTE, connections[3])
+                .setValue(UP_CHUTE, connections[4])
+                .setValue(DOWN_CHUTE, connections[5]);
     }
 
     // 检查某个方向是否有溜槽连接
@@ -115,50 +105,119 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
             case EAST -> state.getValue(EAST_CHUTE);
             case WEST -> state.getValue(WEST_CHUTE);
             case UP -> state.getValue(UP_CHUTE);
-            case DOWN -> false; // 堆肥桶底部不接受输入
+            case DOWN -> state.getValue(DOWN_CHUTE);
         };
     }
 
-    // 当有物品从溜槽输入时调用此方法 - 支持批量处理
+    /**
+     * 从溜槽接受单个物品输入 - 完全重写，解决自动化问题
+     */
     public boolean acceptItemFromChute(ItemStack stack, Level level, BlockPos pos, BlockState state) {
-        if (level.isClientSide) return false;
-
-        float chance = ComposterBlock.COMPOSTABLES.getOrDefault(stack.getItem(), 0.0F);
-        if (chance <= 0.0F) return false;
-
-        int currentLevel = state.getValue(LEVEL);
-        if (currentLevel >= 8) return false;
-
-        // 高效批量处理逻辑 - 一次性处理整个堆栈
-        RandomSource random = level.getRandom();
-        int consumed = 0;
-        int stackSize = stack.getCount();
-        int maxProcess = Math.min(stackSize, 64 - currentLevel); // 最多处理到满级
-
-        // 批量计算成功次数
-        for (int i = 0; i < maxProcess && currentLevel < 8; i++) {
-            if (random.nextFloat() < chance) {
-                currentLevel++;
-            }
-            consumed++;
-
-            // 如果满了就停止
-            if (currentLevel >= 8) break;
+        if (level.isClientSide || stack.isEmpty()) {
+            return false;
         }
 
-        if (consumed > 0) {
-            // 更新方块状态
-            level.setBlock(pos, state.setValue(LEVEL, currentLevel), 3);
-            stack.shrink(consumed);
+        // 检查物品是否可堆肥
+        float chance = ComposterBlock.COMPOSTABLES.getOrDefault(stack.getItem(), 0.0F);
+        if (chance <= 0.0F) {
+            return false;
+        }
 
-            // 播放音效和粒子效果
-            level.playSound(null, pos, SoundEvents.COMPOSTER_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-            level.levelEvent(1500, pos, currentLevel >= 8 ? 1 : 0);
+        int currentLevel = state.getValue(LEVEL);
 
-            // 如果达到满级，自动输出骨粉
-            if (currentLevel >= 8) {
-                extractCompost(state.setValue(LEVEL, currentLevel), level, pos, null);
+        // 关键修复：如果满级，先尝试输出
+        if (currentLevel >= 8) {
+            if (hasChuteConnection(state, Direction.DOWN)) {
+                boolean outputSuccess = tryOutputToChute(level, pos, state);
+                if (outputSuccess) {
+                    // 成功输出后，重新获取等级
+                    currentLevel = level.getBlockState(pos).getValue(LEVEL);
+                } else {
+                    // 输出失败，拒绝接受新物品
+                    return false;
+                }
+            } else {
+                // 没有输出溜槽且满级，拒绝输入
+                return false;
             }
+        }
+
+        // 检查等级（输出后可能已经变化）
+        if (currentLevel >= 8) {
+            return false;
+        }
+
+        // 进行堆肥判定
+        RandomSource random = level.getRandom();
+        boolean success = random.nextFloat() < chance;
+
+        if (success) {
+            currentLevel++;
+            // 更新方块状态
+            BlockState newState = state.setValue(LEVEL, currentLevel);
+            level.setBlock(pos, newState, 3);
+
+            // 播放成功音效
+            level.playSound(null, pos, SoundEvents.COMPOSTER_FILL_SUCCESS, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.levelEvent(1500, pos, 1);
+
+            // 如果满级，安排输出检查
+            if (currentLevel >= 8) {
+                level.scheduleTick(pos, this, 2);
+            }
+        } else {
+            // 堆肥失败，播放普通音效
+            level.playSound(null, pos, SoundEvents.COMPOSTER_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
+            level.levelEvent(1500, pos, 0);
+        }
+
+        // 无论成功失败都消耗物品
+        stack.shrink(1);
+        return true;
+    }
+
+    /**
+     * 尝试输出骨粉到下方溜槽
+     */
+    private boolean tryOutputToChute(Level level, BlockPos pos, BlockState state) {
+        if (state.getValue(LEVEL) != 8) {
+            return false;
+        }
+
+        BlockPos chutePos = pos.below();
+        BlockState chuteState = level.getBlockState(chutePos);
+
+        if (!AbstractChuteBlock.isChute(chuteState)) {
+            return false;
+        }
+
+        BlockEntity be = level.getBlockEntity(chutePos);
+        if (!(be instanceof ChuteBlockEntity chuteEntity)) {
+            return false;
+        }
+
+        ItemStack existingItem = chuteEntity.getItem();
+
+        // 检查溜槽是否能接受骨粉
+        boolean canInsert = false;
+        if (existingItem.isEmpty()) {
+            canInsert = true;
+        } else if (existingItem.is(Items.BONE_MEAL) &&
+                existingItem.getCount() < existingItem.getMaxStackSize()) {
+            canInsert = true;
+        }
+
+        if (canInsert) {
+            // 输出到溜槽
+            if (existingItem.isEmpty()) {
+                chuteEntity.setItem(new ItemStack(Items.BONE_MEAL, 1));
+            } else {
+                existingItem.grow(1);
+            }
+
+            // 重置堆肥桶等级
+            level.setBlock(pos, state.setValue(LEVEL, 0), 3);
+            level.playSound(null, pos, SoundEvents.COMPOSTER_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
 
             return true;
         }
@@ -166,22 +225,63 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
         return false;
     }
 
+    /**
+     * 重写tick方法 - 处理自动输出
+     */
+    @Override
+    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        int currentLevel = state.getValue(LEVEL);
+
+        if (currentLevel == 7) {
+            // 原版逻辑：7级自动变8级
+            level.setBlock(pos, state.setValue(LEVEL, 8), 3);
+            level.playSound(null, pos, SoundEvents.COMPOSTER_READY, SoundSource.BLOCKS, 1.0F, 1.0F);
+
+            // 立即尝试输出
+            level.scheduleTick(pos, this, 1);
+        } else if (currentLevel == 8 && hasChuteConnection(state, Direction.DOWN)) {
+            // 8级且有下方溜槽，尝试输出
+            tryOutputToChute(level, pos, state);
+        }
+    }
+
+    /**
+     * 重写onPlace确保7级时正确调度tick
+     */
+    @Override
+    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
+        if (state.getValue(LEVEL) == 7) {
+            level.scheduleTick(pos, this, 20);
+        }
+    }
+
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        // 非潜行状态，手持可堆肥物品时使用原版逻辑
         ItemStack heldItem = player.getItemInHand(hand);
         if (!player.isShiftKeyDown() && !heldItem.isEmpty() && ComposterBlock.COMPOSTABLES.containsKey(heldItem.getItem())) {
             return super.use(state, level, pos, player, hand, hit);
         }
-        // 潜行交互由事件监听处理
         return InteractionResult.PASS;
     }
 
-    // 批量堆肥方法（由事件调用）
+    /**
+     * 批量堆肥方法（由事件调用）
+     */
     public void bulkCompost(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (level.isClientSide) return;
 
         int currentLevel = state.getValue(LEVEL);
+
+        // 如果满级，尝试提取或自动输出
+        if (currentLevel == 8) {
+            if (hasChuteConnection(state, Direction.DOWN)) {
+                tryOutputToChute(level, pos, state);
+            } else {
+                extractCompost(state, level, pos, player);
+            }
+            return;
+        }
+
         List<Integer> compostableSlots = new ArrayList<>();
 
         // 扫描背包中的可堆肥非食物物品
@@ -194,54 +294,46 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
             }
         }
 
-        // 如果没有可堆肥物品且堆肥桶满级，提取骨粉
-        if (compostableSlots.isEmpty()) {
-            if (currentLevel == 8) {
-                extractCompost(state, level, pos, player);
-            }
-            return;
-        }
+        if (compostableSlots.isEmpty()) return;
 
-        // 开始批量堆肥
+        // 批量堆肥
         boolean anySuccess = false;
         RandomSource random = level.getRandom();
-        boolean wasFullAfterOperation = false;
 
         for (int slot : compostableSlots) {
-            if (currentLevel >= 8) break;
+            if (currentLevel >= 7) break; // 最多到7级，让tick处理7->8的转换
             ItemStack stack = player.getInventory().getItem(slot);
             if (stack.isEmpty()) continue;
             float chance = ComposterBlock.COMPOSTABLES.getOrDefault(stack.getItem(), 0.0F);
 
-            while (currentLevel < 8 && !stack.isEmpty()) {
+            while (currentLevel < 7 && !stack.isEmpty()) {
                 if (random.nextFloat() < chance) {
                     currentLevel++;
-                    level.setBlock(pos, state.setValue(LEVEL, currentLevel), 3);
-                    level.levelEvent(1500, pos, 1);
                     anySuccess = true;
-                } else {
-                    level.levelEvent(1500, pos, 0);
                 }
                 stack.shrink(1);
-                if (currentLevel >= 8) {
-                    wasFullAfterOperation = true;
-                    break;
-                }
+                level.levelEvent(1500, pos, currentLevel >= 7 ? 1 : 0);
+                if (currentLevel >= 7) break;
             }
             player.getInventory().setItem(slot, stack);
         }
 
         if (anySuccess) {
+            level.setBlock(pos, state.setValue(LEVEL, currentLevel), 3);
             level.playSound(null, pos, SoundEvents.COMPOSTER_FILL, SoundSource.BLOCKS, 1.0F, 1.0F);
-            if (wasFullAfterOperation) {
-                extractCompost(state, level, pos, player);
+
+            // 如果达到7级，安排tick处理7->8转换
+            if (currentLevel == 7) {
+                level.scheduleTick(pos, this, 20);
             }
         }
     }
 
-    // 提取骨粉的方法
+    /**
+     * 手动提取骨粉
+     */
     private void extractCompost(BlockState state, Level level, BlockPos pos, Player player) {
-        if (!level.isClientSide) {
+        if (!level.isClientSide && state.getValue(LEVEL) == 8) {
             level.setBlock(pos, state.setValue(LEVEL, 0), 3);
             level.playSound(null, pos, SoundEvents.COMPOSTER_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
             ItemStack boneMeal = new ItemStack(Items.BONE_MEAL);
@@ -256,67 +348,44 @@ public class IndustrialComposterBlock extends ComposterBlock implements IWrencha
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block changedBlock, BlockPos changedPos, boolean isMoving) {
         super.neighborChanged(state, level, pos, changedBlock, changedPos, isMoving);
-
         if (!level.isClientSide) {
-            BlockPos relative = changedPos.subtract(pos);
-
-            // 检查变化的位置是否可能影响溜槽连接
-            boolean isRelevantChange = false;
-
-            // 斜上方位置变化（水平方向的溜槽连接）
-            if (relative.getY() == 1) {
-                if (Math.abs(relative.getX()) == 1 && relative.getZ() == 0) isRelevantChange = true; // 东西方向
-                if (Math.abs(relative.getZ()) == 1 && relative.getX() == 0) isRelevantChange = true; // 南北方向
-            }
-            // 直接相邻的位置变化（垂直方向的溜槽连接）
-            else if (Math.abs(relative.getX()) + Math.abs(relative.getY()) + Math.abs(relative.getZ()) == 1) {
-                isRelevantChange = true;
-            }
-
-            if (isRelevantChange) {
-                // 延迟更新以确保方块状态已经稳定
-                level.scheduleTick(pos, this, 3);
+            BlockState newState = updateChuteConnections(state, level, pos);
+            if (!state.equals(newState)) {
+                level.setBlockAndUpdate(pos, newState);
             }
         }
     }
 
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
-        // 处理方块实体的移除
         super.onRemove(state, level, pos, newState, isMoving);
-
-        // 如果方块真的被移除了（而不是仅仅状态改变），更新相邻溜槽
         if (!state.is(newState.getBlock()) && !level.isClientSide) {
             updateConnectedChutes(level, pos);
         }
     }
 
-    /**
-     * 更新所有连接的溜槽，让它们重新检查连接状态
-     */
     private void updateConnectedChutes(Level level, BlockPos pos) {
-        // 检查所有可能连接溜槽的位置
         Direction[] horizontalDirections = {Direction.NORTH, Direction.SOUTH, Direction.EAST, Direction.WEST};
 
         for (Direction direction : horizontalDirections) {
-            // 水平方向的溜槽位置（斜上方）
             BlockPos chutePos = pos.above().relative(direction);
             BlockState chuteState = level.getBlockState(chutePos);
-
             if (AbstractChuteBlock.isChute(chuteState)) {
-                // 安排溜槽更新其状态
                 level.scheduleTick(chutePos, chuteState.getBlock(), 1);
             }
         }
 
-        // 检查正上方的溜槽
         BlockPos upChutePos = pos.above();
         BlockState upChuteState = level.getBlockState(upChutePos);
         if (AbstractChuteBlock.isChute(upChuteState)) {
             level.scheduleTick(upChutePos, upChuteState.getBlock(), 1);
         }
 
-        // 堆肥桶不需要检查下方，因为它不支持下方连接
+        BlockPos downChutePos = pos.below();
+        BlockState downChuteState = level.getBlockState(downChutePos);
+        if (AbstractChuteBlock.isChute(downChuteState)) {
+            level.scheduleTick(downChutePos, downChuteState.getBlock(), 1);
+        }
     }
 
     @Override
