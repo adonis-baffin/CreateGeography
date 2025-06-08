@@ -78,7 +78,7 @@ public class ItemRegistry {
     public static final RegistryObject<Item> OSMIUM_ORE_POWDER = registerWithTab("osmium_ore_powder", () -> new Item(basicItem()));
 
     // 工具与装备
-    public static final RegistryObject<Item> GEOFRAGMENTATOR = ITEMS.register("geofragmentator", () -> new GeofragmentatorItem(basicItem()));
+    public static final RegistryObject<Item> GEOFRAGMENTATOR = ITEMS.register("geofragmentator", () -> new GeofragmentatorItem(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> TREKKING_POLES = ITEMS.register("trekking_poles", () -> new TrekkingPoles(new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> DETACHABLE_BRASS_HILT = registerWithTab("detachable_brass_hilt", () -> new Item(basicItem()));
     public static final RegistryObject<Item> WINDPROOF_COAT = registerWithTab("windproof_coat", () -> new Item(basicItem()));

@@ -1,10 +1,16 @@
+// 在你的 ClientSetup.java 中添加以下代码
+
 package com.adonis.client;
 
 import com.adonis.CreateGeography;
 import com.adonis.registry.EntityRegistry;
+import com.adonis.registry.ItemRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.item.ItemProperties;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -27,4 +33,13 @@ public class ClientSetup {
         event.registerEntityRenderer(EntityRegistry.THROWN_PEBBLE.get(), ThrownItemRenderer::new);
     }
 
+    // 注册物品模型
+    @SubscribeEvent
+    public static void registerItemModels(ModelEvent.RegisterAdditional event) {
+        // 注册 geofragmentator 模型
+        event.register(new ResourceLocation(CreateGeography.MODID, "item/geofragmentator"));
+
+        // 注册 trekking_poles 模型
+        event.register(new ResourceLocation(CreateGeography.MODID, "item/trekking_poles"));
+    }
 }
