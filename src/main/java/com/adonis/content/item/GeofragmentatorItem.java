@@ -2,18 +2,10 @@ package com.adonis.content.item;
 
 import com.adonis.content.crafting.CrushingRecipe;
 import com.adonis.registry.RecipeRegistry;
-import com.adonis.utils.DepotInventoryWrapper;
-import com.simibubi.create.AllRecipeTypes;
-import com.simibubi.create.content.kinetics.belt.transport.TransportedItemStack;
-import com.simibubi.create.content.kinetics.press.PressingRecipe;
-import com.simibubi.create.content.logistics.depot.DepotBehaviour;
-import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
-import com.simibubi.create.foundation.recipe.RecipeApplier;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -26,26 +18,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.items.wrapper.RecipeWrapper;
 
 import java.util.List;
 import java.util.Optional;
 
 public class GeofragmentatorItem extends Item {
 
-    // 方块交互的常量
+    // (常量定义部分保持不变...)
     private static final float LOW_HARDNESS_THRESHOLD = 1.0F;
-    private static final int BLOCK_COOLDOWN_TICKS = 20; // 1秒
-
-    // 实体攻击的常量
-    private static final int ATTACK_COOLDOWN_TICKS = 140; // 7秒
-    private static final int SLOW_DURATION_TICKS = 140;   // 7秒
-    private static final int SLOW_AMPLIFIER = 1;          // 缓慢 II (放大器为1)
+    private static final int BLOCK_COOLDOWN_TICKS = 20;
+    private static final int ATTACK_COOLDOWN_TICKS = 140;
+    private static final int SLOW_DURATION_TICKS = 140;
+    private static final int SLOW_AMPLIFIER = 1;
     private static final float BASE_DAMAGE = 14.0F;
     private static final float BASE_KNOCKBACK = 0.8F;
     private static final float JUMP_ATTACK_MULTIPLIER = 1.5F;
@@ -61,23 +49,21 @@ public class GeofragmentatorItem extends Item {
             return InteractionResult.PASS;
         }
 
-        Level level = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        InteractionHand hand = context.getHand();
-
-        if (!level.isClientSide) {
-            if (handleDepotInteraction(player, level, pos, hand)) {
-                return InteractionResult.SUCCESS;
-            }
-        }
-
         if (player.getCooldowns().isOnCooldown(this)) {
             return InteractionResult.PASS;
         }
 
-        if (!level.isClientSide) {
-            BlockState blockState = level.getBlockState(pos);
+        Level level = context.getLevel();
+        BlockPos pos = context.getClickedPos();
+        InteractionHand hand = context.getHand();
+        BlockState blockState = level.getBlockState(pos);
 
+        // 我们在这里返回 PASS，让事件处理器先处理。
+        // 如果事件处理器没有取消事件（即不是置物台），那么这个方法仍然会被调用。
+        // 所以我们在这里处理所有非置物台的逻辑。
+
+        if (!level.isClientSide) {
+            // 1. 检查是否有自定义的破碎配方
             Optional<CrushingRecipe> recipeOpt = findCrushingRecipe(level, blockState);
             if (recipeOpt.isPresent()) {
                 CrushingRecipe recipe = recipeOpt.get();
@@ -87,12 +73,8 @@ public class GeofragmentatorItem extends Item {
                 }
 
                 String soundId = recipe.getSoundEventID();
-                if (soundId.isEmpty()) {
-                    level.playSound(null, pos, SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
-                } else {
-                    SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundId));
-                    level.playSound(null, pos, sound != null ? sound : SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
-                }
+                SoundEvent sound = soundId.isEmpty() ? SoundEvents.STONE_BREAK : ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(soundId));
+                level.playSound(null, pos, sound != null ? sound : SoundEvents.STONE_BREAK, SoundSource.BLOCKS, 1.0F, 1.0F);
 
                 level.destroyBlock(pos, false);
                 player.getCooldowns().addCooldown(this, BLOCK_COOLDOWN_TICKS);
@@ -100,8 +82,9 @@ public class GeofragmentatorItem extends Item {
                 return InteractionResult.SUCCESS;
             }
 
+            // 2. 如果没有配方，检查方块硬度
             float hardness = blockState.getDestroySpeed(level, pos);
-            if (hardness != -1 && hardness <= LOW_HARDNESS_THRESHOLD) {
+            if (hardness != -1.0F && hardness <= LOW_HARDNESS_THRESHOLD) {
                 level.playSound(null, pos, blockState.getSoundType().getBreakSound(), SoundSource.BLOCKS, 1.0f, 1.0f);
                 blockState.getBlock().playerDestroy(level, player, pos, blockState, level.getBlockEntity(pos), context.getItemInHand());
                 level.removeBlock(pos, false);
@@ -112,63 +95,15 @@ public class GeofragmentatorItem extends Item {
             }
         }
 
+        // 3. 高硬度方块，只播放效果
         player.swing(hand);
-        BlockState blockState = level.getBlockState(pos);
         level.playSound(player, pos, SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.5f, 1.5f);
         if (level.isClientSide) {
             for (int i = 0; i < 5; ++i) {
-                level.addParticle(
-                        new BlockParticleOption(ParticleTypes.BLOCK, blockState),
-                        pos.getX() + level.random.nextDouble(),
-                        pos.getY() + 1,
-                        pos.getZ() + level.random.nextDouble(),
-                        0.0D, 0.0D, 0.0D
-                );
+                level.addParticle(new BlockParticleOption(ParticleTypes.BLOCK, blockState), pos.getX() + level.random.nextDouble(), pos.getY() + 1, pos.getZ() + level.random.nextDouble(), 0.0D, 0.0D, 0.0D);
             }
         }
-
         return InteractionResult.SUCCESS;
-    }
-
-    private boolean handleDepotInteraction(Player player, Level level, BlockPos pos, InteractionHand hand) {
-        DepotBehaviour depotBehaviour = BlockEntityBehaviour.get(level, pos, DepotBehaviour.TYPE);
-        if (depotBehaviour == null) {
-            return false;
-        }
-
-        ItemStack stackInDepot = depotBehaviour.getHeldItemStack();
-        if (stackInDepot.isEmpty()) {
-            return false;
-        }
-
-        RecipeWrapper wrapper = new RecipeWrapper(new DepotInventoryWrapper(depotBehaviour));
-        Optional<PressingRecipe> recipeOpt = AllRecipeTypes.PRESSING.find(wrapper, level);
-
-        if (recipeOpt.isPresent()) {
-            Recipe<RecipeWrapper> recipe = recipeOpt.get();
-            List<ItemStack> results = RecipeApplier.applyRecipeOn(level, stackInDepot, recipe);
-
-            if (level instanceof ServerLevel serverLevel) {
-                serverLevel.playSound(null, pos, SoundEvents.ANVIL_LAND, SoundSource.BLOCKS, 1.0F, 1.0F);
-                serverLevel.sendParticles(ParticleTypes.CRIT, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 20, 0.2, 0.1, 0.2, 0.5);
-            }
-
-            // --- 最终修正 ---
-            ItemStack resultStack = results.isEmpty() ? ItemStack.EMPTY : results.get(0);
-            if (!resultStack.isEmpty()) {
-                // 将普通的 ItemStack 包装成 Create 的 TransportedItemStack，并调用单参数的 setHeldItem
-                depotBehaviour.setHeldItem(new TransportedItemStack(resultStack));
-            } else {
-                // 如果结果为空，则传入 null 来清空置物台
-                depotBehaviour.setHeldItem(null);
-            }
-            // --- 修正结束 ---
-
-            player.getItemInHand(hand).hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(hand));
-            return true;
-        }
-
-        return false;
     }
 
     private Optional<CrushingRecipe> findCrushingRecipe(Level level, BlockState blockState) {
@@ -184,6 +119,7 @@ public class GeofragmentatorItem extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+        // (这个方法的代码保持不变)
         Level level = player.level();
 
         if (player.getCooldowns().isOnCooldown(this)) {

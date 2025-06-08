@@ -3,6 +3,7 @@ package com.adonis;
 import com.adonis.event.IndustrialBlockInteractionHandler;
 import com.adonis.fluid.FluidInteraction;
 import com.adonis.fluid.GeographyFluids;
+import com.adonis.networking.ModMessages;
 import com.adonis.registry.*;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.ResourceLocation;
@@ -31,6 +32,8 @@ public class CreateGeography {
         SoundRegistry.SOUND_EVENTS.register(modEventBus);
         EntityRegistry.ENTITIES.register(modEventBus);
         BlockEntityRegistry.BLOCK_ENTITY_TYPES.register(modEventBus);
+        RecipeRegistry.RECIPE_SERIALIZERS.register(modEventBus); // 新增
+        RecipeRegistry.RECIPE_TYPES.register(modEventBus);       // 新增
 
         // 注册流体
         GeographyFluids.register();
@@ -46,6 +49,7 @@ public class CreateGeography {
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             FluidInteraction.registerFluidInteractions();
+            ModMessages.register(); // <--- 新增
         });
     }
 
