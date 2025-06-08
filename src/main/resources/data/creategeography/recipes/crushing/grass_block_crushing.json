@@ -1,0 +1,22 @@
+{
+  "type": "creategeography:crushing",
+  "ingredient": {
+    "item": "minecraft:grass_block"
+  },
+  "results": [
+    {
+      "item": "creategeography:dirt_clod",
+      "count": 1,
+      "chance": 0.4
+    },
+    {
+      "item": "minecraft:wheat_seeds",
+      "chance": 0.4
+    },
+    {
+      "item": "creategeography:niter",
+      "chance": 0.2
+    }
+  ],
+  "sound": "minecraft:block.grass.break"
+}
