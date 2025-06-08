@@ -1,22 +1,19 @@
 {
-  "type": "creategeography:crushing",
+  "type": "creategeography:fragmenting",
   "ingredient": {
-    "item": "minecraft:grass_block"
+    "item": "creategeography:saline_mud"
   },
+  "output_block": "minecraft:mud",
   "results": [
     {
-      "item": "creategeography:dirt_clod",
+      "item": "creategeography:salt",
       "count": 1,
-      "chance": 0.4
+      "chance": 0.8
     },
     {
-      "item": "minecraft:wheat_seeds",
-      "chance": 0.4
-    },
-    {
-      "item": "creategeography:niter",
+      "item": "creategeography:salt",
       "chance": 0.2
     }
   ],
-  "sound": "minecraft:block.grass.break"
+  "sound": "minecraft:block.gravel.break"
 }

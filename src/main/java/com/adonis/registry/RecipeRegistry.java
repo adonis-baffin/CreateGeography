@@ -1,8 +1,8 @@
 package com.adonis.registry;
 
 import com.adonis.CreateGeography;
-import com.adonis.content.crafting.CrushingRecipe;
-import com.adonis.content.crafting.CrushingRecipeSerializer;
+import com.adonis.content.crafting.FragmentingRecipe;
+import com.adonis.content.crafting.FragmentingRecipeSerializer;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -17,14 +17,15 @@ public class RecipeRegistry {
     public static final DeferredRegister<RecipeType<?>> RECIPE_TYPES =
             DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, CreateGeography.MODID);
 
-    public static final RegistryObject<RecipeSerializer<CrushingRecipe>> CRUSHING_SERIALIZER =
-            RECIPE_SERIALIZERS.register("crushing", CrushingRecipeSerializer::new);
+    public static final RegistryObject<RecipeSerializer<FragmentingRecipe>> FRAGMENTING_SERIALIZER =
+            RECIPE_SERIALIZERS.register("fragmenting", FragmentingRecipeSerializer::new);
 
-    public static final RegistryObject<RecipeType<CrushingRecipe>> CRUSHING_TYPE =
-            RECIPE_TYPES.register("crushing", () -> registerRecipeType("crushing"));
+    public static final RegistryObject<RecipeType<FragmentingRecipe>> FRAGMENTING_TYPE =
+            RECIPE_TYPES.register("fragmenting", () -> registerRecipeType("fragmenting"));
 
     private static <T extends Recipe<?>> RecipeType<T> registerRecipeType(final String identifier) {
         return new RecipeType<>() {
+            @Override
             public String toString() {
                 return CreateGeography.MODID + ":" + identifier;
             }

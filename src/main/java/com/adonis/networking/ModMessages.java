@@ -1,6 +1,8 @@
 package com.adonis.networking;
 
 import com.adonis.CreateGeography;
+import com.adonis.networking.packet.BasinProcessingPacket;
+import com.adonis.networking.packet.BeltProcessingPacket;
 import com.adonis.networking.packet.DepotProcessingPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -8,7 +10,6 @@ import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
-import com.adonis.networking.packet.BasinProcessingPacket; // 新增导入
 
 public class ModMessages {
     private static SimpleChannel INSTANCE;
@@ -39,6 +40,12 @@ public class ModMessages {
                 .encoder(BasinProcessingPacket::toBytes)
                 .consumerMainThread(BasinProcessingPacket::handle)
                 .add();
+
+        net.messageBuilder(BeltProcessingPacket.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(BeltProcessingPacket::new)
+                .encoder(BeltProcessingPacket::toBytes)
+                .consumerMainThread(BeltProcessingPacket::handle)
+                .add();
     }
 
     public static <MSG> void sendToPlayer(MSG message, ServerPlayer player) {
@@ -48,7 +55,7 @@ public class ModMessages {
     public static <MSG> void sendToServer(MSG message) {
         INSTANCE.sendToServer(message);
     }
-    
+
     public static <MSG> void sendToClients(MSG message) {
         INSTANCE.send(PacketDistributor.ALL.noArg(), message);
     }
