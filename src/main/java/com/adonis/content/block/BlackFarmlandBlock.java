@@ -21,7 +21,6 @@ public class BlackFarmlandBlock extends FarmBlock {
 
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
-        System.out.println("[BlackFarmland] tick called at " + pos);
         if (!state.canSurvive(level, pos)) {
             turnToBlackDirt(state, level, pos);
             return;
@@ -31,7 +30,6 @@ public class BlackFarmlandBlock extends FarmBlock {
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        System.out.println("[BlackFarmland] randomTick called at " + pos);
         int moisture = state.getValue(MOISTURE);
         if (!hasWater(level, pos) && !level.isRainingAt(pos.above())) {
             if (moisture > 0) {

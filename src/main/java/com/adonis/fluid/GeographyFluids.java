@@ -27,6 +27,23 @@ public class GeographyFluids {
                     .build()
                     .register();
 
+    // 灰水
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> ASH_WATER =
+            CreateGeography.REGISTRATE.fluid("ash_water",
+                            new ResourceLocation(MODID, "block/fluid/ash_water_still"),
+                            new ResourceLocation(MODID, "block/fluid/ash_water_flow"))
+                    .source(ForgeFlowingFluid.Source::new)
+                    .lang("Ash Water")
+                    .properties(b -> b.viscosity(1200)
+                            .density(1050))
+                    .fluidProperties(p -> p.levelDecreasePerBlock(1)
+                            .tickRate(20)
+                            .slopeFindDistance(4)
+                            .explosionResistance(100f))
+                    .bucket()
+                    .build()
+                    .register();
+
     public static void register() {
     }
 }

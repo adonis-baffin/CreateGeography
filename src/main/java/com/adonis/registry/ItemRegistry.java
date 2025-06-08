@@ -131,13 +131,13 @@ public class ItemRegistry {
             () -> new BlockItem(BlockRegistry.SALT_CRYSTAL.get(), basicItem()));
     public static final RegistryObject<Item> SALT_BLOCK = registerWithTab("salt_block",
             () -> new BlockItem(BlockRegistry.SALT_BLOCK.get(), basicItem()));
-    public static final RegistryObject<Item> SALINE_SOIL = registerWithTab("saline_soil",
+    public static final RegistryObject<Item> SALINE_DIRT = registerWithTab("saline_dirt",
             () -> new BlockItem(BlockRegistry.SALINE_DIRT.get(), basicItem()));
     public static final RegistryObject<Item> SALINE_MUD = registerWithTab("saline_mud",
             () -> new BlockItem(BlockRegistry.SALINE_MUD.get(), basicItem()));
     public static final RegistryObject<Item> SALINE_FARMLAND = registerWithTab("saline_farmland",
             () -> new BlockItem(BlockRegistry.SALINE_FARMLAND.get(), basicItem()));
-    public static final RegistryObject<Item> BLACK_SOIL = registerWithTab("black_soil",
+    public static final RegistryObject<Item> BLACK_DIRT = registerWithTab("black_dirt",
             () -> new BlockItem(BlockRegistry.BLACK_DIRT.get(), basicItem()));
     public static final RegistryObject<Item> BLACK_MUD = registerWithTab("black_mud",
             () -> new BlockItem(BlockRegistry.BLACK_MUD.get(), basicItem()));

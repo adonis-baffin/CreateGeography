@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "creategeography:block/frozen_soil"
+      },
+      {
+        "model": "creategeography:block/frozen_soil",
+        "y": 90
+      },
+      {
+        "model": "creategeography:block/frozen_soil",
+        "y": 180
+      },
+      {
+        "model": "creategeography:block/frozen_soil",
+        "y": 270
+      }
+    ]
+  }
+}

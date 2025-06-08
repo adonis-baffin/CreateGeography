@@ -160,25 +160,15 @@ jar {
     manifest {
         attributes([
                 "Specification-Title"     : "creategeography",
-                "Specification-Vendor"    : "adonis",
-                "Specification-Version"   : "1",
+                "Specification-Vendor"    : "tom5454",
+                "Specification-Version"   : "1", // We are version 1 of ourselves
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : "adonis",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-    // 确保包含所有必要的资源
-    from sourceSets.main.output
-    // 包含 META-INF
-    include 'META-INF/**'
-    // 包含所有的类文件
-    include 'com/adonis/**'
 }
-
-// 确保重新混淆
-jar.finalizedBy('reobfJar')
-// ... existing code ...
 
 jar.finalizedBy('reobfJar')
 

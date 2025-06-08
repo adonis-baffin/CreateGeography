@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "creategeography:block/salt_block"
+    }
+  }
+}

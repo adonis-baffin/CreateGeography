@@ -229,7 +229,7 @@ public class BlockRegistry {
                     .sound(SoundType.GRAVEL)
                     .randomTicks()));
 
-    public static final RegistryObject<Block> SALINE_DIRT = BLOCKS.register("saline_soil",
+    public static final RegistryObject<Block> SALINE_DIRT = BLOCKS.register("saline_dirt",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIRT)
                     .strength(0.5f, 0.5f)
@@ -237,15 +237,18 @@ public class BlockRegistry {
                     .randomTicks()));
 
     public static final RegistryObject<Block> SALINE_MUD = BLOCKS.register("saline_mud",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.DIRT)
-                    .strength(0.6f, 0.6f)
-                    .sound(SoundType.GRAVEL)));
+            () -> new SalineMudBlock(BlockBehaviour.Properties.of() // 使用 SalineMudBlock
+                    .mapColor(MapColor.DIRT) // 使用你原来的颜色
+                    .randomTicks() // 启用随机刻
+                    .strength(0.6f, 0.6f) // 使用你原来的硬度和爆炸抗性
+                    .sound(SoundType.GRAVEL) // 使用你原来的声音
+            ));
 
     public static final RegistryObject<Block> SALINE_FARMLAND = BLOCKS.register("saline_farmland",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new SalineFarmlandBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIRT)
-                    .strength(0.6f, 0.6f)
+                    .randomTicks() // 启用随机刻
+                    .strength(0.6f)
                     .sound(SoundType.GRAVEL)));
 
     public static final RegistryObject<Block> BLACK_DIRT = BLOCKS.register("black_soil",
@@ -263,6 +266,7 @@ public class BlockRegistry {
     public static final RegistryObject<Block> BLACK_FARMLAND = BLOCKS.register("black_farmland",
             () -> new BlackFarmlandBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.TERRACOTTA_BLACK)
+                    .randomTicks() // 启用随机刻
                     .strength(0.6f, 0.6f)
                     .sound(SoundType.GRAVEL)));
 
@@ -341,10 +345,12 @@ public class BlockRegistry {
                     .isViewBlocking((state, level, pos) -> false)));
 
     public static final RegistryObject<Block> SALT_CRYSTAL = BLOCKS.register("salt_crystal",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new SaltCrystalBlock(BlockBehaviour.Properties.of() // <-- 使用新的类
                     .mapColor(MapColor.QUARTZ)
-                    .strength(0.8f)
-                    .sound(SoundType.GLASS)));
+                    .strength(0.3F) // 雪的硬度是0.1F，玻璃是0.3F，盐晶可以取一个较小的值
+                    .sound(SoundType.SNOW)
+                    .dynamicShape() // <-- 非常重要！告诉引擎这个方块的形状是动态的
+            ));
 
     // 木框方块
     public static final RegistryObject<Block> WOODEN_FRAME = BLOCKS.register("wooden_frame",
@@ -405,6 +411,7 @@ public class BlockRegistry {
                     .mapColor(MapColor.COLOR_GRAY)
                     .strength(1.2f, 1.2f)
                     .sound(SoundType.SAND)));
+
 
     public static final RegistryObject<Block> NITER_BLOCK = BLOCKS.register("niter_block",
             () -> new Block(BlockBehaviour.Properties.of()

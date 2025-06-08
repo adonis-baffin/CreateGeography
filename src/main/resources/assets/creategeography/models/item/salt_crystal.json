@@ -1,1 +1,3 @@
-{ "parent": "block/cube_all", "textures": { "all": "creategeography:block/salt_crystal" } }
+{
+  "parent": "creategeography:block/salt_height2"
+}

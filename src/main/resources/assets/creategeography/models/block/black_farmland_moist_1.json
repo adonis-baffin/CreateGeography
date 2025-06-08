@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/template_farmland",
+  "textures": {
+    "dirt": "creategeography:block/black_dirt",
+    "top": "creategeography:block/black_farmland_moist_1"
+  }
+}

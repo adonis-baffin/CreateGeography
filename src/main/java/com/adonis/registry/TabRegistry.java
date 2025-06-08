@@ -38,9 +38,10 @@ public class TabRegistry {
                 // 方块物品
                 output.accept(ItemRegistry.FROZEN_SOIL.get());             // 冻土
                 output.accept(ItemRegistry.SALT_CRYSTAL.get());            // 盐晶
-                output.accept(ItemRegistry.SALINE_SOIL.get());             // 盐碱土
+                output.accept(ItemRegistry.SALINE_DIRT.get());             // 盐碱土
                 output.accept(ItemRegistry.SALINE_MUD.get());              // 盐碱泥巴
                 output.accept(ItemRegistry.SALINE_FARMLAND.get());         // 盐碱耕地
+                output.accept(ItemRegistry.SALT_BLOCK.get());              // 盐块
 
                 // 机器和特殊物品
 //                output.accept(ItemRegistry.INDUSTRIAL_FURNACE_ITEM.get()); // 工业熔炉
