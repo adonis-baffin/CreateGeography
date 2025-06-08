@@ -28,5 +28,8 @@
   "block.creategeography.industrial_anvil": "工业铁砧",
   "item.creategeography.trekking_poles": "登山杖",
   "item.creategeography.geofragmentator": "地质破碎锤",
-  "item.creategeography.brine_bucket": "盐水桶"
+  "item.creategeography.brine_bucket": "盐水桶",
+
+  "jei.creategeography.recipe.fragmenting": "破碎作用",
+  "jei.creategeography.chance": "概率：%d%%"
 }

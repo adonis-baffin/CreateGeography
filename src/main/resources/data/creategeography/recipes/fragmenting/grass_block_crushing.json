@@ -1,0 +1,14 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "item": "creategeography:saline_mud"
+  },
+  "output_block": "minecraft:mud",
+  "results": [
+    {
+      "item": "creategeography:salt",
+      "count": 1
+    }
+  ],
+  "sound": "minecraft:block.gravel.break"
+}

@@ -29,8 +29,8 @@ public class GeofragmentatorItem extends Item {
 
     // 常量
     private static final float LOW_HARDNESS_THRESHOLD = 1.0F;
-    private static final int BLOCK_COOLDOWN_TICKS = 20;
-    private static final int ATTACK_COOLDOWN_TICKS = 40; // 缩短CD
+    private static final int BLOCK_COOLDOWN_TICKS = 25;
+    private static final int ATTACK_COOLDOWN_TICKS = 50; // 缩短CD
     private static final float BASE_DAMAGE = 14.0F;
     private static final float BASE_KNOCKBACK = 0.8F;
     private static final float JUMP_ATTACK_MULTIPLIER = 1.5F;

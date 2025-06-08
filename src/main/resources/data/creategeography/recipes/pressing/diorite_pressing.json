@@ -1,0 +1,22 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:diorite"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:crushed_stone",
+      "count": 1
+    },
+    {
+      "item": "creategeography:plagioclase",
+      "count": 1
+    },
+    {
+      "item": "creategeography:quartz_sand",
+      "count": 2
+    }
+  ]
+}

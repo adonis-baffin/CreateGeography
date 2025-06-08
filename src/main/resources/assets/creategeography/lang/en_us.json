@@ -27,5 +27,8 @@
   "block.creategeography.industrial_anvil": "Industrial Anvil",
   "item.creategeography.trekking_poles": "Trekking Poles",
   "item.creategeography.geofragmentator": "Geofragmentator",
-  "item.creategeography.brine_bucket": "Brine Bucket"
+  "item.creategeography.brine_bucket": "Brine Bucket",
+
+  "jei.creategeography.recipe.fragmenting": "Geological Fragmenting",
+  "jei.creategeography.chance": "Chance: %d%%"
 }

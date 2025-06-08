@@ -1,17 +1,17 @@
 {
   "type": "creategeography:fragmenting",
   "ingredient": {
-    "item": "creategeography:saline_mud"
+    "item": "minecraft:coarse_dirt"
   },
-  "output_block": "minecraft:mud",
   "results": [
     {
-      "item": "creategeography:salt",
+      "item": "creategeography:dirt_clod",
       "count": 1,
       "chance": 0.8
     },
     {
-      "item": "creategeography:salt",
+      "item": "creategeography:niter",
+      "count": 1,
       "chance": 0.2
     }
   ],
