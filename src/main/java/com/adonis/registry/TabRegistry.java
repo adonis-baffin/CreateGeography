@@ -18,6 +18,8 @@ public class TabRegistry {
                     () -> new ItemStack(ItemRegistry.GEOFRAGMENTATOR.get())
             ).displayItems((params, output) -> {
                 // 基础材料
+                output.accept(ItemRegistry.HORNBLENDE.get());              // 角闪石
+                output.accept(ItemRegistry.POLISHED_HORNBLENDE.get());     // 磨制角闪石
                 output.accept(ItemRegistry.CRUSHED_STONE.get());           // 砾石
                 output.accept(ItemRegistry.CRUSHED_DEEP_SLATE.get());      // 深板岩砾石
                 output.accept(ItemRegistry.ORTHACLASE.get());              // 正长石
@@ -33,7 +35,6 @@ public class TabRegistry {
                 output.accept(ItemRegistry.NITER_POWDER.get());            // 硝石粉
                 output.accept(ItemRegistry.SALT.get());                    // 盐
                 output.accept(ItemRegistry.DIRT_CLOD.get());               // 土坷
-                output.accept(ItemRegistry.HORNBLENDE.get());              // 角闪石
 
                 // 方块物品
                 output.accept(ItemRegistry.FROZEN_SOIL.get());             // 冻土
