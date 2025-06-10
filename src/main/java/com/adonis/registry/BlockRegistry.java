@@ -231,7 +231,7 @@ public class BlockRegistry {
                     .randomTicks()));
 
     public static final RegistryObject<Block> SALINE_DIRT = BLOCKS.register("saline_dirt",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new SalineDirtBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIRT)
                     .strength(0.5f, 0.5f)
                     .sound(SoundType.GRAVEL)
