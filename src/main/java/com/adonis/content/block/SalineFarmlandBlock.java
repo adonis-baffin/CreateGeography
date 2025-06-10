@@ -31,11 +31,6 @@ public class SalineFarmlandBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(0.0, 0.0, 0.0, 16.0, 15.0, 16.0);
     public static final int MAX_MOISTURE = 7;
 
-    // 盐碱化程度属性 (0-3, 数值越高盐碱化越严重)
-    // 0: 轻度盐碱化（减慢生长50%）
-    // 1: 中度盐碱化（减慢生长75%）
-    // 2: 重度盐碱化（停止生长）
-    // 3: 极度盐碱化（作物退化）
     public static final IntegerProperty SALINITY = IntegerProperty.create("salinity", 0, 3);
 
     public SalineFarmlandBlock(BlockBehaviour.Properties properties) {

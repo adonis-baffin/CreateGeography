@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "creategeography:block/frozen_soil",
+    "particle": "creategeography:block/frozen_soil",
+    "side": "creategeography:block/frozen_soil_snow",
+    "top": "minecraft:block/snow"
+  }
+}

@@ -223,8 +223,9 @@ public class BlockRegistry {
 
     // 土壤相关方块
     public static final RegistryObject<Block> FROZEN_SOIL = BLOCKS.register("frozen_soil",
-            () -> new Block(BlockBehaviour.Properties.of()
+            () -> new FrozenSoilBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIRT)
+                    .randomTicks() // 启用随机刻
                     .strength(0.5f, 0.5f)
                     .sound(SoundType.GRAVEL)
                     .randomTicks()));
@@ -430,15 +431,15 @@ public class BlockRegistry {
             () -> new Block(BlockBehaviour.Properties.copy(ANDESITE_FIRE_PIT.get())
                     .mapColor(MapColor.METAL)));
 
-    public static final RegistryObject<Block> INDUSTRIAL_COMPOSTER = BLOCKS.register("industrial_composter",
-            () -> new IndustrialComposterBlock(BlockBehaviour.Properties.copy(Blocks.COMPOSTER)
-                    .strength(1.5F)
-                    .sound(SoundType.WOOD)
-                    .noOcclusion()));
+//    public static final RegistryObject<Block> INDUSTRIAL_COMPOSTER = BLOCKS.register("industrial_composter",
+//            () -> new IndustrialComposterBlock(BlockBehaviour.Properties.copy(Blocks.COMPOSTER)
+//                    .strength(1.5F)
+//                    .sound(SoundType.WOOD)
+//                    .noOcclusion()));
 
     public static final RegistryObject<Block> INDUSTRIAL_ANVIL = BLOCKS.register("industrial_anvil",
             () -> new IndustrialAnvilBlock(BlockBehaviour.Properties.copy(Blocks.ANVIL)));
 
-    public static final RegistryObject<Block> INDUSTRIAL_FURNACE = BLOCKS.register("industrial_furnace",
-            () -> new IndustrialFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.FURNACE)));
+//    public static final RegistryObject<Block> INDUSTRIAL_FURNACE = BLOCKS.register("industrial_furnace",
+//            () -> new IndustrialFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.FURNACE)));
 }

@@ -1,4 +1,4 @@
-package com.adonis.content.block; // 请确保包名和你的项目结构一致
+package com.adonis.content.block;
 
 import com.adonis.fluid.GeographyFluids;
 import com.adonis.registry.BlockRegistry;
@@ -25,13 +25,10 @@ public class SalineMudBlock extends Block {
             return;
         }
 
-        // 检查上方方块是否为空气，为盐晶生成提供空间
         BlockPos abovePos = pPos.above();
         if (pLevel.isEmptyBlock(abovePos)) {
-
-            // 新逻辑：检查同Y轴平面上，曼哈顿距离5以内是否有卤水
             boolean hasBrineNearby = false;
-            searchLoop: // 使用标签以便跳出外层循环
+            searchLoop:
             for (int dx = -5; dx <= 5; dx++) {
                 for (int dz = -5; dz <= 5; dz++) {
                     // 计算平面曼哈顿距离

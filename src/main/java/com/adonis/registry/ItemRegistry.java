@@ -207,11 +207,11 @@ public class ItemRegistry {
             () -> new BlockItem(BlockRegistry.ANDESITE_FIRE_PIT.get(), basicItem()));
     public static final RegistryObject<Item> BRASS_FIRE_PIT = registerWithTab("brass_fire_pit",
             () -> new BlockItem(BlockRegistry.BRASS_FIRE_PIT.get(), basicItem()));
-    public static final RegistryObject<Item> INDUSTRIAL_COMPOSTER = registerWithTab("industrial_composter",
-            () -> new BlockItem(BlockRegistry.INDUSTRIAL_COMPOSTER.get(), basicItem()));
+//    public static final RegistryObject<Item> INDUSTRIAL_COMPOSTER = registerWithTab("industrial_composter",
+//            () -> new BlockItem(BlockRegistry.INDUSTRIAL_COMPOSTER.get(), basicItem()));
     public static final RegistryObject<Item> INDUSTRIAL_ANVIL_ITEM = ITEMS.register("industrial_anvil",
             () -> new BlockItem(BlockRegistry.INDUSTRIAL_ANVIL.get(), new Item.Properties()));
-    public static final RegistryObject<Item> INDUSTRIAL_FURNACE_ITEM = ITEMS.register("industrial_furnace",
-            () -> new BlockItem(BlockRegistry.INDUSTRIAL_FURNACE.get(), new Item.Properties()));
+//    public static final RegistryObject<Item> INDUSTRIAL_FURNACE_ITEM = ITEMS.register("industrial_furnace",
+//            () -> new BlockItem(BlockRegistry.INDUSTRIAL_FURNACE.get(), new Item.Properties()));
 
 }

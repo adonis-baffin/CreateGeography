@@ -15,7 +15,7 @@ public class TabRegistry {
 
     public static final RegistryObject<CreativeModeTab> creategeography_TAB = CREATIVE_TABS.register("creategeography_tab",
             () -> CreativeModeTab.builder().title(Component.translatable("itemGroup.creategeography")).icon(
-                    () -> new ItemStack(ItemRegistry.GEOFRAGMENTATOR.get())
+                    () -> new ItemStack(ItemRegistry.HORNBLENDE.get())
             ).displayItems((params, output) -> {
                 // 基础材料
                 output.accept(ItemRegistry.HORNBLENDE.get());              // 角闪石
@@ -38,16 +38,12 @@ public class TabRegistry {
 
                 // 方块物品
                 output.accept(ItemRegistry.FROZEN_SOIL.get());             // 冻土
+                output.accept(ItemRegistry.SALT_BLOCK.get());              // 盐块
                 output.accept(ItemRegistry.SALT_CRYSTAL.get());            // 盐晶
                 output.accept(ItemRegistry.SALINE_DIRT.get());             // 盐碱土
                 output.accept(ItemRegistry.SALINE_MUD.get());              // 盐碱泥巴
                 output.accept(ItemRegistry.SALINE_FARMLAND.get());         // 盐碱耕地
-                output.accept(ItemRegistry.SALT_BLOCK.get());              // 盐块
 
-                // 机器和特殊物品
-//                output.accept(ItemRegistry.INDUSTRIAL_FURNACE_ITEM.get()); // 工业熔炉
-//                output.accept(ItemRegistry.INDUSTRIAL_COMPOSTER.get());    // 工业堆肥桶
-//                output.accept(ItemRegistry.INDUSTRIAL_ANVIL_ITEM.get());   // 工业铁砧
                 output.accept(ItemRegistry.TREKKING_POLES.get());          // 登山杖
                 output.accept(ItemRegistry.GEOFRAGMENTATOR.get());         // 地质破碎锤
 

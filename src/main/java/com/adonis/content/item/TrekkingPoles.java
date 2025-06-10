@@ -15,7 +15,7 @@ public class TrekkingPoles extends Item {
     private static final UUID SPEED_MODIFIER_UUID = UUID.fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3454");
     private static final UUID JUMP_MODIFIER_UUID = UUID.fromString("f8c3de3d-1fea-4d7c-a8b0-29f63c4c3455");
     private static final double SPEED_BONUS = 0.15;
-    private static final double JUMP_BONUS = 0.12;
+    private static final double JUMP_BONUS = 0.15;
 
     public TrekkingPoles(Properties properties) {
         super(properties);

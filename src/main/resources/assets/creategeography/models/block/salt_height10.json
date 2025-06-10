@@ -1,7 +1,7 @@
 {
   "textures": {
-    "particle": "block/snow",
-    "texture": "block/snow"
+    "particle": "creategeography:block/salt",
+    "texture": "creategeography:block/salt"
   },
   "elements": [
     {   "from": [ 0, 0, 0 ],

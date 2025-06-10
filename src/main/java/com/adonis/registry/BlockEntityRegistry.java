@@ -15,10 +15,10 @@ public class BlockEntityRegistry {
 
 
 
-    public static final RegistryObject<BlockEntityType<IndustrialFurnaceBlockEntity>> INDUSTRIAL_FURNACE =
-            BLOCK_ENTITY_TYPES.register("industrial_furnace",
-                    () -> BlockEntityType.Builder.of(IndustrialFurnaceBlockEntity::new, BlockRegistry.INDUSTRIAL_FURNACE.get())
-                            .build(null));
+//    public static final RegistryObject<BlockEntityType<IndustrialFurnaceBlockEntity>> INDUSTRIAL_FURNACE =
+//            BLOCK_ENTITY_TYPES.register("industrial_furnace",
+//                    () -> BlockEntityType.Builder.of(IndustrialFurnaceBlockEntity::new, BlockRegistry.INDUSTRIAL_FURNACE.get())
+//                            .build(null));
 
     public static final RegistryObject<BlockEntityType<SaltFilledWoodenFrameBlockEntity>> SALT_FILLED_WOODEN_FRAME =
             BLOCK_ENTITY_TYPES.register("salt_filled_wooden_frame",

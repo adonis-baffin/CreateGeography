@@ -1,21 +1,10 @@
 {
   "variants": {
-    "": [
-      {
-        "model": "creategeography:block/frozen_soil"
-      },
-      {
-        "model": "creategeography:block/frozen_soil",
-        "y": 90
-      },
-      {
-        "model": "creategeography:block/frozen_soil",
-        "y": 180
-      },
-      {
-        "model": "creategeography:block/frozen_soil",
-        "y": 270
-      }
-    ]
+    "snowy=false": {
+      "model": "creategeography:block/frozen_soil"
+    },
+    "snowy=true": {
+      "model": "creategeography:block/frozen_soil_snow"
+    }
   }
 }
