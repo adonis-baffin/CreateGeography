@@ -35,6 +35,7 @@ public class TabRegistry {
                 output.accept(ItemRegistry.NITER_POWDER.get());            // 硝石粉
                 output.accept(ItemRegistry.SALT.get());                    // 盐
                 output.accept(ItemRegistry.DIRT_CLOD.get());               // 土坷
+                output.accept(ItemRegistry.WOOD_FIBER.get());              // 木纤维
 
                 // 方块物品
                 output.accept(ItemRegistry.FROZEN_SOIL.get());             // 冻土
@@ -48,7 +49,8 @@ public class TabRegistry {
                 output.accept(ItemRegistry.TREKKING_POLES.get());          // 登山杖
                 output.accept(ItemRegistry.GEOFRAGMENTATOR.get());         // 地质破碎锤
 
-                // 流体桶
+                // 流体
+                output.accept(ItemRegistry.BRINE_BOTTLE.get());            // 盐水瓶
                 output.accept(GeographyFluids.BRINE.getBucket().get());    // 盐水桶
             }).build());
 }

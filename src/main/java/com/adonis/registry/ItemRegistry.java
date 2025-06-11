@@ -63,6 +63,8 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BIOTITE = registerWithTab("biotite", () -> new Item(basicItem()));
     public static final RegistryObject<Item> SALT = registerWithTab("salt", () -> new Item(basicItem()));
     public static final RegistryObject<Item> WOOD_FIBER = registerWithTab("wood_fiber", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> BRINE_BOTTLE = registerWithTab("brine_bottle",
+            () -> new BrineBottleItem(basicItem()));
     public static final RegistryObject<Item> DIRT_CLOD = registerWithTab("dirt_clod", () -> new Item(basicItem()));
 
     // 冰相关物品
