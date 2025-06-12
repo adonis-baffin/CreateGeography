@@ -18,6 +18,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.ItemLike;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,15 +107,26 @@ public class FragmentingRecipe implements Recipe<SmartInventory> {
     @Override
     public RecipeType<?> getType() { return RecipeRegistry.FRAGMENTING_TYPE.get(); }
 
-    // --- 内部类 ChanceResult (完整版) ---
+    // --- 内部类 ChanceResult (修复版) ---
     public static class ChanceResult {
         public static final ChanceResult EMPTY = new ChanceResult(ItemStack.EMPTY, 0.0f);
         private final ItemStack stack;
         private final float chance;
 
+        // 原始构造函数
         public ChanceResult(ItemStack stack, float chance) {
             this.stack = stack;
             this.chance = this.chanceAsFloat(chance);
+        }
+
+        // 新增：支持 ItemLike 的构造函数
+        public ChanceResult(ItemLike item, float chance) {
+            this(new ItemStack(item), chance);
+        }
+
+        // 新增：支持 ItemLike 和数量的构造函数
+        public ChanceResult(ItemLike item, float chance, int count) {
+            this(new ItemStack(item, count), chance);
         }
 
         private float chanceAsFloat(float c) {

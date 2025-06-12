@@ -49,7 +49,6 @@ public class BasinFluidInteractionHandler {
             return;
         }
 
-        CreateGeography.LOGGER.debug("检测到空瓶右键工作盆");
 
         // 获取流体处理器
         var fluidHandlerOpt = basin.getCapability(ForgeCapabilities.FLUID_HANDLER);
@@ -61,12 +60,6 @@ public class BasinFluidInteractionHandler {
             FluidStack targetFluid = FluidStack.EMPTY;
             for (int tank = 0; tank < fluidHandler.getTanks(); tank++) {
                 FluidStack fluidInTank = fluidHandler.getFluidInTank(tank);
-
-                CreateGeography.LOGGER.debug("储罐 {} 中的流体: {} 数量: {}",
-                        tank,
-                        fluidInTank.isEmpty() ? "空" : ForgeRegistries.FLUIDS.getKey(fluidInTank.getFluid()),
-                        fluidInTank.getAmount());
-
                 // 检查是否是盐水（源或流动）
                 if (!fluidInTank.isEmpty() &&
                         (fluidInTank.getFluid() == GeographyFluids.BRINE.get() ||
@@ -78,7 +71,7 @@ public class BasinFluidInteractionHandler {
 
             // 如果找到盐水且数量足够
             if (!targetFluid.isEmpty() && targetFluid.getAmount() >= BOTTLE_VOLUME) {
-                CreateGeography.LOGGER.debug("找到足够的盐水，尝试装瓶");
+
 
                 if (!level.isClientSide) {
                     // 创建要抽取的流体栈
@@ -91,7 +84,7 @@ public class BasinFluidInteractionHandler {
                         // 实际抽取流体
                         FluidStack drained = fluidHandler.drain(toDrain, IFluidHandler.FluidAction.EXECUTE);
 
-                        CreateGeography.LOGGER.debug("成功抽取 {} mB 盐水", drained.getAmount());
+
 
                         // 播放声音
                         level.playSound(null, pos, SoundEvents.BOTTLE_FILL,

@@ -1,15 +1,20 @@
 package com.adonis;
 
+import com.adonis.data.Recipes; // 添加这个import
 import com.adonis.event.BasinFluidInteractionHandler;
-import com.adonis.event.FluidInteractionHandler;
 import com.adonis.fluid.FluidInteraction;
 import com.adonis.fluid.GeographyFluids;
 import com.adonis.networking.ModMessages;
 import com.adonis.registry.*;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.data.event.GatherDataEvent; // 添加这个import
+import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -26,14 +31,6 @@ public class CreateGeography {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
 
     public CreateGeography() {
-        LOGGER.info("CreateGeography 初始化开始");
-
-        // 检查是否在数据生成模式
-        boolean dataGen = System.getProperty("forge.data.gen") != null;
-        if (dataGen) {
-            LOGGER.info("检测到数据生成模式");
-        }
-
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
         // 注册方块和物品
@@ -53,18 +50,11 @@ public class CreateGeography {
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(this::commonSetup);
 
-        // 确保事件处理器类被加载（但在数据生成时跳过）
-        if (!dataGen) {
-            try {
-                Class.forName("com.adonis.event.FluidInteractionHandler");
-                Class.forName("com.adonis.event.BasinFluidInteractionHandler");
-                LOGGER.info("事件处理器类已加载");
-            } catch (ClassNotFoundException e) {
-                LOGGER.error("无法加载事件处理器: ", e);
-            }
-        }
+        // 添加数据生成器监听器 - 这是关键！
+        modEventBus.addListener(this::gatherData);
 
-        LOGGER.info("CreateGeography 初始化完成");
+        // 注册燃料事件
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -73,10 +63,36 @@ public class CreateGeography {
             ModMessages.register();
 
             // 显式注册事件处理器
-            MinecraftForge.EVENT_BUS.register(FluidInteractionHandler.class);
             MinecraftForge.EVENT_BUS.register(BasinFluidInteractionHandler.class);
-            LOGGER.info("事件处理器已注册到 Forge 事件总线");
         });
+    }
+
+    // 添加数据生成方法 - 这是关键！
+    private void gatherData(GatherDataEvent event) {
+        DataGenerator generator = event.getGenerator();
+        PackOutput output = generator.getPackOutput();
+
+        // 注册配方提供器
+        if (event.includeServer()) {
+            generator.addProvider(true, new Recipes(output));
+        }
+    }
+
+    /**
+     * 燃料注册事件
+     */
+    @SubscribeEvent
+    public void onFurnaceFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
+        ItemStack fuel = event.getItemStack();
+
+        // 煤粉：燃烧时间相当于煤炭 (1600 ticks)
+        if (fuel.is(ItemRegistry.COAL_POWDER.get())) {
+            event.setBurnTime(1600);
+        }
+        // 木炭粉：燃烧时间相当于煤炭 (1600 ticks)
+        else if (fuel.is(ItemRegistry.CHARCOAL_POWDER.get())) {
+            event.setBurnTime(1600);
+        }
     }
 
     @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

@@ -1,4 +1,4 @@
-package com.adonis.datagen;
+package com.adonis.data;
 
 import com.adonis.CreateGeography;
 import com.adonis.registry.BlockRegistry;

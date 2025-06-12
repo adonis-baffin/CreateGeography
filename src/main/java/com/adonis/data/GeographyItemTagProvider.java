@@ -1,4 +1,4 @@
-package com.adonis.datagen;
+package com.adonis.data;
 
 import com.adonis.CreateGeography;
 import com.adonis.registry.ItemRegistry;
@@ -7,7 +7,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
