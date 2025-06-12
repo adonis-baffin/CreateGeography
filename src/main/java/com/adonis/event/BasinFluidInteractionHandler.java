@@ -52,10 +52,13 @@ public class BasinFluidInteractionHandler {
         CreateGeography.LOGGER.debug("检测到空瓶右键工作盆");
 
         // 获取流体处理器
-        basin.getCapability(ForgeCapabilities.FLUID_HANDLER).ifPresent(fluidHandler -> {
-            CreateGeography.LOGGER.debug("获取到工作盆的流体处理器");
+        var fluidHandlerOpt = basin.getCapability(ForgeCapabilities.FLUID_HANDLER);
 
-            // 遍历所有储罐
+        if (fluidHandlerOpt.isPresent()) {
+            IFluidHandler fluidHandler = fluidHandlerOpt.orElse(null);
+
+            // 遍历所有储罐查找盐水
+            FluidStack targetFluid = FluidStack.EMPTY;
             for (int tank = 0; tank < fluidHandler.getTanks(); tank++) {
                 FluidStack fluidInTank = fluidHandler.getFluidInTank(tank);
 
@@ -64,57 +67,60 @@ public class BasinFluidInteractionHandler {
                         fluidInTank.isEmpty() ? "空" : ForgeRegistries.FLUIDS.getKey(fluidInTank.getFluid()),
                         fluidInTank.getAmount());
 
-                // 检查是否是盐水且有足够的量
+                // 检查是否是盐水（源或流动）
                 if (!fluidInTank.isEmpty() &&
-                        fluidInTank.getFluid() == GeographyFluids.BRINE.get() &&
-                        fluidInTank.getAmount() >= BOTTLE_VOLUME) {
-
-                    CreateGeography.LOGGER.debug("找到盐水，尝试装瓶");
-
-                    if (!level.isClientSide) {
-                        // 模拟抽取，检查是否可以抽取
-                        FluidStack simulated = fluidHandler.drain(
-                                new FluidStack(GeographyFluids.BRINE.get(), BOTTLE_VOLUME),
-                                IFluidHandler.FluidAction.SIMULATE
-                        );
-
-                        if (!simulated.isEmpty() && simulated.getAmount() == BOTTLE_VOLUME) {
-                            // 实际抽取流体
-                            FluidStack drained = fluidHandler.drain(
-                                    new FluidStack(GeographyFluids.BRINE.get(), BOTTLE_VOLUME),
-                                    IFluidHandler.FluidAction.EXECUTE
-                            );
-
-                            CreateGeography.LOGGER.debug("成功抽取 {} mB 盐水", drained.getAmount());
-
-                            // 播放声音
-                            level.playSound(null, pos, SoundEvents.BOTTLE_FILL,
-                                    SoundSource.BLOCKS, 1.0F, 1.0F);
-
-                            // 给予盐水瓶
-                            if (!player.getAbilities().instabuild) {
-                                stack.shrink(1);
-                                ItemStack brineBottle = new ItemStack(ItemRegistry.BRINE_BOTTLE.get());
-
-                                if (stack.isEmpty()) {
-                                    player.setItemInHand(hand, brineBottle);
-                                } else {
-                                    if (!player.getInventory().add(brineBottle)) {
-                                        player.drop(brineBottle, false);
-                                    }
-                                }
-                            }
-
-                            // 通知工作盆内容已改变
-                            basin.notifyChangeOfContents();
-                        }
-                    }
-
-                    event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
-                    event.setCanceled(true);
-                    return;
+                        (fluidInTank.getFluid() == GeographyFluids.BRINE.get() ||
+                                fluidInTank.getFluid() == GeographyFluids.BRINE.getSource())) {
+                    targetFluid = fluidInTank;
+                    break;
                 }
             }
-        });
+
+            // 如果找到盐水且数量足够
+            if (!targetFluid.isEmpty() && targetFluid.getAmount() >= BOTTLE_VOLUME) {
+                CreateGeography.LOGGER.debug("找到足够的盐水，尝试装瓶");
+
+                if (!level.isClientSide) {
+                    // 创建要抽取的流体栈
+                    FluidStack toDrain = new FluidStack(targetFluid.getFluid(), BOTTLE_VOLUME);
+
+                    // 模拟抽取，检查是否可以抽取
+                    FluidStack simulated = fluidHandler.drain(toDrain, IFluidHandler.FluidAction.SIMULATE);
+
+                    if (!simulated.isEmpty() && simulated.getAmount() == BOTTLE_VOLUME) {
+                        // 实际抽取流体
+                        FluidStack drained = fluidHandler.drain(toDrain, IFluidHandler.FluidAction.EXECUTE);
+
+                        CreateGeography.LOGGER.debug("成功抽取 {} mB 盐水", drained.getAmount());
+
+                        // 播放声音
+                        level.playSound(null, pos, SoundEvents.BOTTLE_FILL,
+                                SoundSource.BLOCKS, 1.0F, 1.0F);
+
+                        // 给予盐水瓶
+                        ItemStack brineBottle = new ItemStack(ItemRegistry.BRINE_BOTTLE.get());
+
+                        // 处理物品栈
+                        if (!player.getAbilities().instabuild) {
+                            if (stack.getCount() > 1) {
+                                stack.shrink(1);
+                                if (!player.getInventory().add(brineBottle)) {
+                                    player.drop(brineBottle, false);
+                                }
+                            } else {
+                                player.setItemInHand(hand, brineBottle);
+                            }
+                        }
+
+                        // 标记工作盆需要更新
+                        basin.setChanged();
+                        basin.notifyChangeOfContents();
+                    }
+                }
+
+                event.setCancellationResult(InteractionResult.sidedSuccess(level.isClientSide));
+                event.setCanceled(true);
+            }
+        }
     }
 }
