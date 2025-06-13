@@ -1,0 +1,15 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:magma_block"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:magma_cream",
+      "count": 4
+    }
+  ],
+  "processingTime": 100
+}

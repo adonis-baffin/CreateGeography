@@ -1,0 +1,21 @@
+{
+  "type": "create:mixing",
+  "heatRequirement": "heated",
+  "ingredients": [
+    {
+      "item": "minecraft:mud"
+    }
+  ],
+  "fluidIngredients": [
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:mud"
+    }
+  ],
+  "processingTime": 100
+}

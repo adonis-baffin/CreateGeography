@@ -1,0 +1,19 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:deepslate_lapis_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:cobbled_deepslate",
+      "count": 3
+    },
+    {
+      "item": "creategeography:lapis_lazuli_powder",
+      "count": 9
+    }
+  ],
+  "processingTime": 100
+}

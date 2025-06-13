@@ -1,0 +1,19 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:deepslate_redstone_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:cobbled_deepslate",
+      "count": 3
+    },
+    {
+      "item": "minecraft:redstone",
+      "count": 5
+    }
+  ],
+  "processingTime": 100
+}

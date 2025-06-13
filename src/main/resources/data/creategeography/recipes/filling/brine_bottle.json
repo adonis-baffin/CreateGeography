@@ -1,0 +1,20 @@
+{
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    }
+  ],
+  "fluidIngredients": [
+    {
+      "fluid": "creategeography:brine",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:brine_bottle"
+    }
+  ],
+  "processingTime": 100
+}

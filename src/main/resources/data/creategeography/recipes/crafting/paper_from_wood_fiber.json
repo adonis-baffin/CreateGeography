@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "creategeography:wood_fiber",
+      "count": 3
+    }
+  ],
+  "result": {
+    "item": "minecraft:paper",
+    "count": 3
+  }
+}

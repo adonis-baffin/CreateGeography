@@ -1,0 +1,19 @@
+{
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "minecraft:charcoal"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:charcoal_powder"
+    },
+    {
+      "item": "creategeography:charcoal_powder",
+      "count": 2,
+      "chance": 0.5
+    }
+  ],
+  "processingTime": 100
+}

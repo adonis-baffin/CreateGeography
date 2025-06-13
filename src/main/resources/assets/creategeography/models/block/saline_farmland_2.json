@@ -2,6 +2,6 @@
   "parent": "minecraft:block/template_farmland",
   "textures": {
     "dirt": "creategeography:block/saline_dirt",
-    "top": "creategeography:block/saline_farmland_2"
+    "top": "creategeography:block/saline_farmland_0"
   }
 }

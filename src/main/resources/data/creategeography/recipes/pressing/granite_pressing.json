@@ -7,20 +7,15 @@
   ],
   "results": [
     {
-      "item": "creategeography:crushed_stone",
-      "count": 1
+      "item": "minecraft:gravel"
     },
     {
-      "item": "creategeography:orthoclase",
-      "count": 1
+      "item": "creategeography:orthaclase",
+      "count": 2
     },
     {
-      "item": "creategeography:plagioclase",
-      "count": 1
-    },
-    {
-      "item": "creategeography:quartz_sand",
-      "count": 1
+      "item": "creategeography:plagioclase"
     }
-  ]
+  ],
+  "processingTime": 100
 }

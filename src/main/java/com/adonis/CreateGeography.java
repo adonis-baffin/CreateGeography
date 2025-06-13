@@ -1,19 +1,15 @@
 package com.adonis;
 
-import com.adonis.data.Recipes; // 添加这个import
 import com.adonis.event.BasinFluidInteractionHandler;
 import com.adonis.fluid.FluidInteraction;
 import com.adonis.fluid.GeographyFluids;
 import com.adonis.networking.ModMessages;
 import com.adonis.registry.*;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.data.event.GatherDataEvent; // 添加这个import
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -50,11 +46,10 @@ public class CreateGeography {
         REGISTRATE.registerEventListeners(modEventBus);
         modEventBus.addListener(this::commonSetup);
 
-        // 添加数据生成器监听器 - 这是关键！
-        modEventBus.addListener(this::gatherData);
-
         // 注册燃料事件
         MinecraftForge.EVENT_BUS.register(this);
+
+        LOGGER.info("CreateGeography mod initialized - runtime recipe registration enabled");
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -65,17 +60,6 @@ public class CreateGeography {
             // 显式注册事件处理器
             MinecraftForge.EVENT_BUS.register(BasinFluidInteractionHandler.class);
         });
-    }
-
-    // 添加数据生成方法 - 这是关键！
-    private void gatherData(GatherDataEvent event) {
-        DataGenerator generator = event.getGenerator();
-        PackOutput output = generator.getPackOutput();
-
-        // 注册配方提供器
-        if (event.includeServer()) {
-            generator.addProvider(true, new Recipes(output));
-        }
     }
 
     /**

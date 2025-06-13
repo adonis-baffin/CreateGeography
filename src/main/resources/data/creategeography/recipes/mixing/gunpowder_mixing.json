@@ -1,0 +1,36 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "creategeography:sulfur_powder"
+    },
+    {
+      "item": "creategeography:charcoal_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:gunpowder",
+      "count": 8
+    }
+  ],
+  "processingTime": 200
+}

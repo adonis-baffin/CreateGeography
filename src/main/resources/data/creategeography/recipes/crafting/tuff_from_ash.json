@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building_blocks",
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "key": {
+    "A": {
+      "item": "creategeography:ash"
+    }
+  },
+  "result": {
+    "item": "minecraft:tuff"
+  }
+}

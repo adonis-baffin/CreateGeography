@@ -1,0 +1,18 @@
+{
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "minecraft:tuff"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:ash",
+      "count": 3
+    },
+    {
+      "item": "creategeography:sulfur_powder"
+    }
+  ],
+  "processingTime": 100
+}

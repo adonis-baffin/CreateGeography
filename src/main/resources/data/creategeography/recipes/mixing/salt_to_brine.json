@@ -1,0 +1,22 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "creategeography:salt"
+    }
+  ],
+  "fluidIngredients": [
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [],
+  "fluidResults": [
+    {
+      "fluid": "creategeography:brine",
+      "amount": 250
+    }
+  ],
+  "processingTime": 100
+}

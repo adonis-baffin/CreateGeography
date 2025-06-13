@@ -1,0 +1,14 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "item": "creategeography:saline_farmland"
+  },
+  "results": [
+    {
+      "item": "minecraft:farmland"
+    },
+    {
+      "item": "creategeography:salt"
+    }
+  ]
+}

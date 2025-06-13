@@ -1,0 +1,16 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "tag": "creategeography:dirt_blocks"
+  },
+  "results": [
+    {
+      "item": "creategeography:dirt_clod",
+      "chance": 0.9
+    },
+    {
+      "item": "creategeography:niter",
+      "chance": 0.1
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "item": "minecraft:deepslate_redstone_ore"
+  },
+  "results": [
+    {
+      "item": "minecraft:redstone",
+      "count": 5
+    }
+  ]
+}

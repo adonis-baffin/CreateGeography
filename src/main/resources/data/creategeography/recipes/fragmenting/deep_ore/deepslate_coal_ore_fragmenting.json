@@ -1,0 +1,12 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "item": "minecraft:deepslate_coal_ore"
+  },
+  "results": [
+    {
+      "item": "creategeography:coal_powder",
+      "count": 2
+    }
+  ]
+}

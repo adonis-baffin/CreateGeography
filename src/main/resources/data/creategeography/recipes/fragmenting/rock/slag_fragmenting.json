@@ -1,0 +1,20 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "item": "create:scoria"
+  },
+  "results": [
+    {
+      "item": "creategeography:coal_powder",
+      "chance": 0.25
+    },
+    {
+      "item": "creategeography:ash",
+      "chance": 0.5
+    },
+    {
+      "item": "creategeography:sulfur_powder",
+      "chance": 0.25
+    }
+  ]
+}

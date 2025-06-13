@@ -1,0 +1,15 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "item": "minecraft:cherry_log"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:wood_fiber",
+      "count": 4
+    }
+  ],
+  "processingTime": 100
+}

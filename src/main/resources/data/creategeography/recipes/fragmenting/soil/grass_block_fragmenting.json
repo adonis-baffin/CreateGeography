@@ -1,0 +1,20 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "item": "minecraft:grass_block"
+  },
+  "results": [
+    {
+      "item": "creategeography:dirt_clod",
+      "chance": 0.8
+    },
+    {
+      "item": "minecraft:wheat_seeds",
+      "chance": 0.1
+    },
+    {
+      "item": "creategeography:niter",
+      "chance": 0.1
+    }
+  ]
+}

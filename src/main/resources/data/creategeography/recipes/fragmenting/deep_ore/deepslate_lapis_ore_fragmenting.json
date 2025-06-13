@@ -1,0 +1,12 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "item": "minecraft:deepslate_lapis_ore"
+  },
+  "results": [
+    {
+      "item": "creategeography:lapis_lazuli_powder",
+      "count": 9
+    }
+  ]
+}

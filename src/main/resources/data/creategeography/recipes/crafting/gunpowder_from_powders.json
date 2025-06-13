@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "creategeography:sulfur_powder"
+    },
+    {
+      "item": "creategeography:charcoal_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    },
+    {
+      "item": "creategeography:niter_powder"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gunpowder",
+    "count": 8
+  }
+}

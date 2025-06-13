@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "creategeography:coal_powder",
+    "creategeography:charcoal_powder",
+    "creategeography:sulfur_powder",
+    "creategeography:niter_powder",
+    "creategeography:lapis_lazuli_powder"
+  ]
+}

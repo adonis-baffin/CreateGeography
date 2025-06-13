@@ -1,0 +1,13 @@
+{
+  "type": "create:sandpaper_polishing",
+  "ingredients": [
+    {
+      "item": "creategeography:hornblende"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:polished_hornblende"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "creategeography:orthaclase"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:red_sand_dust"
+    }
+  ],
+  "processingTime": 100
+}

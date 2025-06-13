@@ -1,0 +1,19 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:coal_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:gravel",
+      "count": 3
+    },
+    {
+      "item": "creategeography:coal_powder",
+      "count": 2
+    }
+  ],
+  "processingTime": 100
+}

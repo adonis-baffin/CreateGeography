@@ -1,0 +1,19 @@
+{
+  "type": "create:crushing",
+  "ingredients": [
+    {
+      "item": "minecraft:charcoal"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:charcoal_powder"
+    },
+    {
+      "item": "creategeography:coal_powder",
+      "count": 2,
+      "chance": 0.5
+    }
+  ],
+  "processingTime": 150
+}

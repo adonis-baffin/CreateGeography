@@ -19,12 +19,15 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.PlantType;
+import com.adonis.fluid.GeographyFluids;
+import com.adonis.registry.BlockRegistry;
 
 public class SalineFarmlandBlock extends Block {
     public static final IntegerProperty MOISTURE = BlockStateProperties.MOISTURE;
@@ -79,7 +82,7 @@ public class SalineFarmlandBlock extends Block {
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (!state.canSurvive(level, pos)) {
-            turnToDirt(null, state, level, pos);
+            turnToSalineDirt(null, state, level, pos);
         }
     }
 
@@ -88,19 +91,61 @@ public class SalineFarmlandBlock extends Block {
         int moisture = state.getValue(MOISTURE);
         int salinity = state.getValue(SALINITY);
 
-        // 水分更新逻辑
-        if (!hasWater(level, pos) && !level.isRainingAt(pos.above())) {
-            if (moisture > 0) {
-                level.setBlock(pos, state.setValue(MOISTURE, moisture - 1), 2);
+        // 检查周围的水源情况
+        boolean hasWater = hasWater(level, pos);
+        boolean hasBrine = hasBrine(level, pos);
+        boolean isRaining = level.isRainingAt(pos.above());
+
+        // 调试信息 - 在开发时可以启用
+        // System.out.println("SalineFarmland at " + pos + " - Water: " + hasWater + ", Brine: " + hasBrine + ", Rain: " + isRaining + ", Moisture: " + moisture + ", Salinity: " + salinity);
+
+        // 湿润度更新逻辑 - 水和盐水都可以提供湿润
+        if (hasWater || hasBrine || isRaining) {
+            // 有水源（普通水或盐水）或下雨时，保持最大湿润度
+            if (moisture < MAX_MOISTURE) {
+                level.setBlock(pos, state.setValue(MOISTURE, MAX_MOISTURE), 2);
+                moisture = MAX_MOISTURE; // 更新本地变量
+                // System.out.println("Updated moisture to " + MAX_MOISTURE);
             }
-        } else if (moisture < 7) {
-            level.setBlock(pos, state.setValue(MOISTURE, 7), 2);
+        } else {
+            // 没有水源时，湿润度逐渐降低
+            if (moisture > 0) {
+                int newMoisture = moisture - 1;
+                level.setBlock(pos, state.setValue(MOISTURE, newMoisture), 2);
+                moisture = newMoisture; // 更新本地变量
+                // System.out.println("Decreased moisture to " + newMoisture);
+            } else {
+                // 湿润度为0时，变回盐碱土
+                // System.out.println("Converting to saline dirt due to no moisture");
+                turnToSalineDirt(null, state, level, pos);
+                return;
+            }
         }
 
-        // 盐碱化加重逻辑
-        if (random.nextFloat() < 0.1f && salinity < 3) { // 10%概率增加盐碱化
-            level.setBlock(pos, state.setValue(SALINITY, salinity + 1), 2);
+        // 盐碱化程度变化逻辑
+        if (hasBrine) {
+            // 有盐水时，盐碱化程度逐渐增加（无论是否有普通水）
+            if (salinity < 3 && random.nextFloat() < 0.15f) { // 15%概率增加盐碱化
+                int newSalinity = salinity + 1;
+                level.setBlock(pos, state.setValue(SALINITY, newSalinity), 2);
+                // System.out.println("Increased salinity to " + newSalinity + " due to brine");
+            }
+        } else if (hasWater) {
+            // 只有普通水，没有盐水时，盐碱化程度逐渐降低
+            if (salinity > 0 && random.nextFloat() < 0.25f) { // 25%概率降低盐碱化
+                int newSalinity = salinity - 1;
+                if (newSalinity == 0) {
+                    // 盐碱化程度降到0时，变成普通耕地，保持当前湿润度
+                    // System.out.println("Converting to normal farmland with moisture " + moisture);
+                    level.setBlock(pos, Blocks.FARMLAND.defaultBlockState().setValue(FarmBlock.MOISTURE, moisture), 2);
+                    return;
+                } else {
+                    level.setBlock(pos, state.setValue(SALINITY, newSalinity), 2);
+                    // System.out.println("Decreased salinity to " + newSalinity + " due to water");
+                }
+            }
         }
+        // 如果既没有水也没有盐水，盐碱化程度保持不变
 
         // 作物生长干预逻辑
         affectCropGrowth(state, level, pos, random);
@@ -134,7 +179,7 @@ public class SalineFarmlandBlock extends Block {
         // 等级0-2的生长控制由CropBlockMixin处理，避免重复
     }
 
-    // 检查附近是否有水源
+    // 检查附近是否有普通水源
     private static boolean hasWater(Level level, BlockPos pos) {
         for (BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
             if (level.getFluidState(nearbyPos).is(FluidTags.WATER)) {
@@ -144,16 +189,38 @@ public class SalineFarmlandBlock extends Block {
         return net.minecraftforge.common.FarmlandWaterManager.hasBlockWaterTicket(level, pos);
     }
 
+    // 检查附近是否有盐水
+    private static boolean hasBrine(Level level, BlockPos pos) {
+        for (BlockPos nearbyPos : BlockPos.betweenClosed(pos.offset(-4, 0, -4), pos.offset(4, 1, 4))) {
+            FluidState fluidState = level.getFluidState(nearbyPos);
+            // 检查是否为盐水流体（包括源方块和流动方块）
+            if (fluidState.getType() == GeographyFluids.BRINE.get().getSource() ||
+                    fluidState.getType() == GeographyFluids.BRINE.get().getFlowing()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
-        if (!level.isClientSide && ForgeHooks.onFarmlandTrample(level, pos, Blocks.DIRT.defaultBlockState(), fallDistance, entity)) {
-            turnToDirt(entity, state, level, pos);
+        if (!level.isClientSide && ForgeHooks.onFarmlandTrample(level, pos, BlockRegistry.SALINE_DIRT.get().defaultBlockState(), fallDistance, entity)) {
+            turnToSalineDirt(entity, state, level, pos);
         }
         super.fallOn(level, state, pos, entity, fallDistance);
     }
 
-    public static void turnToDirt(Entity entity, BlockState state, Level level, BlockPos pos) {
-        BlockState blockstate = pushEntitiesUp(state, Blocks.DIRT.defaultBlockState(), level, pos);
+    public static void turnToSalineDirt(Entity entity, BlockState state, Level level, BlockPos pos) {
+        // 获取当前的盐碱化等级，传递给盐碱土
+        int salinity = state.getValue(SALINITY);
+        BlockState salineDirtState = BlockRegistry.SALINE_DIRT.get().defaultBlockState();
+
+        // 假设盐碱土也有SALINITY属性，如果没有可以去掉这行
+        if (salineDirtState.hasProperty(SALINITY)) {
+            salineDirtState = salineDirtState.setValue(SALINITY, salinity);
+        }
+
+        BlockState blockstate = pushEntitiesUp(state, salineDirtState, level, pos);
         level.setBlockAndUpdate(pos, blockstate);
         level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(entity, blockstate));
     }

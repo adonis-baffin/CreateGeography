@@ -1,0 +1,15 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "tag": "creategeography:soil_blocks"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:dirt_clod",
+      "count": 4
+    }
+  ],
+  "processingTime": 100
+}

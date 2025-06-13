@@ -1,0 +1,11 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "item": "minecraft:copper_ore"
+  },
+  "results": [
+    {
+      "item": "create:crushed_raw_copper"
+    }
+  ]
+}

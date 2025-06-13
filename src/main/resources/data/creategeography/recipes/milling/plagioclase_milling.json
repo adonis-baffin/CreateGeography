@@ -1,0 +1,14 @@
+{
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "creategeography:plagioclase"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:ash"
+    }
+  ],
+  "processingTime": 100
+}

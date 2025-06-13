@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building_blocks",
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "key": {
+    "S": {
+      "item": "creategeography:salt"
+    }
+  },
+  "result": {
+    "item": "creategeography:salt_block"
+  }
+}

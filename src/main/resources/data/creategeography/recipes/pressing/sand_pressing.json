@@ -1,0 +1,15 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:sand"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:sand_dust",
+      "count": 4
+    }
+  ],
+  "processingTime": 100
+}

@@ -1,0 +1,14 @@
+{
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "minecraft:cobbled_deepslate"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:sand_dust"
+    }
+  ],
+  "processingTime": 100
+}

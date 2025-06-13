@@ -1,0 +1,26 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "item": "minecraft:kelp"
+    }
+  ],
+  "fluidIngredients": [
+    {
+      "fluid": "minecraft:water",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:wood_fiber"
+    }
+  ],
+  "fluidResults": [
+    {
+      "fluid": "creategeography:brine",
+      "amount": 250
+    }
+  ],
+  "processingTime": 100
+}

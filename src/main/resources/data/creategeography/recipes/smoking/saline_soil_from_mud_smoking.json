@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "creategeography:saline_mud"
+  },
+  "result": "creategeography:saline_dirt",
+  "experience": 0.1,
+  "cookingtime": 100
+}

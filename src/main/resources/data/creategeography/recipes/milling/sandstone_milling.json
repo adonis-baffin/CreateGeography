@@ -1,0 +1,18 @@
+{
+  "type": "create:milling",
+  "ingredients": [
+    {
+      "item": "minecraft:sandstone"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:sand"
+    },
+    {
+      "item": "creategeography:niter",
+      "chance": 0.2
+    }
+  ],
+  "processingTime": 100
+}

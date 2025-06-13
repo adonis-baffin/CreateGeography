@@ -1,0 +1,12 @@
+{
+  "type": "creategeography:fragmenting",
+  "ingredient": {
+    "item": "minecraft:coal_ore"
+  },
+  "results": [
+    {
+      "item": "creategeography:coal_powder",
+      "count": 2
+    }
+  ]
+}

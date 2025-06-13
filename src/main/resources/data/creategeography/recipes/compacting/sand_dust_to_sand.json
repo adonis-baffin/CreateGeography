@@ -1,0 +1,23 @@
+{
+  "type": "create:compacting",
+  "ingredients": [
+    {
+      "item": "creategeography:sand_dust"
+    },
+    {
+      "item": "creategeography:sand_dust"
+    },
+    {
+      "item": "creategeography:sand_dust"
+    },
+    {
+      "item": "creategeography:sand_dust"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:sand"
+    }
+  ],
+  "processingTime": 100
+}

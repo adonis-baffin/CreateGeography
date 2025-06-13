@@ -1,0 +1,15 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:tuff"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:ash",
+      "count": 4
+    }
+  ],
+  "processingTime": 100
+}

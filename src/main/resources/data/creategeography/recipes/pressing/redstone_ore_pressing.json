@@ -1,0 +1,19 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:redstone_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:gravel",
+      "count": 3
+    },
+    {
+      "item": "minecraft:redstone",
+      "count": 5
+    }
+  ],
+  "processingTime": 100
+}

@@ -1,0 +1,26 @@
+{
+  "type": "create:mixing",
+  "ingredients": [
+    {
+      "item": "minecraft:mud"
+    }
+  ],
+  "fluidIngredients": [
+    {
+      "fluid": "creategeography:brine",
+      "amount": 250
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:saline_mud"
+    }
+  ],
+  "fluidResults": [
+    {
+      "fluid": "creategeography:brine",
+      "amount": 250
+    }
+  ],
+  "processingTime": 100
+}

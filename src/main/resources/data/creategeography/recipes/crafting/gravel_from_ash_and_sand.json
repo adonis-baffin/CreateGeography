@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building_blocks",
+  "ingredients": [
+    {
+      "item": "creategeography:ash"
+    },
+    {
+      "item": "creategeography:ash"
+    },
+    {
+      "item": "creategeography:ash"
+    },
+    {
+      "item": "creategeography:sand_dust"
+    }
+  ],
+  "result": {
+    "item": "minecraft:gravel"
+  }
+}

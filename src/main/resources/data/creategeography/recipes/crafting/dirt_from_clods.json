@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building_blocks",
+  "pattern": [
+    "CC",
+    "CC"
+  ],
+  "key": {
+    "C": {
+      "item": "creategeography:dirt_clod"
+    }
+  },
+  "result": {
+    "item": "minecraft:dirt"
+  }
+}

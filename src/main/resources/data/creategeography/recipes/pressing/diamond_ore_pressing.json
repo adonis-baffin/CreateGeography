@@ -1,0 +1,18 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:diamond_ore"
+    }
+  ],
+  "results": [
+    {
+      "item": "minecraft:gravel",
+      "count": 3
+    },
+    {
+      "item": "minecraft:diamond"
+    }
+  ],
+  "processingTime": 100
+}

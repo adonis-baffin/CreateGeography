@@ -1,0 +1,18 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:gravel"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:sand_dust"
+    },
+    {
+      "item": "creategeography:ash",
+      "count": 3
+    }
+  ],
+  "processingTime": 100
+}

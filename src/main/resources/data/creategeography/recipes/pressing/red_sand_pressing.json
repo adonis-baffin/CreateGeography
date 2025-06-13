@@ -1,0 +1,15 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "item": "minecraft:red_sand"
+    }
+  ],
+  "results": [
+    {
+      "item": "creategeography:red_sand_dust",
+      "count": 4
+    }
+  ],
+  "processingTime": 100
+}
