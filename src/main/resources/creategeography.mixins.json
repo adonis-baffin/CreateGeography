@@ -5,8 +5,8 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "creategeography.refmap.json",
   "mixins": [
-    "FarmBlockMixin",
-    "MudBlockMixin",
+    "UnifiedFarmlandMixin",
+    "CustomFarmlandMixin",
     "CropBlockMixin"
   ],
   "client": [],

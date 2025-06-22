@@ -1,5 +1,8 @@
 package com.adonis;
 
+import com.adonis.config.NaturalTransformConfig;
+import com.adonis.transform.FarmlandTransformHandler;
+import com.adonis.transform.NaturalTransformHandler;
 import com.adonis.event.BasinFluidInteractionHandler;
 import com.adonis.fluid.FluidInteraction;
 import com.adonis.fluid.GeographyFluids;
@@ -7,14 +10,11 @@ import com.adonis.networking.ModMessages;
 import com.adonis.registry.*;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
@@ -29,7 +29,20 @@ public class CreateGeography {
     public CreateGeography() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        // 注册方块和物品
+        // 注册配置
+        NaturalTransformConfig.register();
+        LOGGER.info("🔧 Create Geography configuration registered");
+
+        // 注册所有内容
+        registerContent(modEventBus);
+
+        // 设置事件监听
+        setupEventListeners(modEventBus);
+
+        LOGGER.info("🚀 Create Geography initialized");
+    }
+
+    private void registerContent(IEventBus modEventBus) {
         BlockRegistry.BLOCKS.register(modEventBus);
         ItemRegistry.ITEMS.register(modEventBus);
         TabRegistry.CREATIVE_TABS.register(modEventBus);
@@ -39,27 +52,63 @@ public class CreateGeography {
         RecipeRegistry.RECIPE_SERIALIZERS.register(modEventBus);
         RecipeRegistry.RECIPE_TYPES.register(modEventBus);
 
-        // 注册流体
         GeographyFluids.register();
-
-        // 只注册一次！
         REGISTRATE.registerEventListeners(modEventBus);
+    }
+
+    private void setupEventListeners(IEventBus modEventBus) {
         modEventBus.addListener(this::commonSetup);
-
-        // 注册燃料事件
-        MinecraftForge.EVENT_BUS.register(this);
-
-        LOGGER.info("CreateGeography mod initialized - runtime recipe registration enabled");
+        MinecraftForge.EVENT_BUS.register(this); // 燃料事件
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            FluidInteraction.registerFluidInteractions();
-            ModMessages.register();
+            try {
+                // 注册流体交互和网络
+                FluidInteraction.registerFluidInteractions();
+                ModMessages.register();
 
-            // 显式注册事件处理器
-            MinecraftForge.EVENT_BUS.register(BasinFluidInteractionHandler.class);
+                // 注册事件处理器
+                MinecraftForge.EVENT_BUS.register(BasinFluidInteractionHandler.class);
+                MinecraftForge.EVENT_BUS.register(NaturalTransformHandler.class);
+                // 注册耕地转换处理器（虽然主要通过Mixin工作，但注册以备将来使用）
+                MinecraftForge.EVENT_BUS.register(FarmlandTransformHandler.class);
+
+                LOGGER.info("✅ Create Geography common setup completed");
+
+                // 验证注册状态
+                verifyRegistrations();
+
+            } catch (Exception e) {
+                LOGGER.error("❌ Error during common setup: ", e);
+            }
         });
+    }
+
+    private void verifyRegistrations() {
+        LOGGER.info("🔍 Verifying registrations:");
+
+        // 验证关键方块
+        verifyBlock("FROZEN_SOIL", BlockRegistry.FROZEN_SOIL);
+        verifyBlock("CRACKED_ICE", BlockRegistry.CRACKED_ICE);
+        verifyBlock("SALINE_MUD", BlockRegistry.SALINE_MUD);
+
+        // 验证流体
+        if (GeographyFluids.BRINE.get() != null) {
+            LOGGER.info("✅ BRINE fluid registered");
+        } else {
+            LOGGER.error("❌ BRINE fluid registration failed");
+        }
+
+        LOGGER.info("🔍 Registration verification completed");
+    }
+
+    private void verifyBlock(String name, net.minecraftforge.registries.RegistryObject<?> registryObject) {
+        if (registryObject != null && registryObject.get() != null) {
+            LOGGER.info("✅ {} registered: {}", name, registryObject.get());
+        } else {
+            LOGGER.error("❌ {} registration failed", name);
+        }
     }
 
     /**
@@ -67,22 +116,16 @@ public class CreateGeography {
      */
     @SubscribeEvent
     public void onFurnaceFuelBurnTime(FurnaceFuelBurnTimeEvent event) {
-        ItemStack fuel = event.getItemStack();
+        try {
+            var fuel = event.getItemStack();
 
-        // 煤粉：燃烧时间相当于煤炭 (1600 ticks)
-        if (fuel.is(ItemRegistry.COAL_POWDER.get())) {
-            event.setBurnTime(1600);
-        }
-        // 木炭粉：燃烧时间相当于煤炭 (1600 ticks)
-        else if (fuel.is(ItemRegistry.CHARCOAL_POWDER.get())) {
-            event.setBurnTime(1600);
-        }
-    }
-
-    @Mod.EventBusSubscriber(modid = MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
-    public static class ClientModEvents {
-        @SubscribeEvent
-        public static void onClientSetup(FMLClientSetupEvent event) {
+            if (fuel.is(ItemRegistry.COAL_POWDER.get())) {
+                event.setBurnTime(1600);
+            } else if (fuel.is(ItemRegistry.CHARCOAL_POWDER.get())) {
+                event.setBurnTime(1600);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Error setting fuel burn time: ", e);
         }
     }
 
