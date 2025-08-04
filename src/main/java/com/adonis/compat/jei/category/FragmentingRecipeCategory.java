@@ -39,13 +39,13 @@ public class FragmentingRecipeCategory implements IRecipeCategory<FragmentingRec
         // 使用与动力冲压机相同的背景尺寸
         background = guiHelper.createBlankDrawable(177, 90);
 
-        // 创建槽位背景 - 使用 AllGuiTextures 的位置信息
-        slot = guiHelper.createDrawable(AllGuiTextures.JEI_SLOT.location,
-                AllGuiTextures.JEI_SLOT.startX, AllGuiTextures.JEI_SLOT.startY,
-                AllGuiTextures.JEI_SLOT.width, AllGuiTextures.JEI_SLOT.height);
-        chanceSlot = guiHelper.createDrawable(AllGuiTextures.JEI_CHANCE_SLOT.location,
-                AllGuiTextures.JEI_CHANCE_SLOT.startX, AllGuiTextures.JEI_CHANCE_SLOT.startY,
-                AllGuiTextures.JEI_CHANCE_SLOT.width, AllGuiTextures.JEI_CHANCE_SLOT.height);
+        // 创建槽位背景 - 使用getter方法替代直接访问private字段
+        slot = guiHelper.createDrawable(AllGuiTextures.JEI_SLOT.getLocation(),
+                AllGuiTextures.JEI_SLOT.getStartX(), AllGuiTextures.JEI_SLOT.getStartY(),
+                AllGuiTextures.JEI_SLOT.getWidth(), AllGuiTextures.JEI_SLOT.getHeight());
+        chanceSlot = guiHelper.createDrawable(AllGuiTextures.JEI_CHANCE_SLOT.getLocation(),
+                AllGuiTextures.JEI_CHANCE_SLOT.getStartX(), AllGuiTextures.JEI_CHANCE_SLOT.getStartY(),
+                AllGuiTextures.JEI_CHANCE_SLOT.getWidth(), AllGuiTextures.JEI_CHANCE_SLOT.getHeight());
     }
 
     @Override
@@ -112,10 +112,12 @@ public class FragmentingRecipeCategory implements IRecipeCategory<FragmentingRec
             builder.addSlot(RecipeIngredientRole.OUTPUT, slotX, slotY)
                     .setBackground(slotBackground, -1, -1)
                     .addItemStack(result.getStack())
-                    .addTooltipCallback((slotView, tooltip) -> {
+                    // 使用新的addRichTooltipCallback替代已弃用的addTooltipCallback
+                    .addRichTooltipCallback((slotView, tooltip) -> {
                         float chance = results.get(index).getChance();
                         if (chance < 1.0f) {
-                            tooltip.add(1, Component.translatable("jei.creategeography.chance", (int) (chance * 100))
+                            // 新API不再支持插入到指定位置，直接添加到末尾
+                            tooltip.add(Component.translatable("jei.creategeography.chance", (int) (chance * 100))
                                     .withStyle(ChatFormatting.GOLD));
                         }
                     });

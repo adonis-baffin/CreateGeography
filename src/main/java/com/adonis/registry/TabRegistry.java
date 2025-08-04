@@ -44,6 +44,7 @@ public class TabRegistry {
                 output.accept(ItemRegistry.SALINE_DIRT.get());             // 盐碱土
                 output.accept(ItemRegistry.SALINE_FARMLAND.get());         // 盐碱耕地
                 output.accept(ItemRegistry.SALINE_MUD.get());              // 盐碱泥巴
+                output.accept(ItemRegistry.NITER_BED.get());
 
 
                 output.accept(ItemRegistry.TREKKING_POLES.get());          // 登山杖

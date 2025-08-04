@@ -1,5 +1,6 @@
 package com.adonis.content.block;
 
+import com.adonis.event.NaturalTransformHandler;
 import com.adonis.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -90,6 +91,9 @@ public class SalineDirtBlock extends Block {
         if (salinity >= 2) {
             affectNearbyVegetation(state, level, pos, random);
         }
+
+        // 盐晶生成逻辑 - 使用统一的处理器
+        NaturalTransformHandler.handleSaltCrystalGeneration(state, level, pos, random);
     }
 
     // 影响周围植被

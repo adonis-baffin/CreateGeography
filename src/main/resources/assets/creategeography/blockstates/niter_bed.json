@@ -1,0 +1,21 @@
+{
+  "variants": {
+    "": [
+      {
+        "model": "creategeography:block/niter_bed"
+      },
+      {
+        "model": "creategeography:block/niter_bed",
+        "y": 90
+      },
+      {
+        "model": "creategeography:block/niter_bed",
+        "y": 180
+      },
+      {
+        "model": "creategeography:block/niter_bed",
+        "y": 270
+      }
+    ]
+  }
+}

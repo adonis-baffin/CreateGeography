@@ -169,22 +169,6 @@ public class BlockRegistry {
                 }
             });
 
-    // 破裂方块
-    public static final RegistryObject<Block> CRACKED_BASALT = BLOCKS.register("cracked_basalt",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BASALT)));
-
-    public static final RegistryObject<Block> CRACKED_BLACKSTONE = BLOCKS.register("cracked_blackstone",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.BLACKSTONE)));
-
-    public static final RegistryObject<Block> CRACKED_ANDESITE = BLOCKS.register("cracked_andesite",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.ANDESITE)));
-
-    public static final RegistryObject<Block> CRACKED_GRANITE = BLOCKS.register("cracked_granite",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.GRANITE)));
-
-    public static final RegistryObject<Block> CRACKED_DIORITE = BLOCKS.register("cracked_diorite",
-            () -> new Block(BlockBehaviour.Properties.copy(Blocks.DIORITE)));
-
     public static final RegistryObject<Block> CRACKED_ICE = BLOCKS.register("cracked_ice",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_LIGHT_BLUE)
@@ -197,36 +181,12 @@ public class BlockRegistry {
                 }
             });
 
-    public static final RegistryObject<Block> CRACKED_PACKED_ICE = BLOCKS.register("cracked_packed_ice",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .strength(0.2f, 0.2f)
-                    .sound(SoundType.GLASS)
-                    .friction(0.98f)) {
-                @Override
-                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-                    return Collections.singletonList(new ItemStack(PACKED_ICE_SHARDS.get(), builder.getLevel().random.nextInt(2, 4)));
-                }
-            });
-
-    public static final RegistryObject<Block> CRACKED_BLUE_ICE = BLOCKS.register("cracked_blue_ice",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_BLUE)
-                    .strength(1.2f, 1.2f)
-                    .sound(SoundType.GLASS)
-                    .friction(0.989f)) {
-                @Override
-                public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-                    return Collections.singletonList(new ItemStack(BLUE_ICE_SHARDS.get(), builder.getLevel().random.nextInt(2, 4)));
-                }
-            });
-
     // 土壤相关方块
     public static final RegistryObject<Block> FROZEN_SOIL = BLOCKS.register("frozen_soil",
             () -> new FrozenSoilBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.DIRT)
                     .randomTicks() // 启用随机刻
-                    .strength(0.5f, 0.5f)
+                    .strength(0.6f, 0.6f)
                     .sound(SoundType.GRAVEL)
                     .randomTicks()));
 
@@ -252,106 +212,21 @@ public class BlockRegistry {
                     .strength(0.6f)
                     .sound(SoundType.GRAVEL)));
 
-    public static final RegistryObject<Block> BLACK_DIRT = BLOCKS.register("black_soil",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.TERRACOTTA_BLACK)
-                    .strength(0.5f, 0.5f)
-                    .sound(SoundType.GRAVEL)));
-
-    public static final RegistryObject<Block> BLACK_MUD = BLOCKS.register("black_mud",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.TERRACOTTA_BLACK)
-                    .strength(0.5f, 0.5f)
-                    .sound(SoundType.SLIME_BLOCK)));
-
-    public static final RegistryObject<Block> BLACK_FARMLAND = BLOCKS.register("black_farmland",
-            () -> new BlackFarmlandBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.TERRACOTTA_BLACK)
-                    .randomTicks() // 启用随机刻
-                    .strength(0.6f, 0.6f)
-                    .sound(SoundType.GRAVEL)));
-
-    // 堆积物方块
-    public static final RegistryObject<Block> SAND_PILE = BLOCKS.register("sand_pile",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.SAND)
-                    .strength(0.5f, 0.5f)
-                    .sound(SoundType.SAND)));
-
-    public static final RegistryObject<Block> SNOW_PILE = BLOCKS.register("snow_pile",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.SNOW)
-                    .strength(0.2f, 0.2f)
-                    .sound(SoundType.SNOW)));
-
-    public static final RegistryObject<Block> ASH_PILE = BLOCKS.register("ash_pile",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_GRAY)
-                    .strength(0.6f, 0.6f)
-                    .sound(SoundType.GRAVEL)));
-
-    // 石材方块
-    public static final RegistryObject<Block> PEBBLE_BLOCK = BLOCKS.register("pebble_block",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(0.8f)
-                    .sound(SoundType.GRAVEL)));
-
-    public static final RegistryObject<Block> QUARTZITE = BLOCKS.register("quartzite",
-            () -> new Block(stoneBlock().mapColor(MapColor.QUARTZ)));
-
-    public static final RegistryObject<Block> MARBLE_BLOCK = BLOCKS.register("marble_block",
-            () -> new Block(stoneBlock().mapColor(MapColor.SNOW)));
-
-    public static final RegistryObject<Block> PEBBLE_PATH = BLOCKS.register("pebble_path",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(0.8f, 14.0f)
-                    .speedFactor(1.3f)
-                    .jumpFactor(1.1f)
-                    .sound(SoundType.GRAVEL)));
-
-    public static final RegistryObject<Block> QUARTZITE_PATH = BLOCKS.register("quartzite_path",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(0.8f, 14.0f)
-                    .speedFactor(1.3f)
-                    .jumpFactor(1.1f)
-                    .sound(SoundType.GRAVEL)));
-
-    public static final RegistryObject<Block> MARBLE_PATH = BLOCKS.register("marble_path",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(0.8f, 14.0f)
-                    .speedFactor(1.3f)
-                    .jumpFactor(1.1f)
-                    .sound(SoundType.GRAVEL)));
-
-    public static final RegistryObject<Block> PARENT_MATERIAL = BLOCKS.register("parent_material",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.DIRT)
-                    .strength(0.5f)
-                    .sound(SoundType.GRAVEL)));
-
-    // 玻璃与晶体
-    public static final RegistryObject<Block> PYROXENE_GLASS = BLOCKS.register("pyroxene_glass",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_ORANGE)
-                    .strength(1.5f, 6.0f)
-                    .sound(SoundType.GLASS)
-                    .noOcclusion()
-                    .isValidSpawn((state, level, pos, entity) -> false)
-                    .isRedstoneConductor((state, level, pos) -> false)
-                    .isSuffocating((state, level, pos) -> false)
-                    .isViewBlocking((state, level, pos) -> false)));
-
     public static final RegistryObject<Block> SALT_CRYSTAL = BLOCKS.register("salt_crystal",
             () -> new SaltCrystalBlock(BlockBehaviour.Properties.of() // <-- 使用新的类
                     .mapColor(MapColor.QUARTZ)
-                    .strength(0.3F) // 雪的硬度是0.1F，玻璃是0.3F，盐晶可以取一个较小的值
+                    .strength(0.3F)
                     .sound(SoundType.SNOW)
-                    .dynamicShape() // <-- 非常重要！告诉引擎这个方块的形状是动态的
+                    .dynamicShape()
             ));
+
+    public static final RegistryObject<Block> NITER_BED = BLOCKS.register("niter_bed",
+            () -> new NiterBedBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .randomTicks()
+                    .strength(0.8f)
+                    .sound(SoundType.SAND)
+                    .requiresCorrectToolForDrops()));
 
     // 木框方块
     public static final RegistryObject<Block> WOODEN_FRAME = BLOCKS.register("wooden_frame",
@@ -360,52 +235,6 @@ public class BlockRegistry {
                     .strength(0.5f)
                     .sound(SoundType.BAMBOO_WOOD)));
 
-    public static final RegistryObject<Block> WATER_FILLED_WOODEN_FRAME = BLOCKS.register("water_filled_wooden_frame",
-            () -> new FilledWoodenFrameBlock(BlockBehaviour.Properties.copy(WOODEN_FRAME.get())
-                    .mapColor(MapColor.COLOR_LIGHT_BLUE)));
-
-    public static final RegistryObject<Block> BRINE_FILLED_WOODEN_FRAME = BLOCKS.register("brine_filled_wooden_frame",
-            () -> new FilledWoodenFrameBlock(BlockBehaviour.Properties.copy(WOODEN_FRAME.get())
-                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
-                    .randomTicks()));
-
-    public static final RegistryObject<Block> SALT_FILLED_WOODEN_FRAME = BLOCKS.register("salt_filled_wooden_frame",
-            () -> new SaltFilledWoodenFrameBlock(BlockBehaviour.Properties.copy(WOODEN_FRAME.get())
-                    .mapColor(MapColor.STONE)));
-
-    public static final RegistryObject<Block> MUD_FILLED_WOODEN_FRAME = BLOCKS.register("mud_filled_wooden_frame",
-            () -> new FilledWoodenFrameBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_BROWN)
-                    .strength(0.5f)
-                    .sound(SoundType.BAMBOO_WOOD)
-                    .randomTicks()));
-
-    public static final RegistryObject<Block> SAND_SLURRY_FILLED_WOODEN_FRAME = BLOCKS.register("sand_slurry_filled_wooden_frame",
-            () -> new FilledWoodenFrameBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_YELLOW)
-                    .strength(0.5f)
-                    .sound(SoundType.BAMBOO_WOOD)
-                    .randomTicks()));
-
-    public static final RegistryObject<Block> DIRT_CLOD_FILLED_WOODEN_FRAME = BLOCKS.register("dirt_clods_filled_wooden_frame",
-            () -> new DirtClodFilledWoodenFrameBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(0.5f)
-                    .sound(SoundType.BAMBOO_WOOD)));
-
-    public static final RegistryObject<Block> SAND_DUST_FILLED_WOODEN_FRAME = BLOCKS.register("sand_dust_filled_wooden_frame",
-            () -> new SandDustFilledWoodenFrameBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(0.5f)
-                    .sound(SoundType.BAMBOO_WOOD)));
-
-    // 其他功能方块
-    public static final RegistryObject<Block> TRUE_ICE = BLOCKS.register("true_ice",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_CYAN)
-                    .strength(2.5f)
-                    .friction(0.995f)
-                    .sound(SoundType.GLASS)));
 
     public static final RegistryObject<Block> SALT_BLOCK = BLOCKS.register("salt_block",
             () -> new Block(BlockBehaviour.Properties.of()
@@ -419,27 +248,4 @@ public class BlockRegistry {
                     .mapColor(MapColor.COLOR_YELLOW)
                     .strength(1.2f, 1.2f)
                     .sound(SoundType.NETHERRACK)));
-
-    public static final RegistryObject<Block> ANDESITE_FIRE_PIT = BLOCKS.register("andesite_fire_pit",
-            () -> new Block(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(3.5f)
-                    .lightLevel(state -> 15)
-                    .sound(SoundType.STONE)));
-
-    public static final RegistryObject<Block> BRASS_FIRE_PIT = BLOCKS.register("brass_fire_pit",
-            () -> new Block(BlockBehaviour.Properties.copy(ANDESITE_FIRE_PIT.get())
-                    .mapColor(MapColor.METAL)));
-
-//    public static final RegistryObject<Block> INDUSTRIAL_COMPOSTER = BLOCKS.register("industrial_composter",
-//            () -> new IndustrialComposterBlock(BlockBehaviour.Properties.copy(Blocks.COMPOSTER)
-//                    .strength(1.5F)
-//                    .sound(SoundType.WOOD)
-//                    .noOcclusion()));
-
-    public static final RegistryObject<Block> INDUSTRIAL_ANVIL = BLOCKS.register("industrial_anvil",
-            () -> new IndustrialAnvilBlock(BlockBehaviour.Properties.copy(Blocks.ANVIL)));
-
-//    public static final RegistryObject<Block> INDUSTRIAL_FURNACE = BLOCKS.register("industrial_furnace",
-//            () -> new IndustrialFurnaceBlock(BlockBehaviour.Properties.copy(Blocks.FURNACE)));
 }

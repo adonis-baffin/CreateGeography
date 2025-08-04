@@ -41,7 +41,7 @@ public class BeltProcessingPacket {
 
             // 模拟Create的Belt压制粒子效果
             for (int i = 0; i < 15; ++i) {
-                Vec3 motion = com.simibubi.create.foundation.utility.VecHelper.offsetRandomly(Vec3.ZERO, level.random, 0.125F).multiply(1.0, 0.0, 1.0);
+                Vec3 motion = net.createmod.catnip.math.VecHelper.offsetRandomly(Vec3.ZERO, level.random, 0.125F).multiply(1.0, 0.0, 1.0);
                 level.addParticle(new ItemParticleOption(ParticleTypes.ITEM, particleStack),
                         pos.x, pos.y, pos.z,
                         motion.x, motion.y + 0.125, motion.z);

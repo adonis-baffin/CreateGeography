@@ -1,6 +1,6 @@
 package com.adonis.networking.packet;
 
-import com.simibubi.create.foundation.utility.VecHelper;
+import net.createmod.catnip.math.VecHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ItemParticleOption;

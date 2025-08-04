@@ -3,10 +3,6 @@
 package com.adonis.client;
 
 import com.adonis.CreateGeography;
-import com.adonis.registry.EntityRegistry;
-import com.adonis.registry.ItemRegistry;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
-import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
@@ -30,7 +26,7 @@ public class ClientSetup {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         // 注册投掷卵石的渲染器
-        event.registerEntityRenderer(EntityRegistry.THROWN_PEBBLE.get(), ThrownItemRenderer::new);
+//        event.registerEntityRenderer(EntityRegistry.THROWN_PEBBLE.get(), ThrownItemRenderer::new);
     }
 
     // 注册物品模型

@@ -1,6 +1,7 @@
 package com.adonis.fluid;
 
 import com.adonis.CreateGeography;
+import com.adonis.content.block.BrineLiquidBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
@@ -20,6 +21,7 @@ public class GeographyFluids {
                             new ResourceLocation("minecraft", "block/water_still"),
                             new ResourceLocation("minecraft", "block/water_flow"),
                             (properties, stillTexture, flowingTexture) -> new FluidType(properties) {
+                                // ... FluidType 内部代码保持不变 ...
                                 @Override
                                 public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
                                     consumer.accept(new IClientFluidTypeExtensions() {
@@ -35,7 +37,6 @@ public class GeographyFluids {
 
                                         @Override
                                         public int getTintColor() {
-                                            // 几个颜色选项（都设置为60%透明度）：
                                             return 0x99e2dc8b; // 淡紫色（薰衣草色）
                                         }
                                     });
@@ -47,7 +48,12 @@ public class GeographyFluids {
                             .tickRate(25)
                             .slopeFindDistance(3)
                             .explosionResistance(100f))
-                    .renderType(() -> RenderType.translucent()) // 添加透明渲染层
+                    .renderType(() -> RenderType.translucent())
+                    // --- 修改开始 ---
+                    .block((fluidProvider, properties) -> new BrineLiquidBlock(fluidProvider.get(), properties))
+                    .properties(p -> p.randomTicks()) // 确保方块属性包含随机刻
+                    .build() // <--- 添加 .build() 来结束方块配置并返回流体构建器
+                    // --- 修改结束 ---
                     .register();
 
     public static final FluidEntry<ForgeFlowingFluid.Flowing> ASH_WATER =
