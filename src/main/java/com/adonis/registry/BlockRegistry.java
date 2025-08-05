@@ -220,6 +220,14 @@ public class BlockRegistry {
                     .dynamicShape()
             ));
 
+    public static final RegistryObject<Block> NITER_CRYSTAL = BLOCKS.register("niter_crystal",
+            () -> new NiterCrystalBlock(BlockBehaviour.Properties.of() // <-- 使用新的类
+                    .mapColor(MapColor.QUARTZ)
+                    .strength(0.3F)
+                    .sound(SoundType.SNOW)
+                    .dynamicShape()
+            ));
+
     public static final RegistryObject<Block> NITER_BED = BLOCKS.register("niter_bed",
             () -> new NiterBedBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_YELLOW)

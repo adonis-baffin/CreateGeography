@@ -1,11 +1,7 @@
 package com.adonis.content.block;
 
-import com.adonis.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -25,12 +21,12 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
-public class SaltCrystalBlock extends Block {
-    // 和雪一样，最大层数为8
+public class NiterCrystalBlock extends Block {
+    // 和盐晶一样，最大层数为8
     public static final int MAX_LAYERS = 8;
     // 使用原版的LAYERS属性
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS;
-    // 定义每一层的高度对应的碰撞箱，和雪完全一致
+    // 定义每一层的高度对应的碰撞箱，和盐晶完全一致
     protected static final VoxelShape[] SHAPE_BY_LAYER = new VoxelShape[]{
             Shapes.empty(), // 0层（技术上不存在，但数组需要）
             Block.box(0.0, 0.0, 0.0, 16.0, 2.0, 16.0),  // 1层
@@ -43,7 +39,7 @@ public class SaltCrystalBlock extends Block {
             Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0)  // 8层（满方块）
     };
 
-    public SaltCrystalBlock(BlockBehaviour.Properties pProperties) {
+    public NiterCrystalBlock(BlockBehaviour.Properties pProperties) {
         super(pProperties);
         // 注册默认方块状态，默认放置时是1层
         this.registerDefaultState(this.stateDefinition.any().setValue(LAYERS, 1));
@@ -61,7 +57,7 @@ public class SaltCrystalBlock extends Block {
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext pContext) {
         BlockState blockState = pContext.getLevel().getBlockState(pContext.getClickedPos());
-        // 如果点击的是一个已有的盐晶方块
+        // 如果点击的是一个已有的硝晶方块
         if (blockState.is(this)) {
             int i = blockState.getValue(LAYERS);
             // 将层数+1，但最多不超过8
@@ -74,7 +70,7 @@ public class SaltCrystalBlock extends Block {
     @Override
     public boolean canBeReplaced(BlockState pState, BlockPlaceContext pUseContext) {
         int i = pState.getValue(LAYERS);
-        // 如果手持盐晶物品且当前层数小于8，则可以叠加
+        // 如果手持硝晶物品且当前层数小于8，则可以叠加
         if (pUseContext.getItemInHand().is(this.asItem()) && i < MAX_LAYERS) {
             // 如果点击的是方块的上表面，允许叠加
             if (pUseContext.replacingClickedOnBlock()) {
@@ -95,7 +91,7 @@ public class SaltCrystalBlock extends Block {
 
     @Override
     public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        // 碰撞箱比视觉模型要矮一点，这样可以“陷进去”一点点
+        // 碰撞箱比视觉模型要矮一点，这样可以"陷进去"一点点
         return SHAPE_BY_LAYER[pState.getValue(LAYERS) - 1];
     }
     
@@ -103,8 +99,6 @@ public class SaltCrystalBlock extends Block {
     public boolean useShapeForLightOcclusion(BlockState pState) {
         return true; // 允许方块遮挡光线
     }
-    
-    // 我们不需要像雪一样有复杂的生存条件，所以可以简化或移除canSurvive和updateShape
 
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {

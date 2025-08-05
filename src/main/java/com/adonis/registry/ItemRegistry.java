@@ -2,6 +2,7 @@ package com.adonis.registry;
 
 import com.adonis.CreateGeography;
 import com.adonis.content.item.*;
+import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -14,8 +15,11 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.LinkedHashSet;
 import java.util.function.Supplier;
 
+import static com.adonis.CreateGeography.REGISTRATE;
+
 public class ItemRegistry {
 
+    // 保留原有的DeferredRegister用于不需要tooltip的物品
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, CreateGeography.MODID);
     public static LinkedHashSet<RegistryObject<Item>> CREATIVE_TAB_ITEMS = new LinkedHashSet<>();
 
@@ -34,17 +38,49 @@ public class ItemRegistry {
         return new Item.Properties().food(food);
     }
 
+    // === 使用CreateRegistrate注册的重要物品（会有tooltip） ===
+
+    // 工具与装备使用Registrate注册
+    public static final ItemEntry<GeofragmentatorItem> GEOFRAGMENTATOR = REGISTRATE.item("geofragmentator", GeofragmentatorItem::new)
+            .properties(p -> p.stacksTo(1))
+            .register();
+
+    public static final ItemEntry<TrekkingPoles> TREKKING_POLES = REGISTRATE.item("trekking_poles", TrekkingPoles::new)
+            .properties(p -> p.stacksTo(1))
+            .register();
+
+    public static final ItemEntry<IndustrialShearsItem> INDUSTRIAL_SHEARS = REGISTRATE.item("industrial_shears", IndustrialShearsItem::new)
+            .properties(p -> p.stacksTo(1))
+            .register();
+
+    public static final ItemEntry<BrineBottleItem> BRINE_BOTTLE = REGISTRATE.item("brine_bottle", BrineBottleItem::new)
+            .register();
+
+    // 特殊材料使用Registrate注册
+    public static final ItemEntry<Item> DETACHABLE_BRASS_HILT = REGISTRATE.item("detachable_brass_hilt", Item::new)
+            .register();
+
+    public static final ItemEntry<Item> WINDPROOF_COAT = REGISTRATE.item("windproof_coat", Item::new)
+            .register();
+
+    public static final ItemEntry<Item> COPPER_DIVING_LEGGINGS = REGISTRATE.item("copper_diving_leggings", Item::new)
+            .register();
+
+    public static final ItemEntry<Item> NETHERITE_DIVING_LEGGINGS = REGISTRATE.item("netherite_diving_leggings", Item::new)
+            .register();
+
+    public static final ItemEntry<Item> MARBLE_HORNED_HELMET = REGISTRATE.item("marble_horned_helmet", Item::new)
+            .register();
+
+    // === 使用传统DeferredRegister注册的基础材料（不需要tooltip） ===
+
     // 基础材料
     public static final RegistryObject<Item> CRUSHED_STONE = registerWithTab("crushed_stone", () -> new Item(basicItem()));
-//    public static final RegistryObject<Item> PEBBLE = registerWithTab("pebble", () -> new ThrowablePebbleItem(basicItem()));
     public static final RegistryObject<Item> CRUSHED_DEEP_SLATE = registerWithTab("crushed_deep_slate", () -> new Item(basicItem()));
-//    public static final RegistryObject<Item> DEEP_SLATE_PEBBLE = registerWithTab("deep_slate_pebble", () -> new ThrowablePebbleItem(basicItem()));
     public static final RegistryObject<Item> SAND_DUST = registerWithTab("sand_dust", () -> new Item(basicItem()));
     public static final RegistryObject<Item> ORTHACLASE = registerWithTab("orthoclase", () -> new Item(basicItem()));
-//    public static final RegistryObject<Item> ORTHACLASE_PEBBLE = registerWithTab("orthoclase_pebble", () -> new ThrowablePebbleItem(basicItem()));
     public static final RegistryObject<Item> RED_SAND_DUST = registerWithTab("red_sand_dust", () -> new Item(basicItem()));
     public static final RegistryObject<Item> PLAGIOCLASE = registerWithTab("plagioclase", () -> new Item(basicItem()));
-//    public static final RegistryObject<Item> PLAGIOCLASE_PEBBLE = registerWithTab("plagioclase_pebble", () -> new ThrowablePebbleItem(basicItem()));
     public static final RegistryObject<Item> ASH = registerWithTab("ash", () -> new Item(basicItem()));
     public static final RegistryObject<Item> QUARTZ_SAND = registerWithTab("quartz_sand", () -> new Item(basicItem()));
     public static final RegistryObject<Item> SULFUR_POWDER = registerWithTab("sulfur_powder", () -> new Item(basicItem()));
@@ -63,8 +99,6 @@ public class ItemRegistry {
     public static final RegistryObject<Item> BIOTITE = registerWithTab("biotite", () -> new Item(basicItem()));
     public static final RegistryObject<Item> SALT = registerWithTab("salt", () -> new Item(basicItem()));
     public static final RegistryObject<Item> WOOD_FIBER = registerWithTab("wood_fiber", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> BRINE_BOTTLE = registerWithTab("brine_bottle",
-            () -> new BrineBottleItem(basicItem()));
     public static final RegistryObject<Item> DIRT_CLOD = registerWithTab("dirt_clod", () -> new Item(basicItem()));
 
     // 冰相关物品
@@ -79,19 +113,11 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ZINC_ORE_POWDER = registerWithTab("zinc_ore_powder", () -> new Item(basicItem()));
     public static final RegistryObject<Item> OSMIUM_ORE_POWDER = registerWithTab("osmium_ore_powder", () -> new Item(basicItem()));
 
-    // 工具与装备
-    public static final RegistryObject<Item> GEOFRAGMENTATOR = ITEMS.register("geofragmentator", () -> new GeofragmentatorItem(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> TREKKING_POLES = ITEMS.register("trekking_poles", () -> new TrekkingPoles(new Item.Properties().stacksTo(1)));
-    public static final RegistryObject<Item> DETACHABLE_BRASS_HILT = registerWithTab("detachable_brass_hilt", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> WINDPROOF_COAT = registerWithTab("windproof_coat", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> COPPER_DIVING_LEGGINGS = registerWithTab("copper_diving_leggings", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> NETHERITE_DIVING_LEGGINGS = registerWithTab("netherite_diving_leggings", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> MARBLE_HORNED_HELMET = registerWithTab("marble_horned_helmet", () -> new Item(basicItem()));
-    public static final RegistryObject<Item> INDUSTRIAL_SHEARS = registerWithTab("industrial_shears", () -> new IndustrialShearsItem(new Item.Properties().stacksTo(1)));
-
     // 方块物品
     public static final RegistryObject<Item> SALT_CRYSTAL = registerWithTab("salt_crystal",
             () -> new BlockItem(BlockRegistry.SALT_CRYSTAL.get(), basicItem()));
+    public static final RegistryObject<Item> NITER_CRYSTAL = registerWithTab("niter_crystal",
+            () -> new BlockItem(BlockRegistry.NITER_CRYSTAL.get(), basicItem()));
     public static final RegistryObject<Item> SALT_BLOCK = registerWithTab("salt_block",
             () -> new BlockItem(BlockRegistry.SALT_BLOCK.get(), basicItem()));
     public static final RegistryObject<Item> SALINE_DIRT = registerWithTab("saline_dirt",

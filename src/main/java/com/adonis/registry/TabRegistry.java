@@ -9,6 +9,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
+import static com.adonis.registry.ItemRegistry.PYROXENE;
+
 public class TabRegistry {
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CreateGeography.MODID);
@@ -36,15 +38,19 @@ public class TabRegistry {
                 output.accept(ItemRegistry.SALT.get());                    // 盐
                 output.accept(ItemRegistry.DIRT_CLOD.get());               // 土坷
                 output.accept(ItemRegistry.WOOD_FIBER.get());              // 木纤维
+                output.accept(ItemRegistry.PYROXENE.get());              // 木纤维
+
 
                 // 方块物品
                 output.accept(ItemRegistry.FROZEN_SOIL.get());             // 冻土
                 output.accept(ItemRegistry.SALT_BLOCK.get());              // 盐块
                 output.accept(ItemRegistry.SALT_CRYSTAL.get());            // 盐晶
+                output.accept(ItemRegistry.NITER_CRYSTAL.get());           // 硝晶
                 output.accept(ItemRegistry.SALINE_DIRT.get());             // 盐碱土
                 output.accept(ItemRegistry.SALINE_FARMLAND.get());         // 盐碱耕地
                 output.accept(ItemRegistry.SALINE_MUD.get());              // 盐碱泥巴
                 output.accept(ItemRegistry.NITER_BED.get());
+                output.accept(ItemRegistry.NITER_BLOCK.get());
 
 
                 output.accept(ItemRegistry.TREKKING_POLES.get());          // 登山杖

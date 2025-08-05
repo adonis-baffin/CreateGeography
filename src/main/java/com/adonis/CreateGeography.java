@@ -7,6 +7,10 @@ import com.adonis.fluid.GeographyFluids;
 import com.adonis.networking.ModMessages;
 import com.adonis.registry.*;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.item.ItemDescription;
+import com.simibubi.create.foundation.item.KineticStats;
+import com.simibubi.create.foundation.item.TooltipModifier;
+import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -19,10 +23,23 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(CreateGeography.MODID)
 public class CreateGeography {
     public static final String MODID = "creategeography";
-    public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
+
+    // 添加tooltip修饰器，与渔业模组保持一致
+    public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID)
+            .setTooltipModifierFactory(item ->
+                    new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
+                            .andThen(TooltipModifier.mapNull(KineticStats.create(item)))
+            );
+
+    public static ResourceLocation asResource(String path) {
+        return new ResourceLocation(MODID, path);
+    }
 
     public CreateGeography() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        // 确保在注册其他内容之前设置好registrate
+        REGISTRATE.registerEventListeners(modEventBus);
 
         // 注册配置
         NaturalTransformConfig.register();
@@ -45,7 +62,8 @@ public class CreateGeography {
         RecipeRegistry.RECIPE_TYPES.register(modEventBus);
 
         GeographyFluids.register();
-        REGISTRATE.registerEventListeners(modEventBus);
+        // 移动到构造函数中，避免重复注册
+        // REGISTRATE.registerEventListeners(modEventBus);
     }
 
     private void setupEventListeners(IEventBus modEventBus) {
@@ -83,9 +101,5 @@ public class CreateGeography {
             }
         } catch (Exception e) {
         }
-    }
-
-    public static ResourceLocation asResource(String path) {
-        return new ResourceLocation(MODID, path);
     }
 }

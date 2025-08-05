@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "layers=1": {
+      "model": "creategeography:block/niter_height2"
+    },
+    "layers=2": {
+      "model": "creategeography:block/niter_height4"
+    },
+    "layers=3": {
+      "model": "creategeography:block/niter_height6"
+    },
+    "layers=4": {
+      "model": "creategeography:block/niter_height8"
+    },
+    "layers=5": {
+      "model": "creategeography:block/niter_height10"
+    },
+    "layers=6": {
+      "model": "creategeography:block/niter_height12"
+    },
+    "layers=7": {
+      "model": "creategeography:block/niter_height14"
+    },
+    "layers=8": {
+      "model": "creategeography:block/niter_block"
+    }
+  }
+}
