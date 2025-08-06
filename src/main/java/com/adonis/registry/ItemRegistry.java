@@ -56,24 +56,6 @@ public class ItemRegistry {
     public static final ItemEntry<BrineBottleItem> BRINE_BOTTLE = REGISTRATE.item("brine_bottle", BrineBottleItem::new)
             .register();
 
-    // 特殊材料使用Registrate注册
-    public static final ItemEntry<Item> DETACHABLE_BRASS_HILT = REGISTRATE.item("detachable_brass_hilt", Item::new)
-            .register();
-
-    public static final ItemEntry<Item> WINDPROOF_COAT = REGISTRATE.item("windproof_coat", Item::new)
-            .register();
-
-    public static final ItemEntry<Item> COPPER_DIVING_LEGGINGS = REGISTRATE.item("copper_diving_leggings", Item::new)
-            .register();
-
-    public static final ItemEntry<Item> NETHERITE_DIVING_LEGGINGS = REGISTRATE.item("netherite_diving_leggings", Item::new)
-            .register();
-
-    public static final ItemEntry<Item> MARBLE_HORNED_HELMET = REGISTRATE.item("marble_horned_helmet", Item::new)
-            .register();
-
-    // === 使用传统DeferredRegister注册的基础材料（不需要tooltip） ===
-
     // 基础材料
     public static final RegistryObject<Item> CRUSHED_STONE = registerWithTab("crushed_stone", () -> new Item(basicItem()));
     public static final RegistryObject<Item> CRUSHED_DEEP_SLATE = registerWithTab("crushed_deep_slate", () -> new Item(basicItem()));
@@ -100,6 +82,9 @@ public class ItemRegistry {
     public static final RegistryObject<Item> SALT = registerWithTab("salt", () -> new Item(basicItem()));
     public static final RegistryObject<Item> WOOD_FIBER = registerWithTab("wood_fiber", () -> new Item(basicItem()));
     public static final RegistryObject<Item> DIRT_CLOD = registerWithTab("dirt_clod", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> CALCAREOUS_DEBRIS = registerWithTab("calcareous_debris", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> QUICK_LIME = registerWithTab("quick_lime", () -> new Item(basicItem()));
+    public static final RegistryObject<Item> SLAKED_LIME = registerWithTab("slaked_lime", () -> new Item(basicItem()));
 
     // 冰相关物品
     public static final RegistryObject<Item> ICE_SHARDS = registerWithTab("ice_shards", () -> new Item(basicItem()));
@@ -113,25 +98,15 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ZINC_ORE_POWDER = registerWithTab("zinc_ore_powder", () -> new Item(basicItem()));
     public static final RegistryObject<Item> OSMIUM_ORE_POWDER = registerWithTab("osmium_ore_powder", () -> new Item(basicItem()));
 
-    // 方块物品
+    // 不需要tooltip的方块物品
     public static final RegistryObject<Item> SALT_CRYSTAL = registerWithTab("salt_crystal",
             () -> new BlockItem(BlockRegistry.SALT_CRYSTAL.get(), basicItem()));
     public static final RegistryObject<Item> NITER_CRYSTAL = registerWithTab("niter_crystal",
             () -> new BlockItem(BlockRegistry.NITER_CRYSTAL.get(), basicItem()));
     public static final RegistryObject<Item> SALT_BLOCK = registerWithTab("salt_block",
             () -> new BlockItem(BlockRegistry.SALT_BLOCK.get(), basicItem()));
-    public static final RegistryObject<Item> SALINE_DIRT = registerWithTab("saline_dirt",
-            () -> new BlockItem(BlockRegistry.SALINE_DIRT.get(), basicItem()));
-    public static final RegistryObject<Item> SALINE_MUD = registerWithTab("saline_mud",
-            () -> new BlockItem(BlockRegistry.SALINE_MUD.get(), basicItem()));
-    public static final RegistryObject<Item> SALINE_FARMLAND = registerWithTab("saline_farmland",
-            () -> new BlockItem(BlockRegistry.SALINE_FARMLAND.get(), basicItem()));
     public static final RegistryObject<Item> NITER_BLOCK = registerWithTab("niter_block",
             () -> new BlockItem(BlockRegistry.NITER_BLOCK.get(), basicItem()));
-    public static final RegistryObject<Item> NITER_BED = registerWithTab("niter_bed",
-            () -> new BlockItem(BlockRegistry.NITER_BED.get(), basicItem()));
-    public static final RegistryObject<Item> FROZEN_SOIL = registerWithTab("frozen_soil",
-            () -> new BlockItem(BlockRegistry.FROZEN_SOIL.get(), basicItem()));
     public static final RegistryObject<Item> CRACKED_ICE = registerWithTab("cracked_ice",
             () -> new BlockItem(BlockRegistry.CRACKED_ICE.get(), basicItem()));
 

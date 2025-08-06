@@ -26,8 +26,12 @@
   "item.creategeography.marble_powder": "Marble Powder",
   "item.creategeography.biotite": "Biotite",
   "item.creategeography.wood_fiber": "Wood Fiber",
+  "item.creategeography.quick_lime": "Quick Lime",
+  "item.creategeography.slaked_lime": "Slaked Lime",
+  "item.creategeography.calcareous_debris": "Calcareous Debris",
   "item.creategeography.brine_bottle": "Brine Bottle",
   "item.creategeography.ice_shards": "Ice Shards",
+  "item.creategeography.biotite": "Biotite",
   "item.creategeography.packed_ice_shards": "Packed Ice Shards",
   "item.creategeography.blue_ice_shards": "Blue Ice Shards",
   "item.creategeography.iron_ore_powder": "Iron Ore Powder",
@@ -74,31 +78,21 @@
   "jei.creategeography.recipe.fragmenting": "Geological Fragmenting",
   "jei.creategeography.chance": "Chance: %d%%",
 
-  "_comment": "=== Tooltips for Items ===",
-  "item.creategeography.geofragmentator.tooltip": "A specialized geological hammer for breaking down rock formations.",
-  "item.creategeography.geofragmentator.tooltip.summary": "Used for _geological fragmenting_ of various stone materials.",
+  "item.creategeography.geofragmentator.tooltip.summary": "A sturdy hammer that can fragment blocks and damage entities; allows you to manually right-click to perform Mechanical Press functions, and shift-right-click to process a full stack at once",
+  "item.creategeography.geofragmentator.tooltip.condition1": "When used on blocks:",
+  "item.creategeography.geofragmentator.tooltip.behaviour1": "Executes fragmenting recipe; if no recipe exists, attempts to break the block",
+  "item.creategeography.geofragmentator.tooltip.condition2": "When used on entities:",
+  "item.creategeography.geofragmentator.tooltip.behaviour2": "Deals damage and knockback; jump attacks deal extra damage",
 
-  "item.creategeography.trekking_poles.tooltip": "Sturdy poles that help with mountain climbing and exploration.",
-  "item.creategeography.trekking_poles.tooltip.summary": "Provides _stability_ and _support_ during traversal.",
+  "item.creategeography.trekking_poles.tooltip.summary": "Elegant trekking poles that grant speed boost and double jump ability when held",
 
-  "item.creategeography.industrial_shears.tooltip": "Heavy-duty shears designed for industrial applications.",
-  "item.creategeography.industrial_shears.tooltip.summary": "Can cut through _tough materials_ with ease.",
+  "block.creategeography.niter_bed.tooltip.summary": "Forms niter crystals above when receiving random ticks",
 
-  "item.creategeography.brine_bottle.tooltip": "A bottle containing concentrated salt water solution.",
-  "item.creategeography.brine_bottle.tooltip.summary": "Contains _brine_ - useful for various processes.",
+  "block.creategeography.saline_mud.tooltip.summary": "Forms salt crystals above when receiving random ticks if brine fluid is nearby",
 
-  "item.creategeography.detachable_brass_hilt.tooltip": "A modular brass handle that can be attached to various tools.",
-  "item.creategeography.detachable_brass_hilt.tooltip.summary": "Component for _tool crafting_ and modification.",
+  "block.creategeography.saline_dirt.tooltip.summary": "Forms salt crystals above when receiving random ticks if brine fluid is nearby",
 
-  "item.creategeography.windproof_coat.tooltip": "A durable coat designed to protect against harsh weather.",
-  "item.creategeography.windproof_coat.tooltip.summary": "Provides _protection_ from environmental hazards.",
+  "block.creategeography.saline_farmland.tooltip.summary": "Crops above grow slower; as salinity increases, crops may stop growing or even regress",
 
-  "item.creategeography.copper_diving_leggings.tooltip": "Specialized leggings for underwater exploration.",
-  "item.creategeography.copper_diving_leggings.tooltip.summary": "Enhances _underwater mobility_ and protection.",
-
-  "item.creategeography.netherite_diving_leggings.tooltip": "Advanced diving gear made from netherite.",
-  "item.creategeography.netherite_diving_leggings.tooltip.summary": "_Fire resistant_ diving equipment with superior protection.",
-
-  "item.creategeography.marble_horned_helmet.tooltip": "An ornate helmet carved from marble with decorative horns.",
-  "item.creategeography.marble_horned_helmet.tooltip.summary": "Ceremonial headwear with _unique properties_."
+  "block.creategeography.frozen_soil.tooltip.summary": "Melts into mud when heated"
 }

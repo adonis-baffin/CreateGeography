@@ -26,8 +26,12 @@
   "item.creategeography.marble_powder": "大理石粉",
   "item.creategeography.biotite": "黑云母",
   "item.creategeography.wood_fiber": "木纤维",
+  "item.creategeography.quick_lime": "生石灰",
+  "item.creategeography.slaked_lime": "熟石灰",
+  "item.creategeography.calcareous_debris": "钙质碎屑",
   "item.creategeography.brine_bottle": "盐水瓶",
   "item.creategeography.ice_shards": "冰碎片",
+  "item.creategeography.biotite": "黑云母",
   "item.creategeography.packed_ice_shards": "浮冰碎片",
   "item.creategeography.blue_ice_shards": "蓝冰碎片",
   "item.creategeography.iron_ore_powder": "铁矿粉",
@@ -74,31 +78,22 @@
   "jei.creategeography.recipe.fragmenting": "破碎作用",
   "jei.creategeography.chance": "概率：%d%%",
 
-  "_comment": "=== 物品提示文本 ===",
-  "item.creategeography.geofragmentator.tooltip": "专门用于粉碎岩石构造的地质专用锤。",
-  "item.creategeography.geofragmentator.tooltip.summary": "用于对各种石质材料进行_地质破碎_。",
 
-  "item.creategeography.trekking_poles.tooltip": "坚固的手杖，有助于登山和探索活动。",
-  "item.creategeography.trekking_poles.tooltip.summary": "在穿越时提供_稳定性_和_支撑力_。",
+  "item.creategeography.geofragmentator.tooltip.summary": "坚硬的锤子，可以破碎方块和伤害实体；通过它你还能够手动右键执行动力冲压机的功能，并且潜行右键时一次可以处理一组物品",
+  "item.creategeography.geofragmentator.tooltip.condition1": "对方块使用时：",
+  "item.creategeography.geofragmentator.tooltip.behaviour1": "对该方块执行破碎配方；若无破碎配方，则尝试将其破坏",
+  "item.creategeography.geofragmentator.tooltip.condition2": "对实体使用时：",
+  "item.creategeography.geofragmentator.tooltip.behaviour2": "造成伤害和击退；跳击时有额外伤害",
 
-  "item.creategeography.industrial_shears.tooltip": "专为工业应用设计的重型剪刀。",
-  "item.creategeography.industrial_shears.tooltip.summary": "可以轻松切割_坚韧材料_。",
+  "item.creategeography.trekking_poles.tooltip.summary": "华丽的登山杖，手持时获得加速和二段跳的能力",
 
-  "item.creategeography.brine_bottle.tooltip": "装有浓盐水溶液的瓶子。",
-  "item.creategeography.brine_bottle.tooltip.summary": "含有_盐水_ - 可用于各种工艺流程。",
+  "block.creategeography.niter_bed.tooltip.summary": "在受到随机刻时，上方会结硝",
 
-  "item.creategeography.detachable_brass_hilt.tooltip": "可附加到各种工具上的模块化黄铜手柄。",
-  "item.creategeography.detachable_brass_hilt.tooltip.summary": "用于_工具制作_和改造的组件。",
+  "block.creategeography.saline_mud.tooltip.summary": "在受到随机刻时，若附近有盐水流体，则上方会析出盐晶",
 
-  "item.creategeography.windproof_coat.tooltip": "专为抵御恶劣天气而设计的耐用外套。",
-  "item.creategeography.windproof_coat.tooltip.summary": "提供对环境危害的_防护_。",
+  "block.creategeography.saline_dirt.tooltip.summary": "在受到随机刻时，若附近有盐水流体，则上方会析出盐晶",
 
-  "item.creategeography.copper_diving_leggings.tooltip": "专为水下探索设计的特制护腿。",
-  "item.creategeography.copper_diving_leggings.tooltip.summary": "增强_水下机动性_和防护能力。",
+  "block.creategeography.saline_farmland.tooltip.summary": "上方的农作物的生长速度会减慢；在盐碱化程度升高后，上方的农作物会逐渐停止生长，甚至可能会倒退",
 
-  "item.creategeography.netherite_diving_leggings.tooltip": "由下界合金制成的高级潜水装备。",
-  "item.creategeography.netherite_diving_leggings.tooltip.summary": "_防火_潜水设备，提供卓越防护。",
-
-  "item.creategeography.marble_horned_helmet.tooltip": "由大理石雕刻而成、带有装饰角的华丽头盔。",
-  "item.creategeography.marble_horned_helmet.tooltip.summary": "具有_独特属性_的仪式性头饰。"
+  "block.creategeography.frozen_soil.tooltip.summary": "受热时会融化成泥巴"
 }

@@ -22,10 +22,12 @@ public class TabRegistry {
                 // 基础材料
                 output.accept(ItemRegistry.HORNBLENDE.get());              // 角闪石
                 output.accept(ItemRegistry.POLISHED_HORNBLENDE.get());     // 磨制角闪石
+                output.accept(ItemRegistry.PYROXENE.get());
                 output.accept(ItemRegistry.CRUSHED_STONE.get());           // 砾石
                 output.accept(ItemRegistry.CRUSHED_DEEP_SLATE.get());      // 深板岩砾石
                 output.accept(ItemRegistry.ORTHACLASE.get());              // 正长石
                 output.accept(ItemRegistry.PLAGIOCLASE.get());             // 斜长石
+                output.accept(ItemRegistry.BIOTITE.get());             // 斜长石
                 output.accept(ItemRegistry.SAND_DUST.get());               // 沙尘
                 output.accept(ItemRegistry.RED_SAND_DUST.get());           // 红沙尘
                 output.accept(ItemRegistry.ASH.get());                     // 灰烬
@@ -38,18 +40,20 @@ public class TabRegistry {
                 output.accept(ItemRegistry.SALT.get());                    // 盐
                 output.accept(ItemRegistry.DIRT_CLOD.get());               // 土坷
                 output.accept(ItemRegistry.WOOD_FIBER.get());              // 木纤维
-                output.accept(ItemRegistry.PYROXENE.get());              // 木纤维
+                output.accept(ItemRegistry.CALCAREOUS_DEBRIS.get());
+                output.accept(ItemRegistry.QUICK_LIME.get());
+                output.accept(ItemRegistry.SLAKED_LIME.get());
 
 
                 // 方块物品
-                output.accept(ItemRegistry.FROZEN_SOIL.get());             // 冻土
+                output.accept(BlockRegistry.FROZEN_SOIL.get());             // 冻土
                 output.accept(ItemRegistry.SALT_BLOCK.get());              // 盐块
                 output.accept(ItemRegistry.SALT_CRYSTAL.get());            // 盐晶
                 output.accept(ItemRegistry.NITER_CRYSTAL.get());           // 硝晶
-                output.accept(ItemRegistry.SALINE_DIRT.get());             // 盐碱土
-                output.accept(ItemRegistry.SALINE_FARMLAND.get());         // 盐碱耕地
-                output.accept(ItemRegistry.SALINE_MUD.get());              // 盐碱泥巴
-                output.accept(ItemRegistry.NITER_BED.get());
+                output.accept(BlockRegistry.SALINE_DIRT.get());             // 盐碱土
+                output.accept(BlockRegistry.SALINE_FARMLAND.get());         // 盐碱耕地
+                output.accept(BlockRegistry.SALINE_MUD.get());              // 盐碱泥巴
+                output.accept(BlockRegistry.NITER_BED.get());
                 output.accept(ItemRegistry.NITER_BLOCK.get());
 
 

@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.adonis.registry.ItemRegistry.*;
+import static com.adonis.CreateGeography.REGISTRATE;
 
 public class BlockRegistry {
 
@@ -47,6 +48,71 @@ public class BlockRegistry {
                 .strength(1.2f)
                 .requiresCorrectToolForDrops();
     }
+
+    // === 使用CreateRegistrate注册的需要tooltip的方块 ===
+
+    public static final BlockEntry<NiterBedBlock> NITER_BED = REGISTRATE
+            .block("niter_bed", NiterBedBlock::new)
+            .initialProperties(() -> Blocks.SAND)
+            .properties(prop -> prop
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .randomTicks()
+                    .strength(0.8f)
+                    .sound(SoundType.SAND)
+                    .requiresCorrectToolForDrops())
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.get()))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<SalineMudBlock> SALINE_MUD = REGISTRATE
+            .block("saline_mud", SalineMudBlock::new)
+            .initialProperties(() -> Blocks.MUD)
+            .properties(prop -> prop
+                    .mapColor(MapColor.DIRT)
+                    .randomTicks()
+                    .strength(0.6f, 0.6f)
+                    .sound(SoundType.GRAVEL))
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.get()))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<SalineDirtBlock> SALINE_DIRT = REGISTRATE
+            .block("saline_dirt", SalineDirtBlock::new)
+            .initialProperties(() -> Blocks.DIRT)
+            .properties(prop -> prop
+                    .mapColor(MapColor.DIRT)
+                    .strength(0.5f, 0.5f)
+                    .sound(SoundType.GRAVEL)
+                    .randomTicks())
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.get()))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<SalineFarmlandBlock> SALINE_FARMLAND = REGISTRATE
+            .block("saline_farmland", SalineFarmlandBlock::new)
+            .initialProperties(() -> Blocks.FARMLAND)
+            .properties(prop -> prop
+                    .mapColor(MapColor.DIRT)
+                    .randomTicks()
+                    .strength(0.6f)
+                    .sound(SoundType.GRAVEL))
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.get()))
+            .simpleItem()
+            .register();
+
+    public static final BlockEntry<FrozenSoilBlock> FROZEN_SOIL = REGISTRATE
+            .block("frozen_soil", FrozenSoilBlock::new)
+            .initialProperties(() -> Blocks.DIRT)
+            .properties(prop -> prop
+                    .mapColor(MapColor.DIRT)
+                    .randomTicks()
+                    .strength(0.6f, 0.6f)
+                    .sound(SoundType.GRAVEL))
+            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.get()))
+            .simpleItem()
+            .register();
+
+    // === 使用传统DeferredRegister注册的不需要tooltip的方块 ===
 
     // 含矿蓝冰方块
     public static final RegistryObject<Block> IRON_BEARING_BLUE_ICE = BLOCKS.register("iron_bearing_blue_ice",
@@ -181,39 +247,8 @@ public class BlockRegistry {
                 }
             });
 
-    // 土壤相关方块
-    public static final RegistryObject<Block> FROZEN_SOIL = BLOCKS.register("frozen_soil",
-            () -> new FrozenSoilBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.DIRT)
-                    .randomTicks() // 启用随机刻
-                    .strength(0.6f, 0.6f)
-                    .sound(SoundType.GRAVEL)
-                    .randomTicks()));
-
-    public static final RegistryObject<Block> SALINE_DIRT = BLOCKS.register("saline_dirt",
-            () -> new SalineDirtBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.DIRT)
-                    .strength(0.5f, 0.5f)
-                    .sound(SoundType.GRAVEL)
-                    .randomTicks()));
-
-    public static final RegistryObject<Block> SALINE_MUD = BLOCKS.register("saline_mud",
-            () -> new SalineMudBlock(BlockBehaviour.Properties.of() // 使用 SalineMudBlock
-                    .mapColor(MapColor.DIRT) // 使用你原来的颜色
-                    .randomTicks() // 启用随机刻
-                    .strength(0.6f, 0.6f) // 使用你原来的硬度和爆炸抗性
-                    .sound(SoundType.GRAVEL) // 使用你原来的声音
-            ));
-
-    public static final RegistryObject<Block> SALINE_FARMLAND = BLOCKS.register("saline_farmland",
-            () -> new SalineFarmlandBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.DIRT)
-                    .randomTicks() // 启用随机刻
-                    .strength(0.6f)
-                    .sound(SoundType.GRAVEL)));
-
     public static final RegistryObject<Block> SALT_CRYSTAL = BLOCKS.register("salt_crystal",
-            () -> new SaltCrystalBlock(BlockBehaviour.Properties.of() // <-- 使用新的类
+            () -> new SaltCrystalBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.QUARTZ)
                     .strength(0.3F)
                     .sound(SoundType.SNOW)
@@ -221,20 +256,12 @@ public class BlockRegistry {
             ));
 
     public static final RegistryObject<Block> NITER_CRYSTAL = BLOCKS.register("niter_crystal",
-            () -> new NiterCrystalBlock(BlockBehaviour.Properties.of() // <-- 使用新的类
+            () -> new NiterCrystalBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.QUARTZ)
                     .strength(0.3F)
                     .sound(SoundType.SNOW)
                     .dynamicShape()
             ));
-
-    public static final RegistryObject<Block> NITER_BED = BLOCKS.register("niter_bed",
-            () -> new NiterBedBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.COLOR_YELLOW)
-                    .randomTicks()
-                    .strength(0.8f)
-                    .sound(SoundType.SAND)
-                    .requiresCorrectToolForDrops()));
 
     // 木框方块
     public static final RegistryObject<Block> WOODEN_FRAME = BLOCKS.register("wooden_frame",
@@ -243,13 +270,11 @@ public class BlockRegistry {
                     .strength(0.5f)
                     .sound(SoundType.BAMBOO_WOOD)));
 
-
     public static final RegistryObject<Block> SALT_BLOCK = BLOCKS.register("salt_block",
             () -> new Block(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_GRAY)
                     .strength(1.2f, 1.2f)
                     .sound(SoundType.SAND)));
-
 
     public static final RegistryObject<Block> NITER_BLOCK = BLOCKS.register("niter_block",
             () -> new Block(BlockBehaviour.Properties.of()
