@@ -107,9 +107,12 @@ public class NaturalTransformHandler {
         boolean hasWaterNearby = false;
         boolean hasBrineNearby = false;
 
+        // 使用与盐碱化相同的范围配置
+        int range = NaturalTransformConfig.BRINE_TRANSFORM_RANGE.get();
+
         for (BlockPos nearbyPos : BlockPos.betweenClosed(
-                pos.offset(-4, 0, -4),
-                pos.offset(4, 1, 4))) {
+                pos.offset(-range, -1, -range),
+                pos.offset(range, 1, range))) {
 
             FluidState fluidState = level.getFluidState(nearbyPos);
 
@@ -127,6 +130,8 @@ public class NaturalTransformHandler {
         }
     }
 
+// 在 NaturalTransformHandler 类中添加以下方法：
+
     // 处理盐碱土和盐碱泥巴的脱盐（在对应方块随机刻时调用）
     public static void handleSalineSoilDesalination(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (state.getBlock() != BlockRegistry.SALINE_DIRT.get() &&
@@ -138,9 +143,12 @@ public class NaturalTransformHandler {
         boolean hasWaterNearby = false;
         boolean hasBrineNearby = false;
 
+        // 使用与盐碱化相同的范围配置
+        int range = NaturalTransformConfig.BRINE_TRANSFORM_RANGE.get();
+
         for (BlockPos nearbyPos : BlockPos.betweenClosed(
-                pos.offset(-4, 0, -4),
-                pos.offset(4, 1, 4))) {
+                pos.offset(-range, -1, -range),
+                pos.offset(range, 1, range))) {
 
             FluidState fluidState = level.getFluidState(nearbyPos);
 

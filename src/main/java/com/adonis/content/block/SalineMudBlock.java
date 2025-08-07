@@ -38,7 +38,7 @@ public class SalineMudBlock extends Block {
             NaturalTransformHandler.handleSaltCrystalGeneration(pState, pLevel, pPos, pRandom);
         }
 
-        // 处理盐碱土壤的随机刻行为（传播等）
+        // 处理盐碱土壤的随机刻行为（盐晶生成）
         NaturalTransformHandler.handleSalineSoilRandomTick(pState, pLevel, pPos, pRandom);
     }
 }

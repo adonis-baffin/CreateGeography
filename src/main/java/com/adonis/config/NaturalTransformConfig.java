@@ -14,7 +14,7 @@ public class NaturalTransformConfig {
     public static final ForgeConfigSpec.DoubleValue FROZEN_SOIL_TRANSFORM_CHANCE;
     public static final ForgeConfigSpec.IntValue FROZEN_SOIL_TRANSFORM_RANGE;
 
-    // 盐水转换
+    // 盐水转换（直接转换，不包括传播）
     public static final ForgeConfigSpec.BooleanValue ENABLE_BRINE_TRANSFORM;
     public static final ForgeConfigSpec.DoubleValue BRINE_TRANSFORM_CHANCE;
     public static final ForgeConfigSpec.IntValue BRINE_TRANSFORM_RANGE;
@@ -48,13 +48,13 @@ public class NaturalTransformConfig {
         // 盐水相关配置
         BUILDER.push("Brine");
         ENABLE_BRINE_TRANSFORM = BUILDER
-                .comment("Enable brine transformation of nearby blocks")
+                .comment("Enable brine direct transformation of nearby soil blocks and farmland")
                 .define("enableBrineTransform", true);
         BRINE_TRANSFORM_CHANCE = BUILDER
-                .comment("Chance for brine to transform nearby blocks (0.0-1.0)")
+                .comment("Chance for brine to directly transform nearby soil blocks into saline variants (0.0-1.0)")
                 .defineInRange("brineTransformChance", 0.10, 0.0, 1.0);
         BRINE_TRANSFORM_RANGE = BUILDER
-                .comment("Range for brine to affect nearby blocks")
+                .comment("Range for brine to directly affect nearby blocks (also used for desalination range)")
                 .defineInRange("brineTransformRange", 4, 1, 5);
         BUILDER.pop();
 
@@ -64,10 +64,10 @@ public class NaturalTransformConfig {
                 .comment("Enable salt crystal generation on saline blocks")
                 .define("enableSaltCrystalGeneration", true);
         SALT_CRYSTAL_GENERATION_CHANCE = BUILDER
-                .comment("Chance for salt crystal to generate (0.0-1.0)")
+                .comment("Chance for salt crystal to generate on saline soil (0.0-1.0)")
                 .defineInRange("saltCrystalGenerationChance", 0.15, 0.0, 1.0);
         SALT_CRYSTAL_GENERATION_RANGE = BUILDER
-                .comment("Range to check for brine around saline blocks")
+                .comment("Range to check for brine around saline blocks for crystal generation")
                 .defineInRange("saltCrystalGenerationRange", 5, 1, 8);
         BUILDER.pop();
 
