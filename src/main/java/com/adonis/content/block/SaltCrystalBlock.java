@@ -1,5 +1,6 @@
 package com.adonis.content.block;
 
+import com.adonis.registry.BlockRegistry;
 import com.adonis.registry.ItemRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -49,8 +50,6 @@ public class SaltCrystalBlock extends Block {
         this.registerDefaultState(this.stateDefinition.any().setValue(LAYERS, 1));
     }
 
-    // --- 核心逻辑 ---
-
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> pBuilder) {
         // 告诉游戏这个方块有一个 "layers" 的状态属性
@@ -85,7 +84,7 @@ public class SaltCrystalBlock extends Block {
         }
         return i == 1; // 如果只有1层，可以被其他方块轻易替换掉
     }
-    
+
     // --- 物理和视觉属性 ---
 
     @Override
@@ -95,28 +94,28 @@ public class SaltCrystalBlock extends Block {
 
     @Override
     public VoxelShape getCollisionShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
-        // 碰撞箱比视觉模型要矮一点，这样可以“陷进去”一点点
+        // 碰撞箱比视觉模型要矮一点，这样可以"陷进去"一点点
         return SHAPE_BY_LAYER[pState.getValue(LAYERS) - 1];
     }
-    
+
     @Override
     public boolean useShapeForLightOcclusion(BlockState pState) {
         return true; // 允许方块遮挡光线
     }
-    
-    // 我们不需要像雪一样有复杂的生存条件，所以可以简化或移除canSurvive和updateShape
 
+    // 修复：盐晶只能存在于盐碱土和盐碱泥巴上
     @Override
     public boolean canSurvive(BlockState pState, LevelReader pLevel, BlockPos pPos) {
-        // 简化生存逻辑：只要下面是完整固体方块就可以
         BlockState belowState = pLevel.getBlockState(pPos.below());
-        return Block.isFaceFull(belowState.getCollisionShape(pLevel, pPos.below()), Direction.UP);
+        // 明确检查下方是否是盐碱土或盐碱泥巴
+        return belowState.is(BlockRegistry.SALINE_DIRT.get()) ||
+                belowState.is(BlockRegistry.SALINE_MUD.get());
     }
 
     @Override
     public BlockState updateShape(BlockState pState, Direction pFacing, BlockState pFacingState, LevelAccessor pLevel, BlockPos pCurrentPos, BlockPos pFacingPos) {
-        // 如果下面的方块没了，自己也消失
-        if (!pState.canSurvive(pLevel, pCurrentPos)) {
+        // 如果下面的方块变了，检查是否还能生存
+        if (pFacing == Direction.DOWN && !pState.canSurvive(pLevel, pCurrentPos)) {
             return Blocks.AIR.defaultBlockState();
         }
         return super.updateShape(pState, pFacing, pFacingState, pLevel, pCurrentPos, pFacingPos);

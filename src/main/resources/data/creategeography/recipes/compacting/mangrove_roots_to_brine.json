@@ -3,23 +3,19 @@
   "ingredients": [
     {
       "item": "minecraft:mangrove_roots"
-    }
-  ],
-  "fluidIngredients": [
+    },
     {
-      "fluid": "minecraft:water",
-      "amount": 250
+      "amount": 250,
+      "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
       "item": "creategeography:wood_fiber"
-    }
-  ],
-  "fluidResults": [
+    },
     {
-      "fluid": "creategeography:brine",
-      "amount": 250
+      "amount": 250,
+      "fluid": "creategeography:brine"
     }
   ],
   "processingTime": 100

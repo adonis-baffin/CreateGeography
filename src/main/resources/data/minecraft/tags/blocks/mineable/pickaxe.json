@@ -1,5 +1,6 @@
 {
   "values": [
-    "creategeography:niter_block"
+    "creategeography:niter_block",
+    "creategeography:salt_block"
   ]
 }

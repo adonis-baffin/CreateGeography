@@ -14,7 +14,6 @@
   "item.creategeography.coal_powder": "煤炭粉",
   "item.creategeography.charcoal_powder": "木炭粉",
   "item.creategeography.niter_powder": "硝石粉",
-  "item.creategeography.lapis_lazuli_powder": "青金石粉",
   "item.creategeography.salt": "盐",
   "item.creategeography.dirt_clod": "土坷",
   "item.creategeography.hornblende": "角闪石",
@@ -53,7 +52,7 @@
   "block.creategeography.brine": "盐水",
   "block.creategeography.frozen_soil": "冻土",
   "block.creategeography.salt_crystal": "盐晶",
-  "block.creategeography.niter_crystal": "硝石晶体",
+  "block.creategeography.niter_crystal": "硝晶",
   "block.creategeography.saline_dirt": "盐碱土",
   "block.creategeography.salt_block": "盐块",
   "block.creategeography.niter_block": "硝石块",
@@ -89,9 +88,9 @@
 
   "block.creategeography.niter_bed.tooltip.summary": "在受到随机刻时，上方会结硝",
 
-  "block.creategeography.saline_mud.tooltip.summary": "在受到随机刻时，若附近有盐水流体，则上方会析出盐晶",
+  "block.creategeography.saline_mud.tooltip.summary": "在受到随机刻时，若附近有盐水流体，则上方会析出盐晶。若附近有普通水但无盐水，则会脱盐变回泥巴",
 
-  "block.creategeography.saline_dirt.tooltip.summary": "在受到随机刻时，若附近有盐水流体，则上方会析出盐晶",
+  "block.creategeography.saline_dirt.tooltip.summary": "在受到随机刻时，若附近有盐水流体，则上方会析出盐晶。若附近有普通水但无盐水，则会脱盐变回泥土",
 
   "block.creategeography.saline_farmland.tooltip.summary": "上方的农作物的生长速度会减慢；在盐碱化程度升高后，上方的农作物会逐渐停止生长，甚至可能会倒退",
 

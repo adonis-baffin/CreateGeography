@@ -7,10 +7,10 @@
   ],
   "results": [
     {
-      "item": "minecraft:gravel"
+      "item": "creategeography:crushed_stone"
     },
     {
-      "item": "creategeography:orthaclase",
+      "item": "creategeography:orthoclase",
       "count": 2
     },
     {

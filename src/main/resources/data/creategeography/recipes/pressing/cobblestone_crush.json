@@ -2,16 +2,13 @@
   "type": "create:pressing",
   "ingredients": [
     {
-      "item": "minecraft:emerald_ore"
+      "item": "minecraft:cobblestone"
     }
   ],
   "results": [
     {
       "item": "creategeography:crushed_stone",
-      "count": 3
-    },
-    {
-      "item": "minecraft:emerald"
+      "count": 4
     }
   ],
   "processingTime": 100

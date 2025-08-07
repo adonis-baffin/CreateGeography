@@ -14,7 +14,6 @@
   "item.creategeography.coal_powder": "Coal Powder",
   "item.creategeography.charcoal_powder": "Charcoal Powder",
   "item.creategeography.niter_powder": "Niter Powder",
-  "item.creategeography.lapis_lazuli_powder": "Lapis Lazuli Powder",
   "item.creategeography.salt": "Salt",
   "item.creategeography.dirt_clod": "Dirt Clod",
   "item.creategeography.hornblende": "Hornblende",
@@ -88,9 +87,9 @@
 
   "block.creategeography.niter_bed.tooltip.summary": "Forms niter crystals above when receiving random ticks",
 
-  "block.creategeography.saline_mud.tooltip.summary": "Forms salt crystals above when receiving random ticks if brine fluid is nearby",
+  "block.creategeography.saline_mud.tooltip.summary": "Forms salt crystals above when receiving random ticks if brine fluid is nearby. Desalinates back to mud if water is nearby but no brine",
 
-  "block.creategeography.saline_dirt.tooltip.summary": "Forms salt crystals above when receiving random ticks if brine fluid is nearby",
+  "block.creategeography.saline_dirt.tooltip.summary": "Forms salt crystals above when receiving random ticks if brine fluid is nearby. Desalinates back to dirt if water is nearby but no brine",
 
   "block.creategeography.saline_farmland.tooltip.summary": "Crops above grow slower; as salinity increases, crops may stop growing or even regress",
 

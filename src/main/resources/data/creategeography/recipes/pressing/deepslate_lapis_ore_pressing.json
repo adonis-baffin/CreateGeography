@@ -7,11 +7,11 @@
   ],
   "results": [
     {
-      "item": "minecraft:cobbled_deepslate",
+      "item": "creategeography:crushed_deep_slate",
       "count": 3
     },
     {
-      "item": "creategeography:lapis_lazuli_powder",
+      "item": "minecraft:lapis_lazuli",
       "count": 9
     }
   ],

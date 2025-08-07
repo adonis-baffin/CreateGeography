@@ -26,6 +26,7 @@ import java.util.List;
 
 import static com.adonis.registry.ItemRegistry.*;
 import static com.adonis.CreateGeography.REGISTRATE;
+import static net.minecraft.world.item.Items.LAPIS_LAZULI;
 
 public class BlockRegistry {
 
@@ -171,7 +172,7 @@ public class BlockRegistry {
                     .friction(0.989f)) {
                 @Override
                 public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-                    return Collections.singletonList(new ItemStack(LAPIS_LAZULI_POWDER.get(), builder.getLevel().random.nextInt(1, 3)));
+                    return Collections.singletonList(new ItemStack(LAPIS_LAZULI, builder.getLevel().random.nextInt(1, 3)));
                 }
             });
 

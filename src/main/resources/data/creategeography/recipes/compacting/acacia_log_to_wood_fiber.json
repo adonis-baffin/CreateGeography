@@ -2,7 +2,7 @@
   "type": "create:compacting",
   "ingredients": [
     {
-      "item": "minecraft:acacia_log"
+      "tag": "minecraft:logs"
     }
   ],
   "results": [

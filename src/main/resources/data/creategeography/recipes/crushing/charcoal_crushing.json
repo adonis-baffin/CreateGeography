@@ -10,7 +10,7 @@
       "item": "creategeography:charcoal_powder"
     },
     {
-      "item": "creategeography:coal_powder",
+      "item": "creategeography:charcoal_powder",
       "count": 2,
       "chance": 0.5
     }

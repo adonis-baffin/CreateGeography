@@ -3,19 +3,16 @@
   "ingredients": [
     {
       "item": "creategeography:salt"
+    },
+    {
+      "amount": 250,
+      "fluid": "minecraft:water"
     }
   ],
-  "fluidIngredients": [
+  "results": [
     {
-      "fluid": "minecraft:water",
-      "amount": 250
-    }
-  ],
-  "results": [],
-  "fluidResults": [
-    {
-      "fluid": "creategeography:brine",
-      "amount": 250
+      "amount": 250,
+      "fluid": "creategeography:brine"
     }
   ],
   "processingTime": 100

@@ -2,16 +2,16 @@
   "type": "create:mixing",
   "ingredients": [
     {
-      "tag": "creategeography:soil_blocks"
+      "item": "creategeography:quick_lime"
     },
     {
       "amount": 250,
-      "fluid": "creategeography:brine"
+      "fluid": "minecraft:water"
     }
   ],
   "results": [
     {
-      "item": "creategeography:saline_mud"
+      "item": "creategeography:slaked_lime"
     }
   ],
   "processingTime": 100

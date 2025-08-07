@@ -2,13 +2,13 @@
   "type": "create:pressing",
   "ingredients": [
     {
-      "item": "minecraft:cobbled_deepslate"
+      "item": "minecraft:pointed_dripstone"
     }
   ],
   "results": [
     {
-      "item": "minecraft:cobbled_deepslate",
-      "count": 4
+      "item": "creategeography:calcareous_debris",
+      "count": 1
     }
   ],
   "processingTime": 100

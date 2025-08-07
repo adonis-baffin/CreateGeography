@@ -22,12 +22,10 @@ public class TabRegistry {
                 // 基础材料
                 output.accept(ItemRegistry.HORNBLENDE.get());              // 角闪石
                 output.accept(ItemRegistry.POLISHED_HORNBLENDE.get());     // 磨制角闪石
-                output.accept(ItemRegistry.PYROXENE.get());
                 output.accept(ItemRegistry.CRUSHED_STONE.get());           // 砾石
                 output.accept(ItemRegistry.CRUSHED_DEEP_SLATE.get());      // 深板岩砾石
-                output.accept(ItemRegistry.ORTHACLASE.get());              // 正长石
+                output.accept(ItemRegistry.ORTHOCLASE.get());              // 正长石
                 output.accept(ItemRegistry.PLAGIOCLASE.get());             // 斜长石
-                output.accept(ItemRegistry.BIOTITE.get());             // 斜长石
                 output.accept(ItemRegistry.SAND_DUST.get());               // 沙尘
                 output.accept(ItemRegistry.RED_SAND_DUST.get());           // 红沙尘
                 output.accept(ItemRegistry.ASH.get());                     // 灰烬

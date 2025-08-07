@@ -5,7 +5,7 @@
   },
   "results": [
     {
-      "item": "minecraft:gravel",
+      "item": "creategeography:crushed_stone",
       "chance": 0.5
     },
     {

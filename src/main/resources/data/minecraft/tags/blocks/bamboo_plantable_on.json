@@ -1,0 +1,8 @@
+{
+  "values": [
+    "creategeography:niter_bed",
+    "creategeography:saline_mud",
+    "creategeography:saline_dirt",
+    "creategeography:frozen_soil"
+  ]
+}

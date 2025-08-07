@@ -82,9 +82,17 @@ public class SalineDirtBlock extends Block {
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         int salinity = state.getValue(SALINITY);
 
+        // 脱盐逻辑 - 优先检查脱盐
+        NaturalTransformHandler.handleSalineSoilDesalination(state, level, pos, random);
+
+        // 如果方块已经被脱盐替换，直接返回
+        if (level.getBlockState(pos).getBlock() != this) {
+            return;
+        }
+
         // 盐碱化加重逻辑 - 比耕地稍快一些
         if (random.nextFloat() < 0.15f && salinity < 3) { // 15%概率增加盐碱化
-            level.setBlock(pos, state.setValue(SALINITY, salinity + 1), 2);
+            level.setBlock(pos, state.setValue(SALINITY, salinity + 1), 3); // 使用 flag 3 保持一致性
         }
 
         // 在高盐碱化等级时，可能对周围植物产生影响

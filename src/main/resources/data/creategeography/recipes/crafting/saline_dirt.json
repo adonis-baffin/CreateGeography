@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "tag": "creategeography:soil_blocks",
+      "count": 1
+    },
+    {
+      "item": "creategeography:salt",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "creategeography:saline_dirt",
+    "count": 1
+  }
+}

@@ -3,12 +3,10 @@
   "ingredients": [
     {
       "item": "minecraft:glass_bottle"
-    }
-  ],
-  "fluidIngredients": [
+    },
     {
-      "fluid": "creategeography:brine",
-      "amount": 250
+      "amount": 250,
+      "fluid": "creategeography:brine"
     }
   ],
   "results": [

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:mud",
+      "count": 1
+    },
+    {
+      "item": "creategeography:salt",
+      "count": 1
+    }
+  ],
+  "result": {
+    "item": "creategeography:saline_mud",
+    "count": 1
+  }
+}

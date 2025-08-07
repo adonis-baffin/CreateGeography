@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building_blocks",
+  "pattern": [
+    " A ",
+    " B ",
+    " B "
+  ],
+  "key": {
+    "A": {
+      "item": "creategeography:polished_hornblende"
+    },
+    "B": {
+      "item": "create:shaft"
+    }
+  },
+  "result": {
+    "item": "creategeography:trekking_poles"
+  }
+}

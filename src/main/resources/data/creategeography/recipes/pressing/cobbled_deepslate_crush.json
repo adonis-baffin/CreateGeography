@@ -2,12 +2,12 @@
   "type": "create:pressing",
   "ingredients": [
     {
-      "item": "minecraft:deepslate"
+      "item": "minecraft:cobbled_deepslate"
     }
   ],
   "results": [
     {
-      "item": "minecraft:cobbled_deepslate",
+      "item": "creategeography:crushed_deep_slate",
       "count": 4
     }
   ],

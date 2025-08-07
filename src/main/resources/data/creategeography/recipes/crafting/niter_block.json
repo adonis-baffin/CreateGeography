@@ -2,15 +2,15 @@
   "type": "minecraft:crafting_shaped",
   "category": "building_blocks",
   "pattern": [
-    "SSS"
+    "SS",
+    "SS"
   ],
   "key": {
     "S": {
-      "item": "creategeography:wood_fiber"
+      "item": "creategeography:niter"
     }
   },
   "result": {
-    "item": "minecraft:paper",
-    "count": 3
+    "item": "creategeography:niter_block"
   }
 }

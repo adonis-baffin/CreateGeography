@@ -7,11 +7,11 @@
   ],
   "results": [
     {
-      "item": "minecraft:gravel",
+      "item": "creategeography:crushed_stone",
       "count": 3
     },
     {
-      "item": "creategeography:lapis_lazuli_powder",
+      "item": "minecraft:lapis_lazuli",
       "count": 9
     }
   ],

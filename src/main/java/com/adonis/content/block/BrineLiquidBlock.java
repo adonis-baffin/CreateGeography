@@ -2,6 +2,10 @@ package com.adonis.content.block;
 
 import com.adonis.config.NaturalTransformConfig;
 import com.adonis.registry.BlockRegistry;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -99,12 +103,14 @@ public class BrineLiquidBlock extends LiquidBlock {
      * 从 NaturalTransformHandler 迁移而来，并设为私有方法。
      */
     private void transformSoilToSaline(ServerLevel level, BlockPos pos, BlockState state) {
-        if (state.is(Blocks.DIRT)) {
+        // 创建标签引用
+        TagKey<Block> soilBlocksTag = TagKey.create(ForgeRegistries.BLOCKS.getRegistryKey(),
+                new ResourceLocation("creategeography", "soil_blocks"));
+
+        if (state.is(soilBlocksTag)) {
             level.setBlock(pos, BlockRegistry.SALINE_DIRT.get().defaultBlockState(), 2);
         } else if (state.is(Blocks.MUD)) {
             level.setBlock(pos, BlockRegistry.SALINE_MUD.get().defaultBlockState(), 2);
         }
-        // 对于耕地的转换逻辑已经在 handleFarmlandHydration 中处理，这里可以省略，
-        // 避免重复判断和潜在的逻辑冲突。
     }
 }

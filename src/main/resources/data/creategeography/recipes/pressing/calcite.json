@@ -2,12 +2,12 @@
   "type": "create:pressing",
   "ingredients": [
     {
-      "item": "minecraft:cobblestone"
+      "item": "minecraft:calcite"
     }
   ],
   "results": [
     {
-      "item": "minecraft:gravel",
+      "item": "creategeography:calcareous_debris",
       "count": 4
     }
   ],

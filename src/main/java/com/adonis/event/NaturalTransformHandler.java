@@ -99,7 +99,7 @@ public class NaturalTransformHandler {
             // 盐度为0时转换回普通耕地
             int moisture = state.getValue(SalineFarmlandBlock.MOISTURE);
             level.setBlock(pos, Blocks.FARMLAND.defaultBlockState()
-                    .setValue(FarmBlock.MOISTURE, moisture), 2);
+                    .setValue(FarmBlock.MOISTURE, moisture), 3); // 修复：使用 flag 3 保持一致性
             return;
         }
 
@@ -123,7 +123,46 @@ public class NaturalTransformHandler {
 
         // 只有在有普通水且没有盐水的情况下才脱盐
         if (hasWaterNearby && !hasBrineNearby && random.nextFloat() < 0.1f) {
-            level.setBlock(pos, state.setValue(SalineFarmlandBlock.SALINITY, salinity - 1), 2);
+            level.setBlock(pos, state.setValue(SalineFarmlandBlock.SALINITY, salinity - 1), 3); // 修复：使用 flag 3 保持一致性
+        }
+    }
+
+    // 处理盐碱土和盐碱泥巴的脱盐（在对应方块随机刻时调用）
+    public static void handleSalineSoilDesalination(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (state.getBlock() != BlockRegistry.SALINE_DIRT.get() &&
+                state.getBlock() != BlockRegistry.SALINE_MUD.get()) {
+            return;
+        }
+
+        // 检查周围是否有普通水（非盐水）
+        boolean hasWaterNearby = false;
+        boolean hasBrineNearby = false;
+
+        for (BlockPos nearbyPos : BlockPos.betweenClosed(
+                pos.offset(-4, 0, -4),
+                pos.offset(4, 1, 4))) {
+
+            FluidState fluidState = level.getFluidState(nearbyPos);
+
+            if (fluidState.is(Fluids.WATER)) {
+                hasWaterNearby = true;
+            } else if (fluidState.is(GeographyFluids.BRINE.get().getSource())) {
+                hasBrineNearby = true;
+                break; // 如果有盐水就不脱盐
+            }
+        }
+
+        // 只有在有普通水且没有盐水的情况下才脱盐
+        if (hasWaterNearby && !hasBrineNearby && random.nextFloat() < 0.05f) { // 5%概率脱盐，比耕地稍慢
+            if (state.getBlock() == BlockRegistry.SALINE_DIRT.get()) {
+                // 盐碱土脱盐变回普通泥土
+                // 使用 flag 3 (1 + 2) 确保触发方块更新和发送到客户端，这样上方的盐晶会被检查并掉落
+                level.setBlock(pos, Blocks.DIRT.defaultBlockState(), 3);
+            } else if (state.getBlock() == BlockRegistry.SALINE_MUD.get()) {
+                // 盐碱泥巴脱盐变回普通泥巴
+                // 使用 flag 3 (1 + 2) 确保触发方块更新和发送到客户端，这样上方的盐晶会被检查并掉落
+                level.setBlock(pos, Blocks.MUD.defaultBlockState(), 3);
+            }
         }
     }
 
@@ -176,7 +215,7 @@ public class NaturalTransformHandler {
         handleSaltCrystalGeneration(state, level, pos, random);
 
         // 处理周围方块的盐碱化传播
-        if (random.nextFloat() < NaturalTransformConfig.BRINE_TRANSFORM_CHANCE.get() * 0.5f) { // 降低传播速率
+        if (random.nextFloat() < NaturalTransformConfig.BRINE_TRANSFORM_CHANCE.get() * 0.2f) { // 降低传播速率
             for (Direction direction : Direction.Plane.HORIZONTAL) {
                 BlockPos adjacentPos = pos.relative(direction);
                 BlockState adjacentState = level.getBlockState(adjacentPos);
