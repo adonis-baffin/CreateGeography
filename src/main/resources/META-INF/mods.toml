@@ -7,7 +7,7 @@ config="creategeography.mixins.json"
 
 [[mods]]
 modId="creategeography"
-version="1.0.2"
+version="1.0.3"
 displayName="Create Geography"
 logoFile="creategeography.png"
 credits="adonis"
