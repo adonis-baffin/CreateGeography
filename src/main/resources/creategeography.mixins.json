@@ -1,13 +1,14 @@
 {
   "required": true,
   "minVersion": "0.8.5",
-  "package": "com.adonis.mixin",
+  "package": "com.adonis.creategeography.mixin",
   "compatibilityLevel": "JAVA_17",
-  "refmap": "creategeography.refmap.json",
+  "refmap": "creategeography.mixins.refmap.json",
   "mixins": [
     "CropBlockMixin",
     "IceBlockMixin",
-    "FarmBlockMixin"
+    "FarmBlockMixin",
+    "LightningGoldToDiamondMixin"
   ],
   "client": [],
   "server": []

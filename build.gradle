@@ -14,7 +14,7 @@ plugins {
 apply plugin: 'org.spongepowered.mixin'
 
 version = project.mod_version
-group = 'com.adonis' // 修改这里
+group = 'com.adonis.creategeography' // 修改这里
 archivesBaseName = 'creategeography-1.20' // 修改这里
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
